@@ -111,6 +111,29 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   await page.waitForTimeout(2200);
   ok('menu link closes the menu and reaches its section', (await page.locator('#site-menu').count()) === 0 && (await page.evaluate(() => Math.abs(document.querySelector('#contact').getBoundingClientRect().top) < 140 || innerHeight + scrollY >= document.documentElement.scrollHeight - 2)));
 
+  // Opened deep in the page (inside the pinned scene) the header and Close stay on screen, closing
+  // leaves the page where it was, and a menu link still glides to its section. Real taps, because
+  // Playwright's click scrolls sticky elements into view on its own.
+  const tapMenu = async () => {
+    const r = await page.locator('.menu-btn').boundingBox();
+    await page.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2);
+  };
+  await page.evaluate(() => window.scrollTo(0, document.querySelector('.scene__track').getBoundingClientRect().top + scrollY + innerHeight));
+  await page.waitForTimeout(700);
+  const y0 = await page.evaluate(() => scrollY);
+  await tapMenu();
+  await page.waitForSelector('#site-menu');
+  ok('menu opened mid-page keeps the header and Close on screen', Math.abs((await page.locator('.menu-btn').boundingBox()).y) < 60);
+  await tapMenu();
+  await page.waitForTimeout(400);
+  ok('closing the menu mid-page leaves the page where it was', (await page.locator('#site-menu').count()) === 0 && Math.abs((await page.evaluate(() => scrollY)) - y0) < 2);
+  await tapMenu();
+  await page.waitForSelector('#site-menu');
+  const aboutLink = await page.locator('#site-menu .menu-sheet__link[href="#about"]').boundingBox();
+  await page.touchscreen.tap(aboutLink.x + 40, aboutLink.y + aboutLink.height / 2);
+  await page.waitForTimeout(2200);
+  ok('menu link from mid-page glides to its section', (await page.locator('#site-menu').count()) === 0 && Math.abs(await page.evaluate(() => document.querySelector('#about').getBoundingClientRect().top)) < 140);
+
   // "One order, four people" pins in its compact form on phones and steps through the stations
   ok('scene pinned in compact form on phones', (await page.getAttribute('#order', 'data-pinned')) !== null && (await page.getAttribute('#order', 'data-compact')) !== null);
   const geo = await page.evaluate(() => ({ top: document.querySelector('.scene__track').getBoundingClientRect().top + scrollY, h: document.querySelector('.scene__track').offsetHeight }));
@@ -134,6 +157,31 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   );
   ok('block-level touch targets at least 32px', small.length === 0, small.slice(0, 6).join(', '));
   ok('no page errors (mobile)', errors.length === 0, errors.join(' | '));
+  await ctx.close();
+}
+
+// ---------- Phone menu in a narrow desktop window (mouse wheel, smooth scrolling on) ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 600, height: 800 } });
+  const page = await ctx.newPage();
+  await page.goto(BASE + '/', { waitUntil: 'networkidle' });
+  await page.evaluate(() => window.scrollTo(0, 3000));
+  await page.waitForTimeout(500);
+  const btn = await page.locator('.menu-btn').boundingBox();
+  await page.mouse.click(btn.x + btn.width / 2, btn.y + btn.height / 2);
+  await page.waitForSelector('#site-menu');
+  await page.waitForTimeout(300);
+  const y0 = await page.evaluate(() => scrollY);
+  await page.mouse.move(100, 30);
+  await page.mouse.wheel(0, 600);
+  await page.waitForTimeout(700);
+  const y1 = await page.evaluate(() => scrollY);
+  ok('wheel does not move the page behind the open menu', Math.abs(y1 - y0) < 2, `${y0} -> ${y1}`);
+  await page.keyboard.press('Escape');
+  await page.mouse.move(300, 400);
+  await page.mouse.wheel(0, 600);
+  await page.waitForTimeout(900);
+  ok('wheel scrolls again once the menu closes', (await page.evaluate(() => scrollY)) > y0 + 100);
   await ctx.close();
 }
 

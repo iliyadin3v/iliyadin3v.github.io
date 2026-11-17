@@ -234,6 +234,7 @@
   color: var(--h-fg);
   border-top: 1px solid var(--h-rule);
   overflow-y: auto;
+  overscroll-behavior: contain;
   animation: menu-in var(--dur-move) var(--ease-out) both;
 }
 .menu-sheet__list {
@@ -259,8 +260,8 @@
 .menu-sheet__cv {
   align-self: flex-start;
 }
-html.menu-open,
-html.menu-open body {
+/* only the root: locking body too would unstick the header (see lockScroll in Header.jsx) */
+html.menu-open {
   overflow: hidden;
 }
 @keyframes menu-in {

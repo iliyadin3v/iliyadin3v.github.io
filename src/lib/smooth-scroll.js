@@ -25,6 +25,8 @@ export function initSmoothScroll() {
     lenis = null;
   };
   start();
+  // The phone menu locks the page while it is open; the wheel must not glide the page behind it.
+  window.addEventListener('site:scroll-lock', (e) => (e.detail ? lenis?.stop() : lenis?.start()));
   reduce.addEventListener('change', () => (reduce.matches ? stop() : start()));
 
   document.addEventListener('click', (e) => {
