@@ -303,7 +303,7 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
     const back = await page.getAttribute('.cs-back', 'href');
     const en = await page.getAttribute('.lang-btn', 'href');
     const sections = await page.locator('.cs-section').count();
-    ok(`BG ${slug}: Bulgarian page with every section, switch back to English`, toc === 'На тази страница' && back === '/bg/#work' && en === `/work/${slug}/` && sections >= 8, `${sections} sections`);
+    ok(`BG ${slug}: Bulgarian page with every section, switch back to English`, toc === 'Съдържание' && back === '/bg/#work' && en === `/work/${slug}/` && sections >= 8, `${sections} sections`);
   }
   ok('no page errors (bulgarian)', errors.length === 0, errors.join(' | '));
   await ctx.close();
