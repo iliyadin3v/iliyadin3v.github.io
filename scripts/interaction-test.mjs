@@ -185,6 +185,27 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   await ctx.close();
 }
 
+// ---------- Contact: the email bar ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  await page.goto(BASE + '/', { waitUntil: 'networkidle' });
+  const submit = () => page.evaluate(() => document.querySelector('.compose button[type=submit]').click());
+  ok('email bar has a labelled message field', (await page.locator('label[for="compose-msg"]').count()) === 1 && (await page.getAttribute('.compose', 'action')) === 'mailto:iliyailiyadinev@gmail.com');
+  await submit();
+  await page.waitForTimeout(150);
+  ok('email bar: an empty send asks for a message and focuses the field', (await page.textContent('#compose-hint')).includes('Write a message first') && (await page.evaluate(() => document.activeElement?.id)) === 'compose-msg');
+  await page.fill('#compose-msg', 'Hello & welcome\nSecond line');
+  const gmail = new URL(await page.getAttribute('.compose a.btn', 'href'));
+  ok('email bar: Gmail link carries the address, subject and message', gmail.searchParams.get('to') === 'iliyailiyadinev@gmail.com' && gmail.searchParams.get('su') === 'Message from your portfolio site' && gmail.searchParams.get('body') === 'Hello & welcome\r\nSecond line');
+  await submit();
+  await page.waitForTimeout(200);
+  ok('email bar: Send says the email app should open and names the fallback', (await page.textContent('#compose-hint')).includes('Gmail'));
+  await page.goto(BASE + '/bg/', { waitUntil: 'networkidle' });
+  ok('email bar in Bulgarian', (await page.textContent('label[for="compose-msg"]')) === 'Вашето съобщение' && (await page.textContent('.compose button[type=submit]')).includes('Изпратете имейл'));
+  await ctx.close();
+}
+
 // ---------- Case study ----------
 {
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });

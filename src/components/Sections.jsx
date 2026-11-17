@@ -95,6 +95,66 @@ function CopyEmail({ email }) {
   );
 }
 
+// The email bar: a visitor writes here and Send opens their own email app with the address, a
+// subject and the message filled in (a static site cannot send mail itself). Gmail in the browser
+// is the fallback for anyone without a mail app set up. Without JavaScript the form still opens a
+// mailto with the message.
+function ComposeEmail({ email }) {
+  const { t } = useSite();
+  const [msg, setMsg] = useState('');
+  const [state, setState] = useState('idle'); // idle | empty | sent
+  const fieldRef = useRef(null);
+  const body = msg.trim().replace(/\r?\n/g, '\r\n');
+  const mailto = `mailto:${email}?subject=${encodeURIComponent(t.composeSubject)}${body ? `&body=${encodeURIComponent(body)}` : ''}`;
+  const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(t.composeSubject)}${body ? `&body=${encodeURIComponent(body)}` : ''}`;
+  const send = (e) => {
+    e.preventDefault();
+    if (!body) {
+      setState('empty');
+      fieldRef.current?.focus();
+      return;
+    }
+    setState('sent');
+    window.location.href = mailto;
+  };
+  const hint = state === 'empty' ? t.composeEmpty : state === 'sent' ? t.composeSent : t.composeHint;
+  return (
+    <form className="compose" action={`mailto:${email}`} method="get" onSubmit={send} noValidate>
+      <input type="hidden" name="subject" value={t.composeSubject} />
+      <label className="label compose__label" htmlFor="compose-msg">
+        {t.composeLabel}
+      </label>
+      <textarea
+        ref={fieldRef}
+        id="compose-msg"
+        className="compose__field"
+        name="body"
+        rows={4}
+        maxLength={1800}
+        placeholder={t.composePlaceholder}
+        value={msg}
+        aria-invalid={state === 'empty' || undefined}
+        aria-describedby="compose-hint"
+        onChange={(e) => {
+          setMsg(e.target.value);
+          if (state !== 'idle') setState('idle');
+        }}
+      />
+      <div className="compose__actions">
+        <button type="submit" className="btn btn--accent">
+          {t.composeSend} <Icon name="arrow-right" />
+        </button>
+        <a className="btn btn--night-line" href={gmail} target="_blank" rel="noopener noreferrer">
+          {t.composeGmail} <Icon name="external" />
+        </a>
+      </div>
+      <p className="compose__hint" id="compose-hint" aria-live="polite" data-state={state}>
+        {hint}
+      </p>
+    </form>
+  );
+}
+
 export function Contact() {
   const { content, t } = useSite();
   const { person, contact } = content;
@@ -113,6 +173,7 @@ export function Contact() {
             {person.email}
           </a>
           <CopyEmail email={person.email} />
+          <ComposeEmail email={person.email} />
         </div>
         <ul className="contact__links">
           {person.links.map((l) => (

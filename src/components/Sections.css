@@ -123,8 +123,11 @@
   row-gap: var(--s-7);
   align-items: end;
 }
+/* Wide screens: the heading lines up with the top of the email card, the links with its foot */
 .contact__copy {
   grid-column: 1 / span 7;
+  grid-row: 1;
+  align-self: start;
 }
 .contact__heading {
   font-size: var(--text-name);
@@ -142,6 +145,7 @@
 }
 .contact__card {
   grid-column: 8 / -1;
+  grid-row: 1 / span 2;
   display: grid;
   gap: var(--s-3);
   justify-items: start;
@@ -187,8 +191,74 @@
   color: var(--night);
   border-color: var(--accent-on-night);
 }
+/* The email bar: under the address, past one hairline, in the same card */
+.compose {
+  container-type: inline-size;
+  justify-self: stretch;
+  display: grid;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--night-rule);
+}
+.compose__label {
+  color: var(--on-night-3);
+}
+.compose__field {
+  width: 100%;
+  min-height: 132px;
+  padding: 12px 14px;
+  resize: vertical;
+  background: var(--night);
+  color: var(--on-night);
+  border: 1px solid var(--night-rule);
+  border-radius: var(--radius-ui);
+  font: inherit;
+  /* 16px or more, so phones do not zoom in when the field is tapped */
+  font-size: max(1rem, var(--text-body));
+  line-height: 1.5;
+  caret-color: var(--accent-on-night);
+  transition: border-color var(--dur-hover) var(--ease);
+}
+.compose__field::placeholder {
+  color: var(--on-night-3);
+  opacity: 1;
+}
+.compose__field:hover {
+  border-color: var(--on-night-3);
+}
+.compose__field:focus-visible {
+  border-color: var(--accent-on-night);
+  outline-offset: 2px;
+}
+.compose__field[aria-invalid] {
+  border-color: var(--accent-on-night);
+}
+.compose__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+/* When the two buttons cannot share a row, each takes the full width instead of two ragged widths */
+@container (max-width: 400px) {
+  .compose__actions > * {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+.compose__hint {
+  max-width: 52ch;
+  font-size: var(--text-label);
+  line-height: 1.45;
+  color: var(--on-night-3);
+}
+.compose__hint[data-state='empty'] {
+  color: var(--accent-on-night);
+}
 .contact__links {
-  grid-column: 1 / -1;
+  grid-column: 1 / span 7;
+  grid-row: 2;
+  align-self: end;
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-3);
@@ -210,8 +280,10 @@
 }
 @media (max-width: 960px) {
   .contact__copy,
-  .contact__card {
+  .contact__card,
+  .contact__links {
     grid-column: 1 / -1;
+    grid-row: auto;
   }
 }
 
