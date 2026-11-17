@@ -183,3 +183,122 @@
     display: none;
   }
 }
+
+/* ---------- Phones: name, language and a menu ----------
+   Above 640px the menu button does not exist; at 640px and below the inline links and CV move into
+   a full-screen sheet, and the header keeps the name, the language button and Menu. Both buttons
+   are 40px tall so they are easy to tap. */
+.menu-btn {
+  display: none;
+}
+.menu-btn__icon {
+  position: relative;
+  display: inline-block;
+  width: 14px;
+  height: 10px;
+}
+.menu-btn__icon i {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform var(--dur-move) var(--ease), top var(--dur-move) var(--ease);
+}
+.menu-btn__icon i:first-child {
+  top: 1px;
+}
+.menu-btn__icon i:last-child {
+  top: 7.5px;
+}
+.menu-btn__icon[data-open] i:first-child {
+  top: 4.25px;
+  transform: rotate(45deg);
+}
+.menu-btn__icon[data-open] i:last-child {
+  top: 4.25px;
+  transform: rotate(-45deg);
+}
+.menu-sheet {
+  position: fixed;
+  z-index: 49;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  padding: var(--s-5) var(--gutter) max(var(--s-6), env(safe-area-inset-bottom));
+  background: var(--h-bg);
+  color: var(--h-fg);
+  border-top: 1px solid var(--h-rule);
+  overflow-y: auto;
+  animation: menu-in var(--dur-move) var(--ease-out) both;
+}
+.menu-sheet__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--h-rule);
+}
+.menu-sheet__link {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  border-bottom: 1px solid var(--h-rule);
+  font-size: var(--text-h3);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+  color: var(--h-fg);
+  text-decoration: none;
+}
+.menu-sheet__link[aria-current] {
+  color: var(--h-accent);
+}
+.menu-sheet__cv {
+  align-self: flex-start;
+}
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-sheet {
+    animation: none;
+  }
+}
+@media (max-width: 640px) {
+  .site-header__row nav,
+  .site-header__row .nav-clock {
+    display: none;
+  }
+  .wordmark {
+    margin-right: auto;
+  }
+  .lang-btn,
+  .menu-btn {
+    display: inline-flex;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 12px;
+    margin-left: 0;
+    font-size: var(--text-small);
+  }
+  .site-header__row {
+    gap: var(--s-2);
+  }
+}
+
+/* Touch screens wider than a phone (tablets): the CV and language buttons are 40px tall */
+@media (pointer: coarse) {
+  .nav__cv {
+    min-height: 40px;
+  }
+}

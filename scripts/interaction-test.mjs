@@ -62,10 +62,10 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
 
   // Pinned order scene steps through stations
   await page.evaluate(() => window.scrollTo(0, document.getElementById('order').offsetTop + 10));
-  await page.waitForTimeout(800);
+  await page.waitForTimeout(1300);
   const s1 = await page.textContent('.scene-step__station');
   await page.evaluate(() => window.scrollTo(0, document.getElementById('order').offsetTop + innerHeight * 2.2));
-  await page.waitForTimeout(900);
+  await page.waitForTimeout(1300);
   const s3 = await page.textContent('.scene-step__station');
   ok('order scene moves table → waiter on scroll', s1.trim() === 'Table' && s3.trim() === 'Waiter', `${s1} → ${s3}`);
   ok('scene is pinned', (await page.getAttribute('#order', 'data-pinned')) !== null);
@@ -95,8 +95,34 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto(BASE + '/', { waitUntil: 'networkidle' });
-  ok('scene not pinned on phones', (await page.getAttribute('#order', 'data-pinned')) === null);
   ok('3D name sits above the words on phones and the action is in the first screen', (await page.locator('.nb__scene').boundingBox()).y < (await page.locator('.hero__lede').boundingBox()).y && (await page.locator('.hero .btn--accent').boundingBox()).y < 844);
+
+  // Phone header: name, language and Menu; the inline links live in the menu sheet
+  ok('inline nav hidden on phones', !(await page.isVisible('.site-header__row nav')));
+  await page.click('.menu-btn');
+  await page.waitForSelector('#site-menu');
+  ok('menu opens with the links and CV', (await page.locator('#site-menu .menu-sheet__link').count()) === 3 && (await page.isVisible('#site-menu .menu-sheet__cv')) && (await page.getAttribute('.menu-btn', 'aria-expanded')) === 'true');
+  ok('menu links are at least 56px tall', (await page.locator('#site-menu .menu-sheet__link').first().boundingBox()).height >= 56);
+  ok('page under the menu does not scroll', await page.evaluate(() => document.documentElement.classList.contains('menu-open')));
+  await page.keyboard.press('Escape');
+  ok('Escape closes the menu and returns focus', (await page.locator('#site-menu').count()) === 0 && (await page.evaluate(() => document.activeElement?.classList.contains('menu-btn'))));
+  await page.click('.menu-btn');
+  await page.click('#site-menu .menu-sheet__link[href="#contact"]');
+  await page.waitForTimeout(2200);
+  ok('menu link closes the menu and reaches its section', (await page.locator('#site-menu').count()) === 0 && (await page.evaluate(() => Math.abs(document.querySelector('#contact').getBoundingClientRect().top) < 140 || innerHeight + scrollY >= document.documentElement.scrollHeight - 2)));
+
+  // "One order, four people" pins in its compact form on phones and steps through the stations
+  ok('scene pinned in compact form on phones', (await page.getAttribute('#order', 'data-pinned')) !== null && (await page.getAttribute('#order', 'data-compact')) !== null);
+  const geo = await page.evaluate(() => ({ top: document.querySelector('.scene__track').getBoundingClientRect().top + scrollY, h: document.querySelector('.scene__track').offsetHeight }));
+  const band = (geo.h - 844) / 4;
+  const seen = [];
+  for (let i = 0; i < 4; i++) {
+    await page.evaluate((y) => window.scrollTo(0, y), geo.top + (i + 0.5) * band);
+    await page.waitForTimeout(1300);
+    seen.push(await page.evaluate(() => document.querySelector('.scene-step__station')?.textContent));
+  }
+  ok('phone scene steps through all four stations', new Set(seen).size === 4, seen.join(' > '));
+  ok('no sideways overflow on phones', await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   const small = await page.evaluate(() =>
     [...document.querySelectorAll('a, button')]
       .filter((el) => {

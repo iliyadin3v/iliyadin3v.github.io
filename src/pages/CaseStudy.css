@@ -891,3 +891,21 @@ figcaption {
     max-width: none;
   }
 }
+
+/* Touch screens: the finding number in the outcomes table is a 40px target, not just its digits */
+@media (pointer: coarse) {
+  .outcomes__table td:first-child a {
+    display: inline-flex;
+    align-items: center;
+    min-width: 40px;
+    min-height: 40px;
+    margin-block: -12px;
+  }
+}
+
+/* Touch screens: links inside the project facts (plater.bg, Behance) get a taller tap area */
+@media (pointer: coarse) {
+  .status a {
+    padding-block: 10px;
+  }
+}

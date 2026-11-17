@@ -448,3 +448,10 @@ body [lang='bg']:not(.lang-btn) {
 html.lenis-scrolling :is(.nb, .ik) * {
   animation-play-state: paused !important;
 }
+
+/* Phones: the smallest mono label goes up to 13px so it stays readable at arm's length */
+@media (max-width: 640px) {
+  .t-mono {
+    font-size: var(--text-label);
+  }
+}

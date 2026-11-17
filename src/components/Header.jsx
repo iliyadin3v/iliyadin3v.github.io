@@ -86,6 +86,32 @@ export function Header({ page = 'home' }) {
 
   const href = (id) => (page === 'home' ? `#${id}` : localPath(`/#${id}`, lang));
 
+  // Phones: the links live in a full-screen menu opened from the header. It closes on a link,
+  // on Escape and when the screen grows past the phone layout; the page underneath does not scroll.
+  const [open, setOpen] = useState(false);
+  const menuBtnRef = useRef(null);
+  const sheetRef = useRef(null);
+  useEffect(() => {
+    document.documentElement.classList.toggle('menu-open', open);
+    if (!open) return;
+    sheetRef.current?.querySelector('a')?.focus();
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        menuBtnRef.current?.focus();
+      }
+    };
+    const wide = window.matchMedia('(min-width: 641px)');
+    const onWide = () => wide.matches && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    wide.addEventListener('change', onWide);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      wide.removeEventListener('change', onWide);
+      document.documentElement.classList.remove('menu-open');
+    };
+  }, [open]);
+
   return (
     <header className="site-header" data-scrolled={scrolled || undefined} data-under={ground}>
       <a className="skip-link" href="#main">
@@ -129,7 +155,44 @@ export function Header({ page = 'home' }) {
           </ul>
         </nav>
         <LangButton />
+        <button
+          ref={menuBtnRef}
+          type="button"
+          className="nav__link nav__cv menu-btn"
+          aria-expanded={open}
+          aria-controls="site-menu"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className="menu-btn__icon" aria-hidden="true" data-open={open || undefined}>
+            <i />
+            <i />
+          </span>
+          {open ? t.close : t.menu}
+        </button>
       </div>
+      {open ? (
+        <div className="menu-sheet" id="site-menu" ref={sheetRef} data-lenis-prevent>
+          <nav aria-label={t.navLabel}>
+            <ul className="menu-sheet__list">
+              {NAV.map((id) => (
+                <li key={id}>
+                  <a
+                    className="menu-sheet__link"
+                    href={href(id)}
+                    aria-current={active === id ? (page === 'home' ? 'location' : 'page') : undefined}
+                    onClick={() => setOpen(false)}
+                  >
+                    {t.nav[id]}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <a className="btn btn--night-line menu-sheet__cv" href={person.cv.href} download onClick={() => setOpen(false)}>
+            {t.downloadCv} <span className="contact__size">{person.cv.size}</span> <Icon name="download" />
+          </a>
+        </div>
+      ) : null}
     </header>
   );
 }

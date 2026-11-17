@@ -199,3 +199,12 @@
     grid-column: 1 / -1;
   }
 }
+
+/* Touch screens: the link back to the audit finding gets a 40px tap area; the layout does not move */
+@media (pointer: coarse) {
+  .lens__ref {
+    padding-block: 9px;
+    margin-top: calc(var(--s-2) - 9px);
+    margin-bottom: -9px;
+  }
+}

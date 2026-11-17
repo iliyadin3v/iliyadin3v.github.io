@@ -95,3 +95,11 @@
     aspect-ratio: auto;
   }
 }
+
+/* Phones: every pillar is one column, so its title sits a clear step below its scene */
+@media (max-width: 640px) {
+  .pillar__title,
+  .pillar--product .pillar__title {
+    margin-top: var(--s-5);
+  }
+}

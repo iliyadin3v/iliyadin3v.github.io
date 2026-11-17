@@ -4,23 +4,24 @@ import { StationArt } from './StationArt.jsx';
 import './OrderScene.css';
 
 // "One order": a pinned scroll scene. While the section is pinned the page scrolls at its
-// normal speed; progress picks the station. Without motion (or on small screens) the same
-// steps render as an ordinary stacked list, each one linkable.
+// normal speed; progress picks the station. Wide screens pin the whole frame; phones and tablets in
+// portrait pin a compact frame (progress line, the station's scene, its text) with the heading and
+// intro scrolling in above it. Reduced motion, and screens too short to pin (phones in landscape),
+// get the same steps as an ordinary stacked list, each one linkable.
 function usePinnedMode() {
-  const [pinned, setPinned] = useState(false);
+  const [mode, setMode] = useState('list');
   useEffect(() => {
     const rm = window.matchMedia('(prefers-reduced-motion: reduce)');
     const wide = window.matchMedia('(min-width: 900px) and (min-height: 600px)');
-    const update = () => setPinned(!rm.matches && wide.matches);
+    const tall = window.matchMedia('(max-width: 899px) and (min-height: 520px)');
+    const update = () => setMode(rm.matches ? 'list' : wide.matches ? 'wide' : tall.matches ? 'compact' : 'list');
     update();
-    rm.addEventListener('change', update);
-    wide.addEventListener('change', update);
+    for (const q of [rm, wide, tall]) q.addEventListener('change', update);
     return () => {
-      rm.removeEventListener('change', update);
-      wide.removeEventListener('change', update);
+      for (const q of [rm, wide, tall]) q.removeEventListener('change', update);
     };
   }, []);
-  return pinned;
+  return mode;
 }
 
 // The scroll-linked part of the pinned scene. It is mounted only while the scene is near the screen,
@@ -29,7 +30,17 @@ function usePinnedMode() {
 function Progress({ trackRef, n, onActive }) {
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ['start start', 'end end'] });
   const scaleX = useTransform(scrollYProgress, [0.04, 0.96], [0, 1]);
-  useMotionValueEvent(scrollYProgress, 'change', (v) => onActive(Math.max(0, Math.min(n - 1, Math.floor(v * n * 0.999)))));
+  const pick = (v) => onActive(Math.max(0, Math.min(n - 1, Math.floor(v * n * 0.999))));
+  useMotionValueEvent(scrollYProgress, 'change', pick);
+  // This mounts only near the scene, so arriving by a jump (a link, a fast fling) gets no change
+  // event until the next scroll: read the position once it has been measured.
+  useEffect(() => {
+    let id = requestAnimationFrame(() => {
+      id = requestAnimationFrame(() => pick(scrollYProgress.get()));
+    });
+    return () => cancelAnimationFrame(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return <m.span className="scene__fill" style={{ scaleX }} />;
 }
 
@@ -53,7 +64,9 @@ function Step({ s, i, total }) {
 }
 
 export function OrderScene({ scene }) {
-  const pinned = usePinnedMode();
+  const mode = usePinnedMode();
+  const pinned = mode !== 'list';
+  const compact = mode === 'compact';
   const trackRef = useRef(null);
   const [active, setActive] = useState(0);
   const sectionRef = useRef(null);
@@ -73,22 +86,54 @@ export function OrderScene({ scene }) {
   }, []);
   const n = scene.steps.length;
 
+  const head = (
+    <header className="scene__head">
+      <h2 className="scene__h" id="scene-h">
+        {scene.heading}
+      </h2>
+      <p className="scene__intro">{scene.intro}</p>
+    </header>
+  );
+  const line = (
+    <div className="scene__line" aria-hidden="true">
+      <span className="scene__line-bar" />
+      {scene.steps.map((s, i) => (
+        <span
+          key={s.id}
+          className="scene__stop"
+          data-pos={i === 0 ? 'first' : i === n - 1 ? 'last' : undefined}
+          data-on={pinned ? i <= active || undefined : true}
+          style={{ left: `${(i / (n - 1)) * 100}%` }}
+        >
+          <span className="scene__stop-label">{s.station}</span>
+        </span>
+      ))}
+      {pinned && near ? <Progress trackRef={trackRef} n={n} onActive={setActive} /> : null}
+    </div>
+  );
+  const outro = <p className="scene__outro">{scene.outro}</p>;
+
   return (
-    <section className="scene" id="order" ref={sectionRef} data-ground="night" data-pinned={pinned || undefined} data-still={still || undefined} aria-labelledby="scene-h">
+    <section
+      className="scene"
+      id="order"
+      ref={sectionRef}
+      data-ground="night"
+      data-pinned={pinned || undefined}
+      data-compact={compact || undefined}
+      data-still={still || undefined}
+      aria-labelledby="scene-h"
+    >
+      {compact ? <div className="page scene__lead">{head}</div> : null}
       <div className="scene__track" ref={trackRef} style={{ '--steps': n }}>
         {pinned
           ? scene.steps.map((s, i) => (
-              <span key={s.id} id={s.id} className="scene__anchor" style={{ top: `calc(${i} * 100svh + 1px)` }} aria-hidden="true" />
+              <span key={s.id} id={s.id} className="scene__anchor" style={{ top: `calc(${i} * var(--step-h) + 1px)` }} aria-hidden="true" />
             ))
           : null}
         <div className="scene__sticky">
           <div className="page scene__frame">
-            <header className="scene__head">
-              <h2 className="scene__h" id="scene-h">
-                {scene.heading}
-              </h2>
-              <p className="scene__intro">{scene.intro}</p>
-            </header>
+            {compact ? line : head}
 
             {pinned ? (
               <div className="scene__stage" aria-live="polite">
@@ -115,25 +160,12 @@ export function OrderScene({ scene }) {
               </ol>
             )}
 
-            <div className="scene__line" aria-hidden="true">
-              <span className="scene__line-bar" />
-              {scene.steps.map((s, i) => (
-                <span
-                  key={s.id}
-                  className="scene__stop"
-                  data-pos={i === 0 ? 'first' : i === n - 1 ? 'last' : undefined}
-                  data-on={pinned ? i <= active || undefined : true}
-                  style={{ left: `${(i / (n - 1)) * 100}%` }}
-                >
-                  <span className="scene__stop-label">{s.station}</span>
-                </span>
-              ))}
-              {pinned && near ? <Progress trackRef={trackRef} n={n} onActive={setActive} /> : null}
-            </div>
-            <p className="scene__outro">{scene.outro}</p>
+            {compact ? null : line}
+            {compact ? null : outro}
           </div>
         </div>
       </div>
+      {compact ? <div className="page scene__tail">{outro}</div> : null}
     </section>
   );
 }

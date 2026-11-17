@@ -6,8 +6,15 @@
 .scene__track {
   position: relative;
 }
+.scene {
+  /* scroll distance for one station */
+  --step-h: 100svh;
+}
+.scene[data-compact] {
+  --step-h: 85svh;
+}
 .scene[data-pinned] .scene__track {
-  height: calc(var(--steps) * 100svh);
+  height: calc((var(--steps) - 1) * var(--step-h) + 100svh);
 }
 .scene__anchor {
   position: absolute;
@@ -208,3 +215,54 @@
   max-width: none;
 }
 
+
+/* ---------- Compact pinned frame: phones and tablets in portrait ----------
+   The heading and intro scroll in above; the pinned frame holds the progress line, the station's
+   scene and its text, sized to fit a phone screen down to an iPhone SE. */
+.scene[data-compact] .scene__lead {
+  padding-top: var(--section);
+}
+.scene[data-compact] .scene__tail {
+  padding-block: var(--s-5) var(--section);
+}
+.scene[data-compact] .scene__sticky {
+  padding-block: calc(var(--header-h) + var(--s-4)) var(--s-4);
+}
+.scene[data-compact] .scene__frame {
+  grid-template-rows: auto minmax(0, 1fr);
+  row-gap: var(--s-4);
+}
+.scene[data-compact] .scene__line {
+  display: block;
+  height: 44px;
+}
+.scene[data-compact] .scene__stop-label {
+  font-size: var(--text-label);
+}
+/* The station's scene first, its text below. The scene takes all the height the text leaves
+   (the 3D fits itself inside, so a taller panel only shows more of the drafting grid). */
+.scene[data-compact] .scene-step__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--s-4);
+}
+.scene[data-compact] .scene-step__art {
+  order: -1;
+  flex: 1 1 0;
+  margin-top: 0;
+  height: auto;
+  min-height: 160px;
+}
+.scene[data-compact] .scene-step__station {
+  font-size: clamp(2.25rem, 1.4rem + 4vw, 3.5rem);
+}
+.scene[data-compact] .scene-step__meta {
+  margin-top: var(--s-2);
+}
+.scene[data-compact] .scene-step__body {
+  margin-top: var(--s-3);
+  max-width: 46ch;
+  font-size: var(--text-body);
+  line-height: 1.5;
+}
