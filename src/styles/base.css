@@ -439,7 +439,7 @@ button {
 [lang='bg'] {
   --font-sans: 'Onest Variable', 'Mona Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
-body [lang='bg']:not(.lang__opt) {
+body [lang='bg']:not(.lang-btn) {
   font-family: var(--font-sans);
 }
 

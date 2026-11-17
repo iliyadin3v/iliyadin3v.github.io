@@ -44,26 +44,16 @@ function useGroundUnderHeader(initial) {
   return ground;
 }
 
-// English and Bulgarian: two square segments, the current one marked. Each opens the same page in
-// the other language, at the top: no section anchor is carried over, so the page never jumps.
-function LangSwitch() {
+// One language button, styled like the CV button: a globe and the language it switches to (BG on
+// English pages, EN on Bulgarian ones). It opens the same page in that language, at the top.
+function LangButton() {
   const { lang, path, t } = useSite();
+  const to = lang === 'bg' ? 'en' : 'bg';
   return (
-    <div className="lang" role="group" aria-label={t.langLabel}>
-      {['en', 'bg'].map((l) => (
-        <a
-          key={l}
-          className="lang__opt"
-          href={localPath(path, l)}
-          hrefLang={l}
-          lang={l}
-          aria-current={l === lang ? 'true' : undefined}
-          aria-label={t.langName[l]}
-        >
-          {l.toUpperCase()}
-        </a>
-      ))}
-    </div>
+    <a className="nav__link nav__cv lang-btn" href={localPath(path, to)} hrefLang={to} lang={to} aria-label={t.langName[to]}>
+      <Icon name="globe" size={14} />
+      {to.toUpperCase()}
+    </a>
   );
 }
 
@@ -138,7 +128,7 @@ export function Header({ page = 'home' }) {
             ) : null}
           </ul>
         </nav>
-        <LangSwitch />
+        <LangButton />
       </div>
     </header>
   );

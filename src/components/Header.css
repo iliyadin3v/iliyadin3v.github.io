@@ -98,6 +98,7 @@
 }
 .nav__cv {
   border: 1px solid var(--h-line);
+  border-radius: var(--radius-small);
   min-height: 36px;
   margin-left: 6px;
   padding: 0 10px;
@@ -118,48 +119,20 @@
   opacity: 0;
 }
 
-/* Language: two joined square segments, the current one filled. Sits after the CV button. */
-.lang {
-  display: inline-flex;
-  margin-left: clamp(6px, 1vw, 12px);
-  border: 1px solid var(--h-line);
-}
-.lang__opt {
-  display: inline-grid;
-  place-items: center;
-  min-width: 34px;
-  min-height: 34px;
-  padding: 0 6px;
+/* Language: one button in the CV button's style, right after it. Mona Sans, so EN and BG match. */
+.lang-btn {
+  /* sits as close to CV as the nav items sit to each other */
+  margin-left: -4px;
   font-family: 'Mona Sans Variable', var(--font-sans);
-  font-size: var(--text-label);
-  font-weight: 600;
-  font-stretch: 104%;
   letter-spacing: 0.02em;
-  color: var(--h-fg-2);
-  text-decoration: none;
-  transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease);
-}
-.lang__opt + .lang__opt {
-  border-left: 1px solid var(--h-line);
-}
-.lang__opt:hover {
-  color: var(--h-accent);
-}
-.lang__opt[aria-current] {
-  background: var(--h-fg);
-  color: var(--h-bg);
 }
 
 @media (max-width: 640px) {
   .nav__cv {
     margin-left: 2px;
   }
-  .lang {
-    margin-left: 4px;
-  }
-  .lang__opt {
-    min-width: 30px;
-    padding: 0 4px;
+  .lang-btn {
+    margin-left: 0;
   }
 }
 @media (max-width: 420px) {
@@ -175,19 +148,11 @@
   }
 }
 
-/* Phones: the switch shows only the language you can change to, and links never wrap */
+/* Links never wrap */
 .nav__link {
   white-space: nowrap;
 }
-@media (max-width: 640px) {
-  .lang__opt[aria-current] {
-    display: none;
-  }
-  .lang__opt + .lang__opt {
-    border-left: 0;
-  }
-}
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   .site-header__row {
     gap: var(--s-2);
   }
@@ -211,8 +176,10 @@
   .nav__cv svg {
     display: none;
   }
-  .lang__opt {
-    min-width: 28px;
-    padding: 0 3px;
+}
+/* Phones: the CV and language buttons keep their labels and drop the icons */
+@media (max-width: 560px) {
+  .nav__cv svg {
+    display: none;
   }
 }
