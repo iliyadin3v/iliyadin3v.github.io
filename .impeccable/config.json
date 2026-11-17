@@ -47,6 +47,11 @@
         ],
         "createdAt": "2026-11-17T10:40:23.950Z",
         "reason": "Claude: decision-round sketch fixture, not shipping UI; skeleton renderer only reads composition"
+      },
+      {
+        "rule": "overused-font",
+        "value": "mona sans",
+        "createdAt": "2026-11-17T18:06:54.563Z"
       }
     ]
   }

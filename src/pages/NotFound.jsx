@@ -8,13 +8,13 @@ export function NotFound() {
       <Header page="case" />
       <main id="main" className="page" style={{ paddingBlock: 'var(--section)' }}>
         <h1 className="t-display" style={{ maxWidth: '12ch' }}>
-          This page isn’t on the desk.
+          There’s nothing at this address.
         </h1>
         <p className="t-lede" style={{ marginTop: 'var(--s-5)', maxWidth: '44ch' }}>
           The link may be old, or the address has a typo.
         </p>
         <p className="t-lede" lang="bg" style={{ marginTop: 'var(--s-3)', maxWidth: '44ch' }}>
-          Тази страница я няма. Връзката може да е стара или в адреса има грешка.
+          На този адрес няма нищо. Връзката може да е стара или в адреса има грешка.
         </p>
         <p style={{ marginTop: 'var(--s-6)', display: 'flex', flexWrap: 'wrap', gap: 'var(--s-3)' }}>
           <a className="btn btn--ink" href="/">

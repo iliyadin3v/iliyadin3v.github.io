@@ -17,9 +17,9 @@ export const person = {
 };
 
 export const hero = {
-  headline: 'I design for people with thirty seconds to spare.',
+  headline: 'I design the whole product, from the first sketch to the launch.',
   intro:
-    "Product designer in Sofia and the only designer at Valora, where I design Plater, a restaurant platform.",
+    "Product designer in Sofia. As the only designer at Valora, I take Plater, a restaurant platform, from research and flows to the interface, the brand and the launch.",
 };
 
 // The hero stack: five real fragments from the work. `note` is the pencil caption.
@@ -80,7 +80,7 @@ export const about = {
     },
     {
       title: 'Friction only where it protects people',
-      body: 'In Vault, deliberate friction sits before anything irreversible. Five people new to crypto tested the send flow; three finished on the first try, so I redesigned the confirmation step until all five did.',
+      body: 'In Vault, I added extra steps only before actions you can’t undo. Five people new to crypto tested the send flow; three finished on the first try, so I redesigned the confirmation step until all five did.',
     },
     {
       title: 'Check what ships',
@@ -89,7 +89,7 @@ export const about = {
   ],
   details: [
     { term: 'Education', detail: 'UX and UI Designer diploma, SoftUni Creative (2025). Bachelor of Cybersecurity, Higher School of Security and Economics, Plovdiv (2025).' },
-    { term: 'Skills', detail: 'End-to-end design, information architecture (IA), A/B testing, heatmap analysis, SEO optimisation.' },
+    { term: 'Skills', detail: 'End-to-end design, information architecture (IA), A/B testing, heatmaps, SEO.' },
     { term: 'Tools', detail: 'Figma (variables, dev mode, prototyping), Maze, Adobe Creative Cloud including After Effects, Framer, Webflow. I read HTML, CSS and JS well enough to review what developers ship.' },
     { term: 'Languages', detail: 'Bulgarian (native), English (professional).' },
   ],
@@ -122,7 +122,7 @@ export const playground = {
 
 export const contact = {
   heading: 'Write to me.',
-  body: 'Hiring a product designer, building something, or curious how Plater works? Email reaches me directly. My Behance profile lists me as open to full-time and freelance work.',
+  body: 'Hiring a product designer, building something, or curious how Plater works? Email me. I’m open to full-time roles and freelance projects.',
 };
 
 // What I do: three practices, proof lines from the CV (confirmed citable 2026-11-17).
@@ -130,12 +130,12 @@ export const pillars = [
   {
     id: 'product',
     title: 'Product design',
-    lede: 'One system for a guest with a minute, a waiter mid-service and an owner reading the week.',
+    lede: 'One product that a guest with a minute, a waiter mid-service and an owner checking the week’s numbers all have to understand.',
     proof: [
       'Around 60 screens across the guest, waiter, kitchen and owner sides of Plater.',
       'Eight usability sessions in restaurants; taking an order went from four screens to two.',
       'Shipped every two weeks, each build reviewed before it reached pilot venues.',
-      'End to end: information architecture, A/B tests and heatmaps alongside the interface.',
+      'I work end to end: information architecture, A/B tests and heatmaps, not only the screens.',
     ],
   },
   {
@@ -151,11 +151,11 @@ export const pillars = [
   {
     id: 'brand',
     title: 'Brand and launch',
-    lede: 'The identity, the website and the launch content around the product.',
+    lede: 'Everything around the product: the identity, the website and the launch.',
     proof: [
       'Valora identity from scratch: logo, colour system, typography.',
       'Designed and built the marketing site.',
-      'SEO optimisation for the websites I design.',
+      'SEO for the websites I design and build.',
       'Launch content for LinkedIn and Instagram, including promo videos.',
     ],
   },

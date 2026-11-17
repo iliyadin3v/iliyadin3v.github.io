@@ -33,7 +33,7 @@ export const vault = {
       heading: 'Money, crypto and investing in one app',
       body: [
         'Vault keeps everyday money, cryptocurrencies and investments in one place. Home opens on the total balance with Add money and Transfer, the people you pay most and the latest transactions. Beside it sit a wallet with monthly activity, a card account, a crypto market and an investment overview.',
-        'I did not want it to look like a trading terminal. Vault starts from the kind of banking app people already use every day and puts crypto inside it. The welcome screen says it in three words: “Simplify, Secure, Succeed.”',
+        'I didn’t want it to look like a trading terminal. Vault starts from the kind of banking app people already use every day and puts crypto inside it. The welcome screen says it in three words: “Simplify, Secure, Succeed.”',
       ],
       media: [
         { image: 'vault-screens', alt: 'Three Vault screens side by side: Home with the total balance and recent transactions, My Wallet with a monthly activity chart, and the card account with top-up, pay and transfer.', caption: 'Home, wallet and card: the screens people would open most.' },

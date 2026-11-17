@@ -44,28 +44,17 @@ function useGroundUnderHeader(initial) {
   return ground;
 }
 
-// English and Bulgarian: two square segments, the current one marked. Each links to the same page
-// in the other language, keeping the section the visitor is on.
+// English and Bulgarian: two square segments, the current one marked. Each opens the same page in
+// the other language, at the top: no section anchor is carried over, so the page never jumps.
 function LangSwitch() {
   const { lang, path, t } = useSite();
-  const [hash, setHash] = useState('');
-  useEffect(() => {
-    const on = () => setHash(window.location.hash);
-    on();
-    window.addEventListener('hashchange', on);
-    window.addEventListener('popstate', on);
-    return () => {
-      window.removeEventListener('hashchange', on);
-      window.removeEventListener('popstate', on);
-    };
-  }, []);
   return (
     <div className="lang" role="group" aria-label={t.langLabel}>
       {['en', 'bg'].map((l) => (
         <a
           key={l}
           className="lang__opt"
-          href={localPath(path, l) + hash}
+          href={localPath(path, l)}
           hrefLang={l}
           lang={l}
           aria-current={l === lang ? 'true' : undefined}

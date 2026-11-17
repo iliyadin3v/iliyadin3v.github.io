@@ -42,7 +42,7 @@ export const selected = [
     challenge:
       'Make sending crypto safe for people who have never used a crypto app, without slowing down everything else.',
     decision:
-      'Friction only before irreversible actions. Three of five first-time testers completed a send; the confirmation step was redesigned until all five did.',
+      'Extra steps only before actions you can’t undo. Three of five first-time testers completed a send, so I redesigned the confirmation step until all five did.',
     thumb: 'frag-vault',
     drawing: {
       image: 'vault-flow',
@@ -99,7 +99,7 @@ export const archive = [
 // "One order": the pinned scroll scene. Every line is checked against the CV or plater.bg.
 export const orderScene = {
   heading: 'One order, four people',
-  intro: 'A guest with a minute to spare, a cook with ten tickets on the rail, a waiter walking past, and the owner reading the week the next morning. Plater has to make sense to all four.',
+  intro: 'A guest with a minute to spare, a cook with ten tickets on the rail, a waiter walking past, and the owner going through the week’s numbers the next morning. Plater has to make sense to all four.',
   steps: [
     {
       id: 'order-table',
@@ -123,7 +123,7 @@ export const orderScene = {
       id: 'order-owner',
       station: 'Owner',
       art: 'owner',
-      body: 'The owner runs the venue from the management panel: menu, staff, delivery zones with automatic fees. A weekly email report closes the loop; one pilot restaurant now uses it for its inventory ordering.',
+      body: 'The owner runs the venue from the management panel: menu, staff, delivery zones with automatic fees. Every week an email report sums up the numbers, and one pilot restaurant now orders its stock from it.',
     },
   ],
   outro: 'Eight usability sessions inside restaurants changed this flow the most: taking an order went from four screens to two.',

@@ -186,10 +186,15 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
 
   await page.goto(BASE + '/', { waitUntil: 'networkidle' });
-  ok('EN home: skills listed', (await page.textContent('#about')).includes('SEO optimisation'));
+  ok('EN home: skills listed', (await page.textContent('#about')).includes('A/B testing, heatmaps, SEO'));
   ok('EN home: switch links to the Bulgarian home', (await page.getAttribute('.lang__opt[hreflang="bg"]', 'href')) === '/bg/' && (await page.getAttribute('.lang__opt[aria-current]', 'hreflang')) === 'en');
+  await page.click('.hero__email');
+  await page.waitForTimeout(2200);
+  ok('EN home: switch keeps no section anchor', (await page.getAttribute('.lang__opt[hreflang="bg"]', 'href')) === '/bg/');
   await page.click('.lang__opt[hreflang="bg"]');
   await page.waitForLoadState('networkidle');
+  await page.waitForTimeout(600);
+  ok('BG switch opens the page at the top, not scrolled down', (await page.evaluate(() => Math.round(window.scrollY))) < 5, String(await page.evaluate(() => Math.round(window.scrollY))));
   ok('BG switch opens /bg/ in Bulgarian', page.url().endsWith('/bg/') && (await page.getAttribute('html', 'lang')) === 'bg' && (await page.getAttribute('.lang__opt[aria-current]', 'hreflang')) === 'bg');
   ok('BG home: navigation and headings in Bulgarian', (await page.textContent('.nav__link[data-nav="work"]')).trim() === 'Проекти' && /[А-Яа-я]/.test(await page.textContent('#pillars-h')) && /[А-Яа-я]/.test(await page.textContent('.hero__lede')));
   ok('BG home: skills listed in his words', (await page.textContent('#about')).includes('SEO оптимизация') && (await page.textContent('#about')).includes('Цялостен дизайн'));

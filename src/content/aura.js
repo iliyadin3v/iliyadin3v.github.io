@@ -110,7 +110,7 @@ export const aura = {
       alt: 'The Aura home screen with four numbered pins: on the mood question, on the steps tile, on the calorie card with its week of bars, and on the Log in tab.',
       caption: 'Aura home screen. Pins mark the four decisions listed beside it.',
       hotspots: [
-        { n: 1, x: 66, y: 18.4, title: 'One question before any numbers', body: 'Home opens by asking “How are you feeling today?” with five faces to tap. The brief named mental wellbeing as the gap, so mood comes first, and it takes one tap.' },
+        { n: 1, x: 66, y: 18.4, title: 'One question before any numbers', body: 'Home opens by asking “How are you feeling today?” with five faces to tap. Mental wellbeing was the gap I set out to close, so mood comes first, and it takes one tap.' },
         { n: 2, x: 88, y: 48.5, title: 'One number per tile', body: 'Steps and weather sit side by side, each with one figure. Steps also shows progress to a goal (“50% of your goal”), not a log of raw data.' },
         { n: 3, x: 33, y: 71, title: 'The week at a glance', body: 'Calories show today’s figure and a strip of seven bars with today picked out, so the pattern is visible without opening a chart.' },
         { n: 4, x: 50, y: 89.6, title: 'Logging in the middle of the tab bar', body: 'Meals, barcodes, workouts and mood are all logged from the centre tab, the easiest one to reach with a thumb.' },

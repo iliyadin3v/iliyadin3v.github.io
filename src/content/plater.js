@@ -32,7 +32,7 @@ export const plater = {
       heading: 'The product behind the site',
       body: [
         'Plater is a multi-tenant platform for restaurants. Guests open the menu from a QR code and order from the table without installing anything. Staff get order and kitchen screens. Owners get a management panel. Every venue runs on its own branded subdomain.',
-        'I joined Valora in June 2024 as the first and only designer, working with the CTO and one full-stack developer. Since then I have designed around 60 screens across the guest, waiter, kitchen and owner sides, and the design system they run on: 40+ components with tokens, light and dark themes, and per-venue theming. Eight usability sessions in real restaurants changed the product most; the order-taking flow went from four screens to two.',
+        'I joined Valora in June 2024 as the first and only designer, working with the CTO and one full-stack developer. Since then I have designed around 60 screens across the guest, waiter, kitchen and owner sides, and the design system they run on: 40+ components with tokens, light and dark themes, and per-venue theming. Eight usability sessions in real restaurants changed the product most: the order-taking flow went from four screens to two.',
       ],
       media: [
         { image: 'plater-live-guest', alt: 'Two phones showing the Plater guest menu: dishes with photos, a pizza detail screen with sizes and add-ons, and the shared table bill.', caption: 'Guests order from the table: photos, add-ons, sizes and allergens, one shared bill per table.' },
@@ -109,7 +109,7 @@ export const plater = {
           title: 'A feature-by-feature story',
           observed: '“What Plater does” split into dense subsections: QR menus, kitchen and bar displays, delivery zones, translation, Facebook posting, branding.',
           cost: 'Owners could not map features onto their working day.',
-          fix: 'A simple journey instead: from paper menu to a fully digital dining room, in three steps.',
+          fix: 'A simple story instead: from paper menu to a fully digital dining room, in three steps.',
           principle: 'Match between the system and the real world',
         },
         {
@@ -137,7 +137,7 @@ export const plater = {
       type: 'compare',
       heading: 'Before, proposal, shipped',
       intro:
-        'The proposal was not the end. Each topic below shows the old site, the redesign from the audit, and what is live today. Where the shipped version moved away from the proposal, the note says how.',
+        'What shipped isn’t exactly what I proposed. Each topic below shows the old site, the redesign from the audit and what is live today, with a note wherever the live version moved away from the proposal.',
       states: ['Before', 'Proposal', 'Shipped'],
       topics: [
         {
@@ -160,7 +160,7 @@ export const plater = {
             { image: 'plater-proposal-pricing', alt: 'Proposed pricing: one comparison table for Free, Basic and Pro, a dark banner for bespoke builds, and three "Which plan is for you?" cards.' },
             { image: 'plater-live-scenarios', alt: 'Shipped pricing: the end of the comparison table, a dark "Looking for something custom?" banner, and three cards matching plans to venue types.' },
           ],
-          note: 'Shipped as proposed in structure: one table for three self-serve plans, a separate custom path, and scenario cards. Live, each plan is named by the job it does (digital menu; orders and kitchen; bar and automation), and the scenarios read: small café or takeaway, start with Free or Basic; busy restaurant with tables, choose Pro; larger venue, talk to us.',
+          note: 'The structure shipped as proposed: one table for three self-serve plans, a separate custom path and scenario cards. On the live site each plan is named by the job it does (digital menu, orders and kitchen, bar and automation). The scenario cards say: a small café or takeaway starts with Free or Basic, a busy restaurant with tables picks Pro, and a larger venue talks to the team.',
         },
         {
           id: 'journey',
@@ -171,7 +171,7 @@ export const plater = {
             { image: 'plater-proposal-journey', alt: 'Proposed section: "From paper menu to a fully digital dining room, in three steps." Step one: build a digital menu that looks like you.' },
             { image: 'plater-live-what', alt: 'Shipped "What is Plater" section: four accordion rows (the menu, orders, kitchen and bar, one system) next to a photo of a dining room.' },
           ],
-          note: 'The three-step journey shipped in two parts: “What is Plater” groups the product into four things an owner recognises (the menu, orders, kitchen and bar, one system), and a separate three-step “How to start” covers signing up, adding the menu and taking orders.',
+          note: 'The three-step story shipped in two parts: “What is Plater” groups the product into four things an owner recognises (the menu, orders, kitchen and bar, one system), and a separate three-step “How to start” covers signing up, adding the menu and taking orders.',
         },
         {
           id: 'faq',
@@ -248,7 +248,7 @@ export const plater = {
       nav: 'Flows',
       type: 'gallery',
       demo: true,
-      heading: 'Flows the site has to carry',
+      heading: 'Flows the site has to explain',
       intro: 'The live site explains product flows I designed in the app. Two of them, as they appear on plater.bg:',
       items: [
         {
@@ -273,12 +273,12 @@ export const plater = {
       heading: 'What shipped',
       intro: 'Every finding, checked against the live site in November 2026.',
       rows: [
-        { n: '01', area: 'Hero', status: 'Shipped, changed', kind: 'changed', detail: 'One action and a category headline; the order journey replaced the demo link.' },
+        { n: '01', area: 'Hero', status: 'Shipped, changed', kind: 'changed', detail: 'One action and a category headline. An order moving through the product replaced the demo link.' },
         { n: '02', area: 'Pricing', status: 'Shipped', kind: 'shipped', detail: 'One table, a recommended plan, a custom path and scenario cards.' },
         { n: '03', area: 'Changelog', status: 'Removed', kind: 'removed', detail: 'No longer on the homepage.' },
         { n: '04', area: 'Story', status: 'Shipped, changed', kind: 'changed', detail: '“What is Plater” plus a three-step “How to start”.' },
         { n: '05', area: 'FAQ', status: 'Shipped', kind: 'shipped', detail: 'Bold one-line answers in the owner’s words.' },
-        { n: '06', area: 'Contact paths', status: 'Shipped, changed', kind: 'changed', detail: 'Custom path in pricing; a short contact form.' },
+        { n: '06', area: 'Contact paths', status: 'Shipped, changed', kind: 'changed', detail: 'Custom path in pricing, and a short contact form.' },
       ],
       evidence: { label: 'See it live on plater.bg', href: 'https://plater.bg/' },
       metrics: {
@@ -300,8 +300,8 @@ export const plater = {
         { title: 'Lead with one job', body: 'Owners should understand straight away that Plater takes them from a paper menu to digital orders with little setup.' },
         { title: 'Tell a workflow story, not a feature list', body: 'Menu, orders, kitchen and bar are easier to remember than a dozen features.' },
         { title: 'Design pricing for decisions, not completeness', body: 'Help people pick by the size and type of their venue.' },
-        { title: 'Use transparency on purpose', body: 'Release notes and policies build trust when they support the main path instead of competing with it.' },
-        { title: 'Separate self-serve from high-touch', body: '“Start yourself” and “talk to us” are different journeys and deserve different paths.' },
+        { title: 'Put transparency where it helps', body: 'Release notes and policies build trust when they support the main path instead of competing with it.' },
+        { title: 'Separate self-serve from high-touch', body: '“Start yourself” and “talk to us” are different needs and deserve different paths.' },
       ],
       next: {
         placeholder: true,
