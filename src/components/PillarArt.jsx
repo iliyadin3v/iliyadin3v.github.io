@@ -138,7 +138,7 @@ const AV_V =
 // own plane, offset along the direction that projects onto "straight back" at this angle: per unit
 // of depth, -0.577 across and -0.779 up (in the mark's own units). Farthest copies paint first.
 const MARK_DEPTH = 46; // units of the 294-unit-tall mark
-const MARK_STEPS = 48;
+const MARK_STEPS = 24;
 const markWalls = Array.from({ length: MARK_STEPS }, (_, i) => {
   const t = (MARK_STEPS - i) / MARK_STEPS;
   const band = t <= 0.2 ? 1 : t <= 0.82 ? 2 : 3;
@@ -151,7 +151,11 @@ function BrandArt() {
           farthest away, leaning with the light like the name's long cast */}
       <div className="ik-sign-cast" style={{ left: '0.12em', top: '1.16em', width: '2.05em', height: '0.84em' }}>
         <svg viewBox="0 0 432 294.42" preserveAspectRatio="none">
-          <use href="#ik-av" />
+          {/* the blur lives inside the SVG, so it is painted once instead of filtered every frame */}
+          <filter id="ik-cast-soft" x="-10%" y="-10%" width="120%" height="120%">
+            <feGaussianBlur stdDeviation="5" />
+          </filter>
+          <use href="#ik-av" filter="url(#ik-cast-soft)" />
         </svg>
       </div>
       <Shade x={0.05} y={1.0} w={2.25} d={0.36} />

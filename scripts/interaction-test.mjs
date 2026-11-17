@@ -185,7 +185,7 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   ok('reduced motion: scene renders as stacked steps', (await page.locator('.scene__list .scene-step').count()) === 4);
   ok('reduced motion: pillar scenes hold still', (await page.evaluate(() => document.getAnimations().filter((a) => a.playState === 'running' && a.effect?.target?.closest?.('.ik')).length)) === 0);
   ok('reduced motion: 3D name holds still', (await page.evaluate(() => document.getAnimations().filter((a) => a.playState === 'running' && a.effect?.target?.closest?.('.nb')).length)) === 0);
-  ok('reduced motion: smooth scroll off', !(await page.evaluate(() => document.documentElement.classList.contains('lenis'))));
+  ok('reduced motion: no scroll smoothing on the page', (await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)) === 'auto');
   ok('no page errors (reduced motion)', errors.length === 0, errors.join(' | '));
   await ctx.close();
 }

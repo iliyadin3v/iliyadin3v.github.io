@@ -17,31 +17,32 @@ const NAV = [
 function useGroundUnderHeader(initial) {
   const [ground, setGround] = useState(initial);
   useEffect(() => {
-    let raf = 0;
-    const check = () => {
-      raf = 0;
-      // the section just below the header edge is the one the header sits on
-      const y = (document.querySelector('.site-header')?.offsetHeight || 60) + 1;
-      const sections = document.querySelectorAll('[data-ground]');
-      for (const s of sections) {
-        if (s.closest('.site-header')) continue;
-        const r = s.getBoundingClientRect();
-        if (r.top <= y && r.bottom > y) {
-          setGround(s.getAttribute('data-ground'));
-          return;
-        }
-      }
+    if (!('IntersectionObserver' in window)) return;
+    // A one-pixel line just under the header: the browser reports which grounds cross it, so
+    // nothing is measured on the main thread while the page scrolls.
+    const sections = [...document.querySelectorAll('[data-ground]')].filter((s) => !s.closest('.site-header'));
+    const crossing = new Map();
+    let io = null;
+    const observe = () => {
+      io?.disconnect();
+      const top = document.querySelector('.site-header')?.offsetHeight || 60;
+      const bottom = Math.max(0, window.innerHeight - top - 1);
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => crossing.set(e.target, e.isIntersecting));
+          // the first in document order is the outermost section on the line, as before
+          const hit = sections.find((s) => crossing.get(s));
+          if (hit) setGround(hit.getAttribute('data-ground'));
+        },
+        { rootMargin: `-${top}px 0px -${bottom}px 0px` }
+      );
+      sections.forEach((s) => io.observe(s));
     };
-    const on = () => {
-      if (!raf) raf = requestAnimationFrame(check);
-    };
-    check();
-    window.addEventListener('scroll', on, { passive: true });
-    window.addEventListener('resize', on);
+    observe();
+    window.addEventListener('resize', observe);
     return () => {
-      window.removeEventListener('scroll', on);
-      window.removeEventListener('resize', on);
-      cancelAnimationFrame(raf);
+      io?.disconnect();
+      window.removeEventListener('resize', observe);
     };
   }, []);
   return ground;

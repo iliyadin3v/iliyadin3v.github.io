@@ -116,8 +116,9 @@
 .ik-shade {
   position: absolute;
   display: block;
-  background: oklch(0% 0 0 / 0.85);
-  filter: blur(0.05em);
+  /* a painted soft edge rather than a blur filter: filters inside a 3D scene are redrawn every frame */
+  background: oklch(0% 0 0 / 0.8);
+  box-shadow: 0 0 0.05em 0.03em oklch(0% 0 0 / 0.75);
   transform: translate3d(0.07em, 0.22em, 0.5px);
 }
 /* The standing sign's cast: the mark itself laid on the grid from the base line, flipped so the top
@@ -126,7 +127,6 @@
   position: absolute;
   transform-origin: top;
   transform: translateZ(0.5px) skewX(14deg);
-  filter: blur(0.025em);
 }
 .ik-sign-cast svg {
   display: block;

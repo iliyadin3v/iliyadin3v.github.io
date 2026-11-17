@@ -423,3 +423,12 @@ button {
   border-radius: var(--frame-r);
   box-shadow: 0 0 0 1px var(--frame-line), var(--frame-shadow);
 }
+
+/* The 3D art panels are skipped entirely while they are off screen: the browser stops laying out,
+   painting and compositing their layers until they come near the viewport. Each panel has a fixed
+   height, so nothing shifts when it renders again. */
+.pillar__art,
+.scene-step__art {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 300px;
+}
