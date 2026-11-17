@@ -1,5 +1,5 @@
 import { boot } from './boot.jsx';
 import { CaseStudy } from './pages/CaseStudy.jsx';
-import { plater } from './content/plater.js';
+import * as content from './content/en.js';
 
-boot(<CaseStudy study={plater} />);
+boot(<CaseStudy slug="plater" />, { lang: 'en', path: '/work/plater/', content });

@@ -14,3 +14,4 @@ assets-src/
 
 # One-off capture and measuring scripts used while reviewing
 .impeccable/previews/*.tmp.mjs
+dist-debug/

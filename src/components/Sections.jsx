@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Picture, ratio } from './Picture.jsx';
 import { Icon } from './Icon.jsx';
-import { person, contact } from '../content/site.js';
+import { useSite } from '../i18n/index.jsx';
 import './Sections.css';
 
 export function About({ data }) {
@@ -71,6 +71,7 @@ export function Playground({ data }) {
 }
 
 function CopyEmail({ email }) {
+  const { t } = useSite();
   // Reports "Copied" only when the clipboard write actually succeeded.
   const [state, setState] = useState('idle');
   const timer = useRef();
@@ -85,7 +86,7 @@ function CopyEmail({ email }) {
     clearTimeout(timer.current);
     timer.current = setTimeout(() => setState('idle'), 2400);
   };
-  const label = state === 'copied' ? 'Copied' : state === 'failed' ? 'Copy failed, select the address instead' : 'Copy address';
+  const label = state === 'copied' ? t.copied : state === 'failed' ? t.copyFailed : t.copy;
   return (
     <button type="button" className="copy-btn" onClick={copy} data-state={state}>
       <Icon name={state === 'copied' ? 'check' : 'copy'} />
@@ -95,6 +96,8 @@ function CopyEmail({ email }) {
 }
 
 export function Contact() {
+  const { content, t } = useSite();
+  const { person, contact } = content;
   return (
     <section className="contact" id="contact" data-ground="night" aria-labelledby="contact-h">
       <div className="page contact__inner">
@@ -105,7 +108,7 @@ export function Contact() {
           <p className="contact__body">{contact.body}</p>
         </div>
         <div className="contact__card panel">
-          <p className="label contact__card-label">Email</p>
+          <p className="label contact__card-label">{t.email}</p>
           <a className="contact__address" href={`mailto:${person.email}`}>
             {person.email}
           </a>
@@ -121,16 +124,16 @@ export function Contact() {
           ))}
           <li>
             <a className="btn btn--night-line" href={person.cv.href} download>
-              Download CV <span className="contact__size">{person.cv.size}</span> <Icon name="download" />
+              {t.downloadCv} <span className="contact__size">{person.cv.size}</span> <Icon name="download" />
             </a>
           </li>
         </ul>
       </div>
       <footer className="page footer">
         <p>
-          © {new Date().getFullYear()} Iliya Dinev. Sofia, Bulgaria.
+          © {new Date().getFullYear()} {t.footerName}
         </p>
-        <p>Built with React and hosted on GitHub Pages.</p>
+        <p>{t.footerBuilt}</p>
       </footer>
     </section>
   );

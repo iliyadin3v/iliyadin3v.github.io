@@ -23,6 +23,16 @@ function usePinnedMode() {
   return pinned;
 }
 
+// The scroll-linked part of the pinned scene. It is mounted only while the scene is near the screen,
+// so nothing tracks the scroll position anywhere else on the page. The line fills with a transform,
+// not a width, so it never triggers layout.
+function Progress({ trackRef, n, onActive }) {
+  const { scrollYProgress } = useScroll({ target: trackRef, offset: ['start start', 'end end'] });
+  const scaleX = useTransform(scrollYProgress, [0.04, 0.96], [0, 1]);
+  useMotionValueEvent(scrollYProgress, 'change', (v) => onActive(Math.max(0, Math.min(n - 1, Math.floor(v * n * 0.999)))));
+  return <m.span className="scene__fill" style={{ scaleX }} />;
+}
+
 function Step({ s, i, total }) {
   return (
     <div className="scene-step__inner">
@@ -48,20 +58,20 @@ export function OrderScene({ scene }) {
   const [active, setActive] = useState(0);
   const sectionRef = useRef(null);
   const [still, setStill] = useState(false);
+  const [near, setNear] = useState(false);
   useEffect(() => {
     const el = sectionRef.current;
     if (!el || !('IntersectionObserver' in window)) return;
     const io = new IntersectionObserver(([e]) => setStill(!e.isIntersecting));
+    const nearIo = new IntersectionObserver(([e]) => setNear(e.isIntersecting), { rootMargin: '50% 0px' });
     io.observe(el);
-    return () => io.disconnect();
+    nearIo.observe(el);
+    return () => {
+      io.disconnect();
+      nearIo.disconnect();
+    };
   }, []);
   const n = scene.steps.length;
-  const { scrollYProgress } = useScroll({ target: trackRef, offset: ['start start', 'end end'] });
-  const markerX = useTransform(scrollYProgress, [0.04, 0.96], ['0%', '100%']);
-  useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    if (!pinned) return;
-    setActive(Math.max(0, Math.min(n - 1, Math.floor(v * n * 0.999))));
-  });
 
   return (
     <section className="scene" id="order" ref={sectionRef} data-ground="night" data-pinned={pinned || undefined} data-still={still || undefined} aria-labelledby="scene-h">
@@ -118,7 +128,7 @@ export function OrderScene({ scene }) {
                   <span className="scene__stop-label">{s.station}</span>
                 </span>
               ))}
-              {pinned ? <m.span className="scene__fill" style={{ width: markerX }} /> : null}
+              {pinned && near ? <Progress trackRef={trackRef} n={n} onActive={setActive} /> : null}
             </div>
             <p className="scene__outro">{scene.outro}</p>
           </div>

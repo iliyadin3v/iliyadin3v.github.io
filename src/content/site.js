@@ -89,6 +89,7 @@ export const about = {
   ],
   details: [
     { term: 'Education', detail: 'UX and UI Designer diploma, SoftUni Creative (2025). Bachelor of Cybersecurity, Higher School of Security and Economics, Plovdiv (2025).' },
+    { term: 'Skills', detail: 'End-to-end design, information architecture (IA), A/B testing, heatmap analysis, SEO optimisation.' },
     { term: 'Tools', detail: 'Figma (variables, dev mode, prototyping), Maze, Adobe Creative Cloud including After Effects, Framer, Webflow. I read HTML, CSS and JS well enough to review what developers ship.' },
     { term: 'Languages', detail: 'Bulgarian (native), English (professional).' },
   ],
@@ -134,6 +135,7 @@ export const pillars = [
       'Around 60 screens across the guest, waiter, kitchen and owner sides of Plater.',
       'Eight usability sessions in restaurants; taking an order went from four screens to two.',
       'Shipped every two weeks, each build reviewed before it reached pilot venues.',
+      'End to end: information architecture, A/B tests and heatmaps alongside the interface.',
     ],
   },
   {
@@ -153,6 +155,7 @@ export const pillars = [
     proof: [
       'Valora identity from scratch: logo, colour system, typography.',
       'Designed and built the marketing site.',
+      'SEO optimisation for the websites I design.',
       'Launch content for LinkedIn and Instagram, including promo videos.',
     ],
   },

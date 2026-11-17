@@ -50,7 +50,9 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   ok('pillar scenes: three, all decorative', (await page.locator('.pillar__art .ik[aria-hidden="true"]').count()) === 3);
   const ikRunning = () => page.evaluate(() => document.getAnimations().filter((a) => a.playState === 'running' && a.effect?.target?.closest?.('.ik')).length);
   await page.evaluate(() => document.getElementById('practice').scrollIntoView());
-  await page.waitForTimeout(600);
+  // the scenes hold still while the page is scrolling and resume once it settles
+  await page.waitForFunction(() => !document.documentElement.classList.contains('lenis-scrolling'), null, { timeout: 4000 }).catch(() => {});
+  await page.waitForTimeout(400);
   ok('pillar scenes animate on screen', (await ikRunning()) >= 6, String(await ikRunning()));
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.waitForTimeout(600);
@@ -172,6 +174,37 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   ok('aura: lens decision 4 opens with a leader line', (await page.getAttribute('.lens__btn >> nth=3', 'aria-expanded')) === 'true' && (await page.locator('.lens__line path').count()) === 1);
   ok('aura: lens has no audit-finding links', (await page.locator('.lens__ref').count()) === 0);
   ok('no page errors (vault, aura)', errors.length === 0, errors.join(' | '));
+  await ctx.close();
+}
+
+// ---------- Bulgarian ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+
+  await page.goto(BASE + '/', { waitUntil: 'networkidle' });
+  ok('EN home: skills listed', (await page.textContent('#about')).includes('SEO optimisation'));
+  ok('EN home: switch links to the Bulgarian home', (await page.getAttribute('.lang__opt[hreflang="bg"]', 'href')) === '/bg/' && (await page.getAttribute('.lang__opt[aria-current]', 'hreflang')) === 'en');
+  await page.click('.lang__opt[hreflang="bg"]');
+  await page.waitForLoadState('networkidle');
+  ok('BG switch opens /bg/ in Bulgarian', page.url().endsWith('/bg/') && (await page.getAttribute('html', 'lang')) === 'bg' && (await page.getAttribute('.lang__opt[aria-current]', 'hreflang')) === 'bg');
+  ok('BG home: navigation and headings in Bulgarian', (await page.textContent('.nav__link[data-nav="work"]')).trim() === 'Проекти' && /[А-Яа-я]/.test(await page.textContent('#pillars-h')) && /[А-Яа-я]/.test(await page.textContent('.hero__lede')));
+  ok('BG home: skills listed in his words', (await page.textContent('#about')).includes('SEO оптимизация') && (await page.textContent('#about')).includes('Цялостен дизайн'));
+  const fonts = await page.evaluate(() => [getComputedStyle(document.querySelector('.hero__lede')).fontFamily, getComputedStyle(document.querySelector('.nb__scene')).fontFamily]);
+  ok('BG home: Cyrillic set in Onest, the 3D name stays in Mona Sans', fonts[0].includes('Onest') && fonts[1].startsWith('"Mona Sans'), fonts.join(' | '));
+  ok('BG home: case study links stay in Bulgarian', (await page.getAttribute('#work-vault .wk-link', 'href')) === '/bg/work/vault/' && (await page.getAttribute('#work-plater .wk-name a', 'href')) === '/bg/work/plater/');
+  for (const slug of ['plater', 'vault', 'aura']) {
+    await page.goto(`${BASE}/bg/work/${slug}/`, { waitUntil: 'networkidle' });
+    const toc = (await page.textContent('.cs-toc__head')).trim();
+    const back = await page.getAttribute('.cs-back', 'href');
+    const en = await page.getAttribute('.lang__opt[hreflang="en"]', 'href');
+    const sections = await page.locator('.cs-section').count();
+    ok(`BG ${slug}: Bulgarian page with every section, switch back to English`, toc === 'На тази страница' && back === '/bg/#work' && en === `/work/${slug}/` && sections >= 8, `${sections} sections`);
+  }
+  ok('no page errors (bulgarian)', errors.length === 0, errors.join(' | '));
   await ctx.close();
 }
 

@@ -5,14 +5,15 @@ import { Pillars } from '../components/Pillars.jsx';
 import { Work } from '../components/Work.jsx';
 import { About, Contact } from '../components/Sections.jsx';
 import { Icon } from '../components/Icon.jsx';
-import { hero, about, pillars, person } from '../content/site.js';
-import { selected, archive, orderScene } from '../content/projects.js';
+import { useSite } from '../i18n/index.jsx';
 import './Home.css';
 
 // The opening: the name as a built object, extruded on a drafting grid with interface parts on its
 // letters, over a foot row with the thesis, the role and the two actions. The build pauses when the
 // opening leaves the screen.
 function Hero() {
+  const { content, t } = useSite();
+  const { person, hero } = content;
   const ref = useRef(null);
   const [still, setStill] = useState(false);
   useEffect(() => {
@@ -37,10 +38,10 @@ function Hero() {
         </div>
         <div className="hero__actions">
           <a className="btn btn--accent" href="#work">
-            See the work <Icon name="arrow-down" />
+            {t.seeWork} <Icon name="arrow-down" />
           </a>
           <a className="hero__email" href="#contact">
-            Email me
+            {t.emailMe}
           </a>
         </div>
       </div>
@@ -49,6 +50,7 @@ function Hero() {
 }
 
 export function Home() {
+  const { pillars, selected, archive, orderScene, about } = useSite().content;
   return (
     <>
       <Header page="home" />

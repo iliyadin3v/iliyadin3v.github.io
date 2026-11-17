@@ -1,5 +1,5 @@
 import { boot } from './boot.jsx';
 import { CaseStudy } from './pages/CaseStudy.jsx';
-import { aura } from './content/aura.js';
+import * as content from './content/en.js';
 
-boot(<CaseStudy study={aura} />);
+boot(<CaseStudy slug="aura" />, { lang: 'en', path: '/work/aura/', content });

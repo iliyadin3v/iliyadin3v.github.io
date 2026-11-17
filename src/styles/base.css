@@ -1,5 +1,6 @@
 @import '@fontsource-variable/mona-sans/wdth.css';
 @import '@fontsource-variable/martian-mono/wdth.css';
+@import '@fontsource-variable/onest/index.css';
 @import './tokens.css';
 
 /* Cross-document view transitions between the work preview and the case study. */
@@ -431,4 +432,19 @@ button {
 .scene-step__art {
   content-visibility: auto;
   contain-intrinsic-size: auto 300px;
+}
+
+/* Bulgarian: Mona Sans has no Cyrillic, so the Bulgarian pages set everything in Onest, a close
+   grotesque drawn for Cyrillic. The browser downloads it only where Bulgarian text appears. */
+[lang='bg'] {
+  --font-sans: 'Onest Variable', 'Mona Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+body [lang='bg']:not(.lang__opt) {
+  font-family: var(--font-sans);
+}
+
+/* While the page is being smooth-scrolled, the 3D scenes hold still and resume when it settles,
+   so their animations never compete with the scroll for the main thread. */
+html.lenis-scrolling :is(.nb, .ik) * {
+  animation-play-state: paused !important;
 }

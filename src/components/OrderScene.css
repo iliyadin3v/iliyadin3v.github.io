@@ -167,9 +167,11 @@
 .scene__fill {
   position: absolute;
   left: 0;
+  right: 0;
   top: 7px;
   height: 2px;
   background: var(--accent-on-night);
+  transform-origin: left;
 }
 .scene__outro {
   max-width: 60ch;

@@ -6,6 +6,8 @@
    only, so it stays on the compositor. */
 
 .nb {
+  /* The letter positions are measured in Mona Sans, so the name keeps it in every language */
+  font-family: 'Mona Sans Variable', 'Mona Sans', ui-sans-serif, system-ui, sans-serif;
   --nb-line: oklch(81% 0.1 var(--t-hue) / 0.2);
   --nb-line-fine: oklch(81% 0.1 var(--t-hue) / 0.08);
   --nb-edge: oklch(81% 0.1 var(--t-hue) / 0.85);

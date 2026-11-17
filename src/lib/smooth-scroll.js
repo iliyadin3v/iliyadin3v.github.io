@@ -1,42 +1,31 @@
-// In-page links glide to their target, clear the sticky header, and move focus there.
-// Wheel, trackpad and touch scrolling are left to the browser: native scrolling runs off the main
-// thread, so the 3D scenes can never make it stutter. Only a link click animates the scroll, and any
-// wheel, touch or key input takes over from the glide at once. Reduced motion jumps straight there.
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
+
+// Smooth wheel scrolling (Lenis), tuned to stay light: it follows the wheel closely (lerp 0.14),
+// leaves touch to the device, and is skipped entirely for anyone who asks for reduced motion.
+// It can stay smooth because the page keeps its own per-frame work small: 3D scenes are composited,
+// off-screen scenes are skipped (content-visibility), and the header reads its ground from an
+// IntersectionObserver instead of measuring on scroll.
+// In-page links glide to their target over 1.6s, clear the sticky header, and move focus there.
 const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-const DURATION = 1600;
+const DURATION = 1.6;
 
 export function initSmoothScroll() {
   if (typeof window === 'undefined') return;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   const headerOffset = () => (document.querySelector('.site-header')?.offsetHeight || 0) + 16;
+  let lenis = null;
 
-  let raf = 0;
-  const cancel = () => {
-    if (raf) cancelAnimationFrame(raf);
-    raf = 0;
+  const start = () => {
+    if (lenis || reduce.matches) return;
+    lenis = new Lenis({ autoRaf: true, lerp: 0.14, smoothWheel: true, syncTouch: false, wheelMultiplier: 1 });
   };
-  for (const type of ['wheel', 'touchstart', 'keydown', 'pointerdown']) {
-    window.addEventListener(type, cancel, { passive: true });
-  }
-
-  const glide = (toY, done) => {
-    cancel();
-    const fromY = window.scrollY;
-    const distance = toY - fromY;
-    if (Math.abs(distance) < 2) return done();
-    const start = performance.now();
-    const step = (now) => {
-      const t = Math.min(1, (now - start) / DURATION);
-      // 'instant' so the page's own smooth scroll-behaviour does not ease every step again
-      window.scrollTo({ top: fromY + distance * easeInOutCubic(t), behavior: 'instant' });
-      if (t < 1) raf = requestAnimationFrame(step);
-      else {
-        raf = 0;
-        done();
-      }
-    };
-    raf = requestAnimationFrame(step);
+  const stop = () => {
+    lenis?.destroy();
+    lenis = null;
   };
+  start();
+  reduce.addEventListener('change', () => (reduce.matches ? stop() : start()));
 
   document.addEventListener('click', (e) => {
     if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -52,13 +41,13 @@ export function initSmoothScroll() {
       if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
       target.focus({ preventScroll: true });
     };
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const y = Math.min(max, Math.max(0, target.getBoundingClientRect().top + window.scrollY - headerOffset()));
-    if (reduce.matches) {
+    if (lenis) {
+      // Lenis honours the scroll-padding-top set in base.css for the sticky header.
+      lenis.scrollTo(target, { duration: DURATION, easing: easeInOutCubic, onComplete: settle });
+    } else {
+      const y = target.getBoundingClientRect().top + window.scrollY - headerOffset();
       window.scrollTo({ top: y, behavior: 'instant' });
       settle();
-    } else {
-      glide(y, settle);
     }
     if (window.location.hash !== url.hash) window.history.pushState(null, '', url.hash);
   });

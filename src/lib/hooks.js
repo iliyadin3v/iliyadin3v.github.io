@@ -21,13 +21,23 @@ export function useActiveSection(ids, { rootMargin = '-40% 0px -55% 0px' } = {})
   return active;
 }
 
+// True once the page has scrolled past the threshold. An IntersectionObserver watches a tiny marker
+// at the top of the page, so nothing reads the scroll position (which would force a style recalc)
+// while the page scrolls.
 export function useScrolled(threshold = 8) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > threshold);
-    on();
-    window.addEventListener('scroll', on, { passive: true });
-    return () => window.removeEventListener('scroll', on);
+    if (!('IntersectionObserver' in window)) return;
+    const marker = document.createElement('div');
+    marker.setAttribute('aria-hidden', 'true');
+    marker.style.cssText = `position:absolute;top:0;left:0;width:1px;height:${threshold}px;pointer-events:none;visibility:hidden`;
+    document.body.prepend(marker);
+    const io = new IntersectionObserver(([e]) => setScrolled(!e.isIntersecting));
+    io.observe(marker);
+    return () => {
+      io.disconnect();
+      marker.remove();
+    };
   }, [threshold]);
   return scrolled;
 }

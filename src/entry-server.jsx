@@ -1,25 +1,29 @@
 import { StrictMode } from 'react';
 import { renderToString } from 'react-dom/server';
 import { Shell } from './App.jsx';
+import { SiteProvider } from './i18n/index.jsx';
 import { Home } from './pages/Home.jsx';
 import { CaseStudy } from './pages/CaseStudy.jsx';
 import { NotFound } from './pages/NotFound.jsx';
-import { plater } from './content/plater.js';
-import { vault } from './content/vault.js';
-import { aura } from './content/aura.js';
+import * as en from './content/en.js';
+import * as bg from './content/bg.js';
 
+const CONTENT = { en, bg };
 const PAGES = {
-  home: () => <Home />,
-  plater: () => <CaseStudy study={plater} />,
-  vault: () => <CaseStudy study={vault} />,
-  aura: () => <CaseStudy study={aura} />,
-  404: () => <NotFound />,
+  home: { el: () => <Home />, path: '/' },
+  plater: { el: () => <CaseStudy slug="plater" />, path: '/work/plater/' },
+  vault: { el: () => <CaseStudy slug="vault" />, path: '/work/vault/' },
+  aura: { el: () => <CaseStudy slug="aura" />, path: '/work/aura/' },
+  404: { el: () => <NotFound />, path: '/' },
 };
 
-export function render(page) {
+export function render(page, lang = 'en') {
+  const p = PAGES[page];
   return renderToString(
     <StrictMode>
-      <Shell>{PAGES[page]()}</Shell>
+      <SiteProvider lang={lang} path={p.path} content={CONTENT[lang]}>
+        <Shell>{p.el()}</Shell>
+      </SiteProvider>
     </StrictMode>
   );
 }

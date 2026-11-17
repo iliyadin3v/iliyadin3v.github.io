@@ -273,12 +273,12 @@ export const plater = {
       heading: 'What shipped',
       intro: 'Every finding, checked against the live site in November 2026.',
       rows: [
-        { n: '01', area: 'Hero', status: 'Shipped, changed', detail: 'One action and a category headline; the order journey replaced the demo link.' },
-        { n: '02', area: 'Pricing', status: 'Shipped', detail: 'One table, a recommended plan, a custom path and scenario cards.' },
-        { n: '03', area: 'Changelog', status: 'Removed', detail: 'No longer on the homepage.' },
-        { n: '04', area: 'Story', status: 'Shipped, changed', detail: '“What is Plater” plus a three-step “How to start”.' },
-        { n: '05', area: 'FAQ', status: 'Shipped', detail: 'Bold one-line answers in the owner’s words.' },
-        { n: '06', area: 'Contact paths', status: 'Shipped, changed', detail: 'Custom path in pricing; a short contact form.' },
+        { n: '01', area: 'Hero', status: 'Shipped, changed', kind: 'changed', detail: 'One action and a category headline; the order journey replaced the demo link.' },
+        { n: '02', area: 'Pricing', status: 'Shipped', kind: 'shipped', detail: 'One table, a recommended plan, a custom path and scenario cards.' },
+        { n: '03', area: 'Changelog', status: 'Removed', kind: 'removed', detail: 'No longer on the homepage.' },
+        { n: '04', area: 'Story', status: 'Shipped, changed', kind: 'changed', detail: '“What is Plater” plus a three-step “How to start”.' },
+        { n: '05', area: 'FAQ', status: 'Shipped', kind: 'shipped', detail: 'Bold one-line answers in the owner’s words.' },
+        { n: '06', area: 'Contact paths', status: 'Shipped, changed', kind: 'changed', detail: 'Custom path in pricing; a short contact form.' },
       ],
       evidence: { label: 'See it live on plater.bg', href: 'https://plater.bg/' },
       metrics: {

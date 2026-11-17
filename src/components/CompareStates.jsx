@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { m, AnimatePresence } from 'motion/react';
 import { Picture } from './Picture.jsx';
 import { Icon } from './Icon.jsx';
+import { useSite } from '../i18n/index.jsx';
 import './CompareStates.css';
 
 // Keyboard behaviour for a row of tabs: arrows move and activate, Home/End jump.
@@ -20,6 +21,7 @@ function useTabKeys(count, index, set, refs) {
 }
 
 export function CompareStates({ section }) {
+  const { lang, t: tr } = useSite();
   const { topics, states } = section;
   const [t, setT] = useState(0);
   const [s, setS] = useState(2); // start on "Shipped"
@@ -34,7 +36,7 @@ export function CompareStates({ section }) {
   return (
     <div className="compare">
       <div className="compare__bar">
-        <div role="tablist" aria-label="Topic" className="compare__topics" onKeyDown={onTopicKeys}>
+        <div role="tablist" aria-label={tr.topic} className="compare__topics" onKeyDown={onTopicKeys}>
           {topics.map((tp, i) => (
             <button
               key={tp.id}
@@ -52,7 +54,7 @@ export function CompareStates({ section }) {
             </button>
           ))}
         </div>
-        <div role="radiogroup" aria-label="Version" className="compare__states" onKeyDown={onStateKeys}>
+        <div role="radiogroup" aria-label={tr.version} className="compare__states" onKeyDown={onStateKeys}>
           {states.map((st, i) => (
             <button
               key={st}
@@ -98,11 +100,11 @@ export function CompareStates({ section }) {
               <p className="quote__bg" lang="bg">
                 {topic.quote.bg}
               </p>
-              <p className="quote__en">{topic.quote.en}</p>
+              {lang === 'bg' ? null : <p className="quote__en">{topic.quote.en}</p>}
             </blockquote>
           ) : null}
           <a className="compare__finding link-arrow" href={`#finding-${topic.finding}`}>
-            Audit finding {topic.finding}
+            {tr.auditFinding} {topic.finding}
             <Icon name="arrow-right" className="arrow-up-turn" />
           </a>
         </div>

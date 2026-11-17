@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { PillarArt } from './PillarArt.jsx';
+import { useSite } from '../i18n/index.jsx';
 import './Pillars.css';
 
 // What I do: three practices, each backed by concrete proof from the CV, and each opened by a small
 // 3D scene about that practice (one order across three screens; tokens driving components; the
 // Valora mark and a launch post). The scenes pause when the section leaves the screen.
 export function Pillars({ items }) {
+  const { t } = useSite();
   const ref = useRef(null);
   const [still, setStill] = useState(false);
   useEffect(() => {
@@ -19,7 +21,7 @@ export function Pillars({ items }) {
     <section className="pillars" id="practice" ref={ref} data-ground="night" data-still={still || undefined} aria-labelledby="pillars-h">
       <div className="page">
         <h2 className="t-h2 pillars__h" id="pillars-h">
-          What I do
+          {t.whatIDo}
         </h2>
         <div className="pillars__grid">
           {items.map((p) => (

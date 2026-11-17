@@ -9,6 +9,7 @@ import { CompareStates } from '../components/CompareStates.jsx';
 import { DecisionLens } from '../components/DecisionLens.jsx';
 import { OrderDemo } from '../components/OrderDemo.jsx';
 import { useActiveSection } from '../lib/hooks.js';
+import { useSite, localPath } from '../i18n/index.jsx';
 import './CaseStudy.css';
 
 // Reusable case-study layout. Content comes from a data file (see src/content/plater.js);
@@ -23,6 +24,7 @@ function Paras({ items, className = '' }) {
 }
 
 function TextMedia({ s }) {
+  const { t } = useSite();
   return (
     <>
       <div className="cs-cols">
@@ -34,13 +36,13 @@ function TextMedia({ s }) {
         {s.media.map((md) =>
           s.media.length === 1 ? (
             <figure key={md.image} className="cs-figure" data-tall={ratioNum(md.image) < 1.4 || undefined}>
-              <div className="cs-scroll" tabIndex={0} role="region" aria-label={`${md.caption} Scrolls sideways on small screens.`}>
+              <div className="cs-scroll" tabIndex={0} role="region" aria-label={`${md.caption} ${t.scrollsSideways}`}>
                 <div className="cs-shot" style={{ aspectRatio: ratio(md.image) }}>
                   <Picture name={md.image} alt={md.alt} sizes="(min-width: 1200px) 78vw, (min-width: 641px) 94vw, 960px" />
                 </div>
               </div>
               <p className="cs-scroll__hint" aria-hidden="true">
-                Scroll sideways to see all of it <Icon name="arrow-right" size={14} />
+                {t.scrollHint} <Icon name="arrow-right" size={14} />
               </p>
               <figcaption>{md.caption}</figcaption>
             </figure>
@@ -87,6 +89,7 @@ function Problem({ s }) {
 }
 
 function Findings({ s }) {
+  const { t } = useSite();
   return (
     <>
       <p className="cs-prose cs-intro">{s.intro}</p>
@@ -98,24 +101,28 @@ function Findings({ s }) {
             </span>
             <div className="finding__main">
               <h3 className="finding__title">
-                <span className="visually-hidden">Finding {f.n}: </span>
+                <span className="visually-hidden">
+                  {t.finding} {f.n}:{' '}
+                </span>
                 {f.title}
               </h3>
               <dl className="finding__dl">
                 <div>
-                  <dt>Observed</dt>
+                  <dt>{t.observed}</dt>
                   <dd>{f.observed}</dd>
                 </div>
                 <div>
-                  <dt>Cost</dt>
+                  <dt>{t.cost}</dt>
                   <dd>{f.cost}</dd>
                 </div>
                 <div className="finding__fix">
-                  <dt>Fix</dt>
+                  <dt>{t.fix}</dt>
                   <dd>{f.fix}</dd>
                 </div>
               </dl>
-              <p className="finding__principle label">Heuristic: {f.principle}</p>
+              <p className="finding__principle label">
+                {t.heuristic}: {f.principle}
+              </p>
             </div>
           </li>
         ))}
@@ -147,18 +154,20 @@ function Gallery({ s }) {
 }
 
 function Outcomes({ s }) {
+  const { t } = useSite();
   return (
     <>
       <p className="cs-prose cs-intro">{s.intro}</p>
       <div className="outcomes">
         <table className="outcomes__table">
-          <caption className="visually-hidden">Audit findings and what shipped on plater.bg</caption>
+          <caption className="visually-hidden">{t.outcomesCaption}</caption>
           <thead>
             <tr>
-              <th scope="col">Finding</th>
-              <th scope="col">Area</th>
-              <th scope="col">Status</th>
-              <th scope="col">On the live site</th>
+              {t.outcomesHead.map((h) => (
+                <th key={h} scope="col">
+                  {h}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -169,7 +178,7 @@ function Outcomes({ s }) {
                 </td>
                 <th scope="row">{r.area}</th>
                 <td>
-                  <span className="outcome-status" data-kind={r.status.startsWith('Shipped,') ? 'changed' : r.status === 'Removed' ? 'removed' : 'shipped'}>
+                  <span className="outcome-status" data-kind={r.kind}>
                     <span className="outcome-status__mark" aria-hidden="true" />
                     {r.status}
                   </span>
@@ -195,10 +204,11 @@ function Outcomes({ s }) {
 }
 
 function Learning({ s }) {
+  const { t } = useSite();
   return (
     <div className="learning">
       <div className="learning__limits">
-        <h3 className="cs-h4">Limits</h3>
+        <h3 className="cs-h4">{t.limits}</h3>
         <ul className="cs-ticks">
           {s.limits.map((l) => (
             <li key={l}>{l}</li>
@@ -206,7 +216,7 @@ function Learning({ s }) {
         </ul>
       </div>
       <div className="learning__lessons">
-        <h3 className="cs-h4">Lessons</h3>
+        <h3 className="cs-h4">{t.lessons}</h3>
         <dl className="lessons">
           {s.lessons.map((l) => (
             <div key={l.title}>
@@ -232,6 +242,7 @@ function Learning({ s }) {
 
 // A problem, its answer and where the answer lives in the app, one row each.
 function Pairs({ s }) {
+  const { t } = useSite();
   return (
     <>
       <p className="cs-prose cs-intro">{s.intro}</p>
@@ -241,7 +252,7 @@ function Pairs({ s }) {
           <thead>
             <tr>
               <th scope="col">
-                <span className="visually-hidden">Number</span>
+                <span className="visually-hidden">{t.number}</span>
               </th>
               {s.columns.map((c) => (
                 <th key={c} scope="col">
@@ -270,6 +281,7 @@ function Pairs({ s }) {
 
 // A wide image (a flow, a row of phones) with its prose above and optional notes or a callout below.
 function FigureSection({ s }) {
+  const { t } = useSite();
   return (
     <>
       {s.body ? (
@@ -278,13 +290,13 @@ function FigureSection({ s }) {
         </div>
       ) : null}
       <figure className="cs-figure">
-        <div className="cs-scroll" tabIndex={0} role="region" aria-label={`${s.figCaption || s.heading} Scrolls sideways on small screens.`}>
+        <div className="cs-scroll" tabIndex={0} role="region" aria-label={`${s.figCaption || s.heading} ${t.scrollsSideways}`}>
           <div className="cs-shot cs-shot--night" style={{ aspectRatio: ratio(s.image) }}>
             <Picture name={s.image} alt={s.alt} sizes="(min-width: 1520px) 1160px, (min-width: 1200px) 78vw, (min-width: 641px) 94vw, 960px" />
           </div>
         </div>
         <p className="cs-scroll__hint" aria-hidden="true">
-          Scroll sideways to see all of it <Icon name="arrow-right" size={14} />
+          {t.scrollHint} <Icon name="arrow-right" size={14} />
         </p>
         {s.figCaption ? <figcaption>{s.figCaption}</figcaption> : null}
       </figure>
@@ -310,10 +322,11 @@ function FigureSection({ s }) {
 
 // A row of single phone screens, each with a short title and note.
 function Screens({ s }) {
+  const { t } = useSite();
   return (
     <>
       {s.intro ? <p className="cs-prose cs-intro">{s.intro}</p> : null}
-      <ul className="cs-screens" data-count={s.items.length} tabIndex={0} aria-label={`${s.heading}: ${s.items.length} screens. Scrolls sideways on small screens.`}>
+      <ul className="cs-screens" data-count={s.items.length} tabIndex={0} aria-label={t.screensCount(s.heading, s.items.length)}>
         {s.items.map((it) => (
           <li key={it.image}>
             <figure>
@@ -333,6 +346,7 @@ function Screens({ s }) {
 
 // The project's own identity: type specimen, palette, values and the mark in use.
 function System({ s }) {
+  const { t } = useSite();
   return (
     <>
       <p className="cs-prose cs-intro">{s.intro}</p>
@@ -347,7 +361,7 @@ function System({ s }) {
         </figure>
         <div className="cs-system__side">
           <div className="cs-system__group">
-            <h3 className="cs-h4">Colour</h3>
+            <h3 className="cs-h4">{t.colour}</h3>
             <ul className="cs-swatches">
               {s.colors.map((c) => (
                 <li key={c.hex}>
@@ -411,7 +425,9 @@ const RENDER = {
   learning: Learning,
 };
 
-export function CaseStudy({ study }) {
+export function CaseStudy({ slug }) {
+  const { content, lang, t } = useSite();
+  const study = content[slug];
   const ids = study.sections.map((s) => s.id);
   const active = useActiveSection(ids, { rootMargin: '-30% 0px -60% 0px' });
   const activeIndex = active ? ids.indexOf(active) : -1;
@@ -422,8 +438,8 @@ export function CaseStudy({ study }) {
       <main id="main" className="cs">
         <header className="cs-hero" data-ground="night">
           <div className="page">
-            <a className="cs-back link-arrow" href="/#work">
-              <Icon name="arrow-left" /> All work
+            <a className="cs-back link-arrow" href={localPath('/#work', lang)}>
+              <Icon name="arrow-left" /> {t.allWork}
             </a>
             <div className="cs-hero__grid">
               <h1 className="cs-title">{study.title}</h1>
@@ -434,7 +450,7 @@ export function CaseStudy({ study }) {
                 <div key={d.term}>
                   <dt>{d.term}</dt>
                   <dd>
-                    {d.term === 'Status' ? (
+                    {d.href ? (
                       <span className="status" data-live={d.live === false ? undefined : true}>
                         <span className="status__mark" aria-hidden="true" />
                         {d.detail}
@@ -465,9 +481,9 @@ export function CaseStudy({ study }) {
 
         <div data-ground="paper">
         <div className="page cs-body">
-          <nav className="cs-toc" aria-label="On this page">
+          <nav className="cs-toc" aria-label={t.onThisPage}>
             <div className="cs-toc__box">
-              <p className="label cs-toc__head">On this page</p>
+              <p className="label cs-toc__head">{t.onThisPage}</p>
               <ol>
                 {study.sections.map((s, i) => {
                   const served = activeIndex > i;
@@ -478,7 +494,7 @@ export function CaseStudy({ study }) {
                           {String(i + 1).padStart(2, '0')}
                         </span>
                         <span className="cs-toc__name">{s.nav}</span>
-                        {served ? <span className="visually-hidden"> (read)</span> : null}
+                        {served ? <span className="visually-hidden">{t.read}</span> : null}
                       </a>
                     </li>
                   );

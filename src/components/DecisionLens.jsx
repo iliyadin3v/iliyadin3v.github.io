@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { m } from 'motion/react';
 import { Picture, ratio } from './Picture.jsx';
 import { useMounted } from '../lib/hooks.js';
+import { useSite } from '../i18n/index.jsx';
 import './DecisionLens.css';
 
 const useIsoLayout = typeof window === 'undefined' ? useEffect : useLayoutEffect;
@@ -10,6 +11,7 @@ const useIsoLayout = typeof window === 'undefined' ? useEffect : useLayoutEffect
 // The list of buttons is the accessible path (and the readable static fallback:
 // before hydration or with "Show all notes", every note is visible).
 export function DecisionLens({ section }) {
+  const { t } = useSite();
   const { hotspots } = section;
   const [active, setActive] = useState(0);
   const [showAll, setShowAll] = useState(false);
@@ -82,7 +84,7 @@ export function DecisionLens({ section }) {
             </button>
           ))}
         </div>
-        <figcaption className="t-small t-muted lens__caption">{section.caption || 'Shipped hero, plater.bg. Pins mark the four decisions listed beside it.'}</figcaption>
+        <figcaption className="t-small t-muted lens__caption">{section.caption || t.lensCaption}</figcaption>
       </figure>
 
       <div className="lens__panel">
@@ -105,7 +107,7 @@ export function DecisionLens({ section }) {
                     <span className="lens__n" aria-hidden="true">
                       {h.n}
                     </span>
-                    <span className="visually-hidden">Decision {h.n}: </span>
+                    <span className="visually-hidden">{t.decisionN(h.n)}</span>
                     {h.title}
                   </button>
                 </h3>
@@ -119,7 +121,7 @@ export function DecisionLens({ section }) {
                     <p>{h.body}</p>
                     {h.finding ? (
                       <a className="lens__ref" href={`#finding-${h.finding}`}>
-                        From audit finding {h.finding}
+                        {t.fromFinding} {h.finding}
                       </a>
                     ) : null}
                   </m.div>
@@ -129,7 +131,7 @@ export function DecisionLens({ section }) {
           })}
         </ol>
         <button type="button" className="lens__all" aria-pressed={showAll} onClick={() => setShowAll((v) => !v)}>
-          {showAll ? 'Show one note at a time' : 'Show all notes'}
+          {showAll ? t.showOne : t.showAll}
         </button>
       </div>
 

@@ -1,17 +1,13 @@
 import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 import { m } from 'motion/react';
-import { person } from '../content/site.js';
 import { useActiveSection, useScrolled, useSofiaTime } from '../lib/hooks.js';
 import { Icon } from './Icon.jsx';
+import { useSite, localPath } from '../i18n/index.jsx';
 import './Header.css';
 
 const useIsoLayout = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
-const NAV = [
-  { id: 'work', label: 'Work' },
-  { id: 'about', label: 'About' },
-  { id: 'contact', label: 'Contact' },
-];
+const NAV = ['work', 'about', 'contact'];
 
 // Which ground (night pass or paper) sits under the header right now.
 function useGroundUnderHeader(initial) {
@@ -48,11 +44,47 @@ function useGroundUnderHeader(initial) {
   return ground;
 }
 
+// English and Bulgarian: two square segments, the current one marked. Each links to the same page
+// in the other language, keeping the section the visitor is on.
+function LangSwitch() {
+  const { lang, path, t } = useSite();
+  const [hash, setHash] = useState('');
+  useEffect(() => {
+    const on = () => setHash(window.location.hash);
+    on();
+    window.addEventListener('hashchange', on);
+    window.addEventListener('popstate', on);
+    return () => {
+      window.removeEventListener('hashchange', on);
+      window.removeEventListener('popstate', on);
+    };
+  }, []);
+  return (
+    <div className="lang" role="group" aria-label={t.langLabel}>
+      {['en', 'bg'].map((l) => (
+        <a
+          key={l}
+          className="lang__opt"
+          href={localPath(path, l) + hash}
+          hrefLang={l}
+          lang={l}
+          aria-current={l === lang ? 'true' : undefined}
+          aria-label={t.langName[l]}
+        >
+          {l.toUpperCase()}
+        </a>
+      ))}
+    </div>
+  );
+}
+
 export function Header({ page = 'home' }) {
+  const { lang, t, content } = useSite();
+  const { person } = content;
   const scrolled = useScrolled();
   const ground = useGroundUnderHeader('night');
   const time = useSofiaTime();
-  const sectionActive = useActiveSection(page === 'home' ? NAV.map((n) => n.id) : ['contact']);
+  const sectionActive = useActiveSection(page === 'home' ? NAV : ['contact']);
   const active = page === 'home' ? sectionActive : sectionActive === 'contact' ? 'contact' : 'work';
   const listRef = useRef(null);
   const [bar, setBar] = useState(null);
@@ -73,34 +105,36 @@ export function Header({ page = 'home' }) {
     return () => window.removeEventListener('resize', measure);
   }, [active]);
 
-  const href = (id) => (page === 'home' ? `#${id}` : `/#${id}`);
+  const href = (id) => (page === 'home' ? `#${id}` : localPath(`/#${id}`, lang));
 
   return (
     <header className="site-header" data-scrolled={scrolled || undefined} data-under={ground}>
-      <a className="skip-link" href="#main">Skip to content</a>
+      <a className="skip-link" href="#main">
+        {t.skip}
+      </a>
       <div className="page site-header__row">
-        <a className="wordmark" href="/" aria-label="Iliya Dinev, home">
+        <a className="wordmark" href={localPath('/', lang)} aria-label={t.home}>
           <span className="wordmark__name">Iliya Dinev</span>
         </a>
         <p className="nav-clock">
-          Sofia <time className="t-mono">{time}</time>
+          {t.clock} <time className="t-mono">{time}</time>
         </p>
-        <nav aria-label="Main">
+        <nav aria-label={t.navLabel}>
           <ul className="nav" ref={listRef}>
-            {NAV.map((n) => (
-              <li key={n.id}>
+            {NAV.map((id) => (
+              <li key={id}>
                 <a
                   className="nav__link"
-                  data-nav={n.id}
-                  href={href(n.id)}
-                  aria-current={active === n.id ? (page === 'home' ? 'location' : 'page') : undefined}
+                  data-nav={id}
+                  href={href(id)}
+                  aria-current={active === id ? (page === 'home' ? 'location' : 'page') : undefined}
                 >
-                  {n.label}
+                  {t.nav[id]}
                 </a>
               </li>
             ))}
             <li>
-              <a className="nav__link nav__cv" href={person.cv.href} download aria-label={`Download CV (${person.cv.size})`}>
+              <a className="nav__link nav__cv" href={person.cv.href} download aria-label={t.cvAria(person.cv.size)}>
                 CV <Icon name="download" size={14} />
               </a>
             </li>
@@ -115,6 +149,7 @@ export function Header({ page = 'home' }) {
             ) : null}
           </ul>
         </nav>
+        <LangSwitch />
       </div>
     </header>
   );
