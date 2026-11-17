@@ -153,7 +153,7 @@ components:
   button-ink-hover:
     backgroundColor: "{colors.violet}"
     textColor: "{colors.warm-paper}"
-  nav-cv:
+  nav-button:
     backgroundColor: "transparent"
     textColor: "{colors.warm-white}"
     rounded: "{rounded.small}"
@@ -284,7 +284,7 @@ Mostly flat, with tonal layering doing the work. On night, a raised panel is one
 
 ## Shapes
 
-Rectangles with softened corners. Panels follow the radius token (10px); image frames and the 3D art panels take 0.8 of it (8px); tabs and scene stops cap at 6px. Every control caps at 10px through `min(var(--t-radius), 10px)`, so no button can ever become a pill. The nav CV and language buttons take the small radius (6px). Some instruments stay fully square: the case-study version switch, focus outlines and the 8px status marks. Phone screenshots keep the device's own proportional rounding (11% / 5%). The only circles are the numbered pins on case-study screenshots.
+Rectangles with softened corners. Panels follow the radius token (10px); image frames and the 3D art panels take 0.8 of it (8px); tabs and scene stops cap at 6px. Every control caps at 10px through `min(var(--t-radius), 10px)`, so no button can ever become a pill. The language and Menu buttons take the small radius (6px). Some instruments stay fully square: the case-study version switch, focus outlines and the 8px status marks. Phone screenshots keep the device's own proportional rounding (11% / 5%). The only circles are the numbered pins on case-study screenshots.
 
 **The Frame Rule.** Every picture, and every 3D art panel, sits in the same frame: 8px corners (`--frame-r`), a 1px hairline drawn just outside its edge, and the ground's shadow (panel on night, sheet on paper). The hairline is dark on paper (`oklch(19% 0.01 270 / 0.1)`) and light on night (`oklch(95% 0.006 85 / 0.1)`), and doubles where the picture's own edge would melt into the ground: a light-edged picture on paper, a dark-edged one on night. The edge tone is measured at build time (`scripts/edge-tone.mjs`, stored as `edge` in images.json and set on the img as `data-edge`). Phone screens keep their device rounding inside the same hairline.
 
@@ -303,7 +303,7 @@ Squared and plain, never pills.
 - **Text action:** a plain underlined link (e.g. "Email me") sits beside the primary button rather than a second filled button; on night it hovers to lavender.
 
 ### Navigation
-A sticky 60px bar: wordmark, a live "Sofia hh:mm" clock with the time in mono, then Work, About, Contact in the control style and a square bordered CV download. The active link carries a 2px accent bar that springs between links (the only spring on the site; soft, stiffness 220, damping 30). Clicking a link glides the page to its section over 1.6s, easing in and out; reduced motion jumps straight there. The bar's colours, accent included, follow the ground beneath it (lavender over night, violet over paper) and gain a hairline once scrolled. The clock hides below 760px. After the CV button sits one language button in the same style (6px corners): a globe and the language it switches to, BG on English pages and EN on Bulgarian ones. It opens the same page in the other language (English at /, Bulgarian at /bg/ with the same paths) at the top, with no section anchor. At 640px and below the header keeps the wordmark, the language button (label only) and a Menu button in the same style, both 40px tall; the links and CV move into a full-screen menu under the bar: Work, About and Contact as 64px rows in h3 size on hairlines, then the CV download. Menu toggles to Close (two bars turning into an X), Escape closes and returns focus, a link closes it, the page underneath does not scroll, and it closes itself if the screen grows past 640px.
+A sticky 60px bar: wordmark, a live "Sofia hh:mm" clock with the time in mono, then Work, About, Contact in the control style. The CV download is not in the header: it lives only in the contact section. The active link carries a 2px accent bar that springs between links (the only spring on the site; soft, stiffness 220, damping 30). Clicking a link glides the page to its section over 1.6s, easing in and out; reduced motion jumps straight there. The bar's colours, accent included, follow the ground beneath it (lavender over night, violet over paper) and gain a hairline once scrolled. The clock hides below 760px. After the links sits one bordered language button (6px corners): a globe and the language it switches to, BG on English pages and EN on Bulgarian ones. It opens the same page in the other language (English at /, Bulgarian at /bg/ with the same paths) at the top, with no section anchor. At 640px and below the header keeps the wordmark, the language button (label only) and a Menu button in the same style, both 40px tall; the links move into a full-screen menu under the bar: Work, About and Contact as 64px rows in h3 size on hairlines. Menu toggles to Close (two bars turning into an X), Escape closes and returns focus, a link closes it, the page underneath does not scroll, and it closes itself if the screen grows past 640px.
 
 ### Cards / Containers
 - **Corner Style:** panel radius (10px).

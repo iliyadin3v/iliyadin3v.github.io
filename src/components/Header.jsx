@@ -44,8 +44,6 @@ function useGroundUnderHeader(initial) {
   return ground;
 }
 
-// One language button, styled like the CV button: a globe and the language it switches to (BG on
-// English pages, EN on Bulgarian ones). It opens the same page in that language, at the top.
 // Lock the page under the phone menu. Only the root element is locked: locking body as well makes
 // body the sticky header's scroll container and sends the header (and its Close button) back to the
 // top of the page. Smooth scrolling pauses too, so the wheel cannot move the page behind the menu.
@@ -54,6 +52,9 @@ function lockScroll(on) {
   window.dispatchEvent(new CustomEvent('site:scroll-lock', { detail: on }));
 }
 
+// One bordered language button: a globe and the language it switches to (BG on English pages, EN
+// on Bulgarian ones). It opens the same page in that language, at the top. The CV download lives
+// in the contact section only, not in the header.
 function LangButton() {
   const { lang, path, t } = useSite();
   const to = lang === 'bg' ? 'en' : 'bg';
@@ -66,8 +67,7 @@ function LangButton() {
 }
 
 export function Header({ page = 'home' }) {
-  const { lang, t, content } = useSite();
-  const { person } = content;
+  const { lang, t } = useSite();
   const scrolled = useScrolled();
   const ground = useGroundUnderHeader('night');
   const time = useSofiaTime();
@@ -151,11 +151,6 @@ export function Header({ page = 'home' }) {
                 </a>
               </li>
             ))}
-            <li>
-              <a className="nav__link nav__cv" href={person.cv.href} download aria-label={t.cvAria(person.cv.size)}>
-                CV <Icon name="download" size={14} />
-              </a>
-            </li>
             {bar ? (
               <m.li
                 aria-hidden="true"
@@ -201,9 +196,6 @@ export function Header({ page = 'home' }) {
               ))}
             </ul>
           </nav>
-          <a className="btn btn--night-line menu-sheet__cv" href={person.cv.href} download onClick={closeMenu}>
-            {t.downloadCv} <span className="contact__size">{person.cv.size}</span> <Icon name="download" />
-          </a>
         </div>
       ) : null}
     </header>

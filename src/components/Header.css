@@ -121,8 +121,6 @@
 
 /* Language: one button in the CV button's style, right after it. Mona Sans, so EN and BG match. */
 .lang-btn {
-  /* sits as close to CV as the nav items sit to each other */
-  margin-left: -4px;
   font-family: 'Mona Sans Variable', var(--font-sans);
   letter-spacing: 0.02em;
 }
@@ -256,9 +254,6 @@
 }
 .menu-sheet__link[aria-current] {
   color: var(--h-accent);
-}
-.menu-sheet__cv {
-  align-self: flex-start;
 }
 /* only the root: locking body too would unstick the header (see lockScroll in Header.jsx) */
 html.menu-open {

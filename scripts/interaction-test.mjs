@@ -101,7 +101,7 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   ok('inline nav hidden on phones', !(await page.isVisible('.site-header__row nav')));
   await page.click('.menu-btn');
   await page.waitForSelector('#site-menu');
-  ok('menu opens with the links and CV', (await page.locator('#site-menu .menu-sheet__link').count()) === 3 && (await page.isVisible('#site-menu .menu-sheet__cv')) && (await page.getAttribute('.menu-btn', 'aria-expanded')) === 'true');
+  ok('menu opens with the three links and no CV', (await page.locator('#site-menu .menu-sheet__link').count()) === 3 && (await page.locator('#site-menu a[download]').count()) === 0 && (await page.getAttribute('.menu-btn', 'aria-expanded')) === 'true');
   ok('menu links are at least 56px tall', (await page.locator('#site-menu .menu-sheet__link').first().boundingBox()).height >= 56);
   ok('page under the menu does not scroll', await page.evaluate(() => document.documentElement.classList.contains('menu-open')));
   await page.keyboard.press('Escape');
@@ -191,6 +191,7 @@ const ok = (name, pass, detail = '') => results.push(`${pass ? 'PASS' : 'FAIL'} 
   const page = await ctx.newPage();
   await page.goto(BASE + '/', { waitUntil: 'networkidle' });
   const submit = () => page.evaluate(() => document.querySelector('.compose button[type=submit]').click());
+  ok('CV download lives in the contact section only', (await page.locator('.site-header a[download]').count()) === 0 && (await page.locator('.contact a[download]').count()) === 1);
   ok('email bar has a labelled message field', (await page.locator('label[for="compose-msg"]').count()) === 1 && (await page.getAttribute('.compose', 'action')) === 'mailto:iliyailiyadinev@gmail.com');
   await submit();
   await page.waitForTimeout(150);

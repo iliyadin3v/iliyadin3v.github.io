@@ -9,7 +9,6 @@ const en = {
   menu: 'Menu',
   close: 'Close',
   nav: { work: 'Work', about: 'About', contact: 'Contact' },
-  cvAria: (size) => `Download CV (${size})`,
   langLabel: 'Language',
   langName: { en: 'English', bg: 'Български' },
 
@@ -123,7 +122,6 @@ const bg = {
   menu: 'Меню',
   close: 'Затвори',
   nav: { work: 'Проекти', about: 'За мен', contact: 'Контакт' },
-  cvAria: (size) => `Изтеглете CV (${size})`,
   langLabel: 'Език',
   langName: { en: 'English', bg: 'Български' },
 
