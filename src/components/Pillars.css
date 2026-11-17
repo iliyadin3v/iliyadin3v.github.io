@@ -1,0 +1,97 @@
+.pillars {
+  padding-block: var(--section);
+}
+.pillars__h {
+  margin-bottom: var(--s-7);
+}
+/* Asymmetric: product design widest, the live system in the middle, brand narrowest */
+.pillars__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 3.4fr);
+  gap: var(--col-gap);
+  align-items: start;
+}
+.pillar {
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--on-night-3);
+}
+/* One shared art height so the three titles start on the same line; the columns stay uneven */
+/* Each art box holds a small 3D scene sized to the box with container units */
+.pillar__art {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--frame-r);
+  background: var(--night);
+  height: clamp(220px, 21vw, 300px);
+  container-type: size;
+}
+.pillar__title {
+  margin-top: var(--s-5);
+  font-size: var(--text-h3);
+  font-stretch: var(--width-text);
+  font-weight: 620;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+.pillar__lede {
+  margin-top: var(--s-2);
+  color: var(--on-night-2);
+}
+.pillar__proof {
+  margin-top: var(--s-4);
+  display: grid;
+  gap: var(--s-2);
+  font-size: var(--text-small);
+  color: var(--on-night-2);
+}
+.pillar__proof li {
+  position: relative;
+  padding-left: 18px;
+}
+.pillar__proof li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 2px;
+  background: var(--accent-on-night);
+}
+
+/* Tablet: product design takes the full row, its scene beside the text */
+@media (max-width: 1100px) {
+  .pillars__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .pillar--product {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--col-gap);
+  }
+  .pillar--product .pillar__art {
+    grid-row: 1 / -1;
+    height: auto;
+    aspect-ratio: 5 / 4;
+  }
+  .pillar--product .pillar__title {
+    margin-top: 0;
+  }
+  .pillar--product .pillar__proof {
+    align-content: start;
+  }
+}
+@media (max-width: 640px) {
+  .pillars__grid {
+    grid-template-columns: 1fr;
+  }
+  .pillar--product {
+    display: block;
+  }
+  .pillar__art,
+  .pillar--product .pillar__art {
+    height: 280px;
+    aspect-ratio: auto;
+  }
+}

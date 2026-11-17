@@ -1,0 +1,53 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "helvetica",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-11-17T10:40:22.700Z",
+        "reason": "Claude: decision-round sketch fixture, not shipping UI; skeleton renderer only reads composition"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "helvetica",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-11-17T10:40:23.000Z",
+        "reason": "Claude: decision-round sketch fixture, not shipping UI; skeleton renderer only reads composition"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "helvetica",
+        "files": [
+          ".impeccable/mocks/decision/challenger-splitflap.html"
+        ],
+        "createdAt": "2026-11-17T10:40:23.324Z",
+        "reason": "Claude: decision-round sketch fixture, not shipping UI; skeleton renderer only reads composition"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "helvetica",
+        "files": [
+          ".impeccable/mocks/decision/challenger-metro.html"
+        ],
+        "createdAt": "2026-11-17T10:40:23.635Z",
+        "reason": "Claude: decision-round sketch fixture, not shipping UI; skeleton renderer only reads composition"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "helvetica",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-11-17T10:40:23.950Z",
+        "reason": "Claude: decision-round sketch fixture, not shipping UI; skeleton renderer only reads composition"
+      }
+    ]
+  }
+}

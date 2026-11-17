@@ -1,0 +1,1642 @@
+{
+  "plater-live-hero": {
+    "width": 2880,
+    "height": 1706,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-hero-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-hero-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-live-hero-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-live-hero-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "plater-live-hero-m": {
+    "width": 1170,
+    "height": 2532,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-hero-m-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-hero-m-1080.webp"
+      },
+      {
+        "w": 1170,
+        "file": "plater-live-hero-m-1170.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "plater-live-what": {
+    "width": 2880,
+    "height": 1776,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-what-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-what-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-live-what-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-live-what-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-live-steps": {
+    "width": 2880,
+    "height": 420,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-steps-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-steps-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-live-steps-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-live-steps-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-live-guest": {
+    "width": 2880,
+    "height": 1776,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-guest-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-guest-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-live-guest-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-live-guest-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-live-zones": {
+    "width": 2880,
+    "height": 1280,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-zones-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-zones-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-live-zones-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-live-zones-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-live-staff": {
+    "width": 2880,
+    "height": 1776,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-staff-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-staff-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-live-staff-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-live-staff-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-live-pricing": {
+    "width": 2880,
+    "height": 1776,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-pricing-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-pricing-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-live-pricing-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-live-pricing-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-live-scenarios": {
+    "width": 2880,
+    "height": 1776,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-scenarios-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-scenarios-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-live-scenarios-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-live-scenarios-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-live-faq": {
+    "width": 2880,
+    "height": 1776,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-faq-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-faq-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-live-faq-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-live-faq-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-live-contact": {
+    "width": 2880,
+    "height": 1776,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-live-contact-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-live-contact-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-live-contact-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-live-contact-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-before-hero": {
+    "width": 1846,
+    "height": 1510,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-before-hero-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-before-hero-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-before-hero-1600.webp"
+      },
+      {
+        "w": 1846,
+        "file": "plater-before-hero-1846.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-proposal-hero": {
+    "width": 2238,
+    "height": 1510,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-proposal-hero-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-proposal-hero-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-proposal-hero-1600.webp"
+      },
+      {
+        "w": 2238,
+        "file": "plater-proposal-hero-2238.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-before-pricing": {
+    "width": 1846,
+    "height": 1510,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-before-pricing-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-before-pricing-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-before-pricing-1600.webp"
+      },
+      {
+        "w": 1846,
+        "file": "plater-before-pricing-1846.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-proposal-pricing": {
+    "width": 2238,
+    "height": 1510,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-proposal-pricing-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-proposal-pricing-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-proposal-pricing-1600.webp"
+      },
+      {
+        "w": 2238,
+        "file": "plater-proposal-pricing-2238.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-before-changelog": {
+    "width": 1846,
+    "height": 1510,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-before-changelog-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-before-changelog-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-before-changelog-1600.webp"
+      },
+      {
+        "w": 1846,
+        "file": "plater-before-changelog-1846.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-proposal-changelog": {
+    "width": 2284,
+    "height": 1172,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-proposal-changelog-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-proposal-changelog-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-proposal-changelog-1600.webp"
+      },
+      {
+        "w": 2284,
+        "file": "plater-proposal-changelog-2284.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-before-journey": {
+    "width": 1846,
+    "height": 1510,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-before-journey-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-before-journey-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-before-journey-1600.webp"
+      },
+      {
+        "w": 1846,
+        "file": "plater-before-journey-1846.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-proposal-journey": {
+    "width": 2238,
+    "height": 1510,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-proposal-journey-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-proposal-journey-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-proposal-journey-1600.webp"
+      },
+      {
+        "w": 2238,
+        "file": "plater-proposal-journey-2238.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-before-faq": {
+    "width": 1846,
+    "height": 1510,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-before-faq-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-before-faq-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-before-faq-1600.webp"
+      },
+      {
+        "w": 1846,
+        "file": "plater-before-faq-1846.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-proposal-faq": {
+    "width": 2238,
+    "height": 1510,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-proposal-faq-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-proposal-faq-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-proposal-faq-1600.webp"
+      },
+      {
+        "w": 2238,
+        "file": "plater-proposal-faq-2238.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-before-contact": {
+    "width": 2584,
+    "height": 1510,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-before-contact-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-before-contact-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-before-contact-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-before-contact-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-proposal-contact": {
+    "width": 2238,
+    "height": 2058,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-proposal-contact-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-proposal-contact-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-proposal-contact-1600.webp"
+      },
+      {
+        "w": 2238,
+        "file": "plater-proposal-contact-2238.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "plater-audit-cover": {
+    "width": 3840,
+    "height": 2160,
+    "files": [
+      {
+        "w": 640,
+        "file": "plater-audit-cover-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "plater-audit-cover-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "plater-audit-cover-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "plater-audit-cover-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-home": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-home-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "vault-home-786.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-screens": {
+    "width": 7680,
+    "height": 4320,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-screens-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-screens-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-screens-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-screens-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-cards": {
+    "width": 7680,
+    "height": 4320,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-cards-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-cards-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-cards-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-cards-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-spending": {
+    "width": 2880,
+    "height": 1620,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-spending-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-spending-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-spending-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-spending-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-invest": {
+    "width": 2576,
+    "height": 5254,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-invest-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-invest-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-invest-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-invest-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-values": {
+    "width": 7680,
+    "height": 4320,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-values-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-values-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-values-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-values-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "aura-home": {
+    "width": 1920,
+    "height": 1080,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-home-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "aura-home-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "aura-home-1600.webp"
+      },
+      {
+        "w": 1920,
+        "file": "aura-home-1920.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-welcome": {
+    "width": 4000,
+    "height": 3000,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-welcome-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "aura-welcome-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "aura-welcome-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "aura-welcome-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-mood": {
+    "width": 8000,
+    "height": 6000,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-mood-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "aura-mood-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "aura-mood-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "aura-mood-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "trip-cover": {
+    "width": 1920,
+    "height": 1080,
+    "files": [
+      {
+        "w": 640,
+        "file": "trip-cover-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "trip-cover-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "trip-cover-1600.webp"
+      },
+      {
+        "w": 1920,
+        "file": "trip-cover-1920.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "trip-phone": {
+    "width": 3000,
+    "height": 2250,
+    "files": [
+      {
+        "w": 640,
+        "file": "trip-phone-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "trip-phone-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "trip-phone-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "trip-phone-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "trip-page": {
+    "width": 1920,
+    "height": 3340,
+    "files": [
+      {
+        "w": 640,
+        "file": "trip-page-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "trip-page-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "trip-page-1600.webp"
+      },
+      {
+        "w": 1920,
+        "file": "trip-page-1920.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "valora-mark": {
+    "width": 8000,
+    "height": 4500,
+    "files": [
+      {
+        "w": 640,
+        "file": "valora-mark-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "valora-mark-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "valora-mark-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "valora-mark-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "valora-sign": {
+    "width": 3000,
+    "height": 2250,
+    "files": [
+      {
+        "w": 640,
+        "file": "valora-sign-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "valora-sign-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "valora-sign-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "valora-sign-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "valora-shirt": {
+    "width": 6000,
+    "height": 4000,
+    "files": [
+      {
+        "w": 640,
+        "file": "valora-shirt-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "valora-shirt-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "valora-shirt-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "valora-shirt-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "frag-kds": {
+    "width": 800,
+    "height": 650,
+    "files": [
+      {
+        "w": 640,
+        "file": "frag-kds-640.webp"
+      },
+      {
+        "w": 800,
+        "file": "frag-kds-800.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "frag-bill": {
+    "width": 612,
+    "height": 752,
+    "files": [
+      {
+        "w": 612,
+        "file": "frag-bill-612.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "frag-audit": {
+    "width": 2160,
+    "height": 860,
+    "files": [
+      {
+        "w": 640,
+        "file": "frag-audit-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "frag-audit-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "frag-audit-1600.webp"
+      },
+      {
+        "w": 2160,
+        "file": "frag-audit-2160.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "frag-vault": {
+    "width": 786,
+    "height": 1080,
+    "files": [
+      {
+        "w": 640,
+        "file": "frag-vault-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "frag-vault-786.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "frag-valora": {
+    "width": 2600,
+    "height": 2600,
+    "files": [
+      {
+        "w": 640,
+        "file": "frag-valora-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "frag-valora-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "frag-valora-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "frag-valora-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "scene-guest": {
+    "width": 1000,
+    "height": 1320,
+    "files": [
+      {
+        "w": 640,
+        "file": "scene-guest-640.webp"
+      },
+      {
+        "w": 1000,
+        "file": "scene-guest-1000.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "vault-flow": {
+    "width": 7680,
+    "height": 4320,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-flow-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-flow-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-flow-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-flow-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "aura-ia": {
+    "width": 3840,
+    "height": 2160,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-ia-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "aura-ia-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "aura-ia-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "aura-ia-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "scene-kds": {
+    "width": 776,
+    "height": 442,
+    "files": [
+      {
+        "w": 640,
+        "file": "scene-kds-640.webp"
+      },
+      {
+        "w": 776,
+        "file": "scene-kds-776.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "scene-owner": {
+    "width": 2176,
+    "height": 972,
+    "files": [
+      {
+        "w": 640,
+        "file": "scene-owner-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "scene-owner-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "scene-owner-1600.webp"
+      },
+      {
+        "w": 2176,
+        "file": "scene-owner-2176.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "vault-reg": {
+    "width": 7020,
+    "height": 3500,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-reg-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-reg-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-reg-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-reg-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-crypto": {
+    "width": 7020,
+    "height": 3500,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-crypto-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-crypto-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-crypto-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-crypto-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-brain": {
+    "width": 1535,
+    "height": 3368,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-brain-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-brain-1080.webp"
+      },
+      {
+        "w": 1535,
+        "file": "vault-brain-1535.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-notify": {
+    "width": 1690,
+    "height": 3102,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-notify-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-notify-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-notify-1600.webp"
+      },
+      {
+        "w": 1690,
+        "file": "vault-notify-1690.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-cardpick": {
+    "width": 5510,
+    "height": 3500,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-cardpick-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-cardpick-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-cardpick-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-cardpick-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-type": {
+    "width": 6900,
+    "height": 1500,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-type-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-type-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-type-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-type-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-welcome": {
+    "width": 2880,
+    "height": 1620,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-welcome-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-welcome-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-welcome-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-welcome-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-sign": {
+    "width": 4000,
+    "height": 3000,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-sign-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-sign-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-sign-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-sign-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-icon": {
+    "width": 2880,
+    "height": 1620,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-icon-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-icon-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-icon-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-icon-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "aura-s-start": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-start-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-start-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-goal": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-goal-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-goal-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-eat": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-eat-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-eat-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-password": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-password-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-password-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-profile": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-profile-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-profile-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-home": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-home-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-home-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-dial": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-dial-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-dial-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-sleeprate": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-sleeprate-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-sleeprate-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-tracker": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-tracker-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-tracker-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-sleep": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-sleep-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-sleep-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-insights": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-insights-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-insights-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-slept": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-slept-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-slept-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-schedule": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-schedule-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-schedule-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-type": {
+    "width": 1500,
+    "height": 660,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-type-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "aura-type-1080.webp"
+      },
+      {
+        "w": 1500,
+        "file": "aura-type-1500.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-icon": {
+    "width": 3000,
+    "height": 2000,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-icon-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "aura-icon-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "aura-icon-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "aura-icon-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-logo": {
+    "width": 512,
+    "height": 512,
+    "files": [
+      {
+        "w": 512,
+        "file": "aura-logo-512.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "vault-track": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-track-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "vault-track-786.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "vault-hero": {
+    "width": 8000,
+    "height": 4500,
+    "files": [
+      {
+        "w": 640,
+        "file": "vault-hero-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "vault-hero-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "vault-hero-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "vault-hero-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "aura-life": {
+    "width": 6144,
+    "height": 3456,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-life-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "aura-life-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "aura-life-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "aura-life-2400.webp"
+      }
+    ],
+    "edge": "dark"
+  },
+  "aura-what": {
+    "width": 2720,
+    "height": 1290,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-what-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "aura-what-1080.webp"
+      },
+      {
+        "w": 1600,
+        "file": "aura-what-1600.webp"
+      },
+      {
+        "w": 2400,
+        "file": "aura-what-2400.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-s-details": {
+    "width": 786,
+    "height": 1704,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-s-details-640.webp"
+      },
+      {
+        "w": 786,
+        "file": "aura-s-details-786.webp"
+      }
+    ],
+    "edge": "light"
+  },
+  "aura-pair": {
+    "width": 1512,
+    "height": 1344,
+    "files": [
+      {
+        "w": 640,
+        "file": "aura-pair-640.webp"
+      },
+      {
+        "w": 1080,
+        "file": "aura-pair-1080.webp"
+      },
+      {
+        "w": 1512,
+        "file": "aura-pair-1512.webp"
+      }
+    ],
+    "edge": "light"
+  }
+}

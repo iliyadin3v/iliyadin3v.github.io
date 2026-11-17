@@ -1,0 +1,503 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-17T18:00:00Z",
+  "title": "Design System: Iliya Dinev, Product Designer",
+  "extensions": {
+    "rootTokens": [
+      {
+        "name": "--t-hue",
+        "value": "295",
+        "purpose": "Accent hue (light purple). Every accent shade derives from it."
+      },
+      {
+        "name": "--t-radius",
+        "value": "10px",
+        "purpose": "Panel corners; controls cap at min(var(--t-radius), 10px), small parts at 6px."
+      },
+      {
+        "name": "--t-width",
+        "value": "100%",
+        "purpose": "Type width for the name, headings and reading text."
+      },
+      {
+        "name": "--t-density",
+        "value": "1",
+        "purpose": "Multiplies every spacing step and the section padding."
+      }
+    ],
+    "colorMeta": {
+      "lavender-on-night": {
+        "role": "primary",
+        "displayName": "Lavender on Night",
+        "canonical": "oklch(81% 0.1 var(--t-hue))",
+        "tonalRamp": [
+          "oklch(22% 0.06 295)",
+          "oklch(32% 0.11 295)",
+          "oklch(41% 0.155 295)",
+          "oklch(48% 0.16 295)",
+          "oklch(58% 0.16 295)",
+          "oklch(72% 0.14 295)",
+          "oklch(81% 0.1 295)",
+          "oklch(94% 0.03 295)"
+        ]
+      },
+      "lavender-on-night-hover": {
+        "role": "primary",
+        "displayName": "Lavender Hover",
+        "canonical": "oklch(87% 0.07 var(--t-hue))"
+      },
+      "violet": {
+        "role": "primary",
+        "displayName": "Violet",
+        "canonical": "oklch(54% 0.2 var(--t-hue))",
+        "tonalRamp": [
+          "oklch(22% 0.07 295)",
+          "oklch(32% 0.12 295)",
+          "oklch(41% 0.155 295)",
+          "oklch(47% 0.18 295)",
+          "oklch(54% 0.2 295)",
+          "oklch(70% 0.15 295)",
+          "oklch(84% 0.08 295)",
+          "oklch(94% 0.03 295)"
+        ]
+      },
+      "violet-hover": {
+        "role": "primary",
+        "displayName": "Violet Hover",
+        "canonical": "oklch(47% 0.18 var(--t-hue))"
+      },
+      "violet-deep": {
+        "role": "primary",
+        "displayName": "Violet Deep",
+        "canonical": "oklch(41% 0.155 var(--t-hue))"
+      },
+      "violet-wash": {
+        "role": "primary",
+        "displayName": "Violet Wash",
+        "canonical": "oklch(94% 0.03 var(--t-hue))"
+      },
+      "on-violet": {
+        "role": "primary",
+        "displayName": "On Violet",
+        "canonical": "oklch(98.5% 0.006 var(--t-hue))"
+      },
+      "graphite-night": {
+        "role": "neutral",
+        "displayName": "Graphite Night",
+        "canonical": "oklch(15% 0.01 270)",
+        "tonalRamp": [
+          "oklch(15% 0.01 270)",
+          "oklch(19% 0.012 270)",
+          "oklch(24% 0.014 270)",
+          "oklch(30% 0.012 270)",
+          "oklch(46% 0.01 270)",
+          "oklch(66% 0.01 270)",
+          "oklch(78% 0.008 270)",
+          "oklch(95% 0.006 85)"
+        ]
+      },
+      "graphite-raised": {
+        "role": "neutral",
+        "displayName": "Graphite Raised",
+        "canonical": "oklch(19% 0.012 270)"
+      },
+      "graphite-raised-2": {
+        "role": "neutral",
+        "displayName": "Graphite Raised 2",
+        "canonical": "oklch(24% 0.014 270)"
+      },
+      "graphite-rule": {
+        "role": "neutral",
+        "displayName": "Graphite Rule",
+        "canonical": "oklch(30% 0.012 270)"
+      },
+      "warm-white": {
+        "role": "neutral",
+        "displayName": "Warm White",
+        "canonical": "oklch(95% 0.006 85)"
+      },
+      "night-text-2": {
+        "role": "neutral",
+        "displayName": "Night Text 2",
+        "canonical": "oklch(78% 0.008 270)"
+      },
+      "night-text-3": {
+        "role": "neutral",
+        "displayName": "Night Text 3",
+        "canonical": "oklch(66% 0.01 270)"
+      },
+      "warm-paper": {
+        "role": "neutral",
+        "displayName": "Warm Paper",
+        "canonical": "oklch(96.2% 0.008 85)",
+        "tonalRamp": [
+          "oklch(19% 0.01 270)",
+          "oklch(35% 0.01 270)",
+          "oklch(46% 0.01 270)",
+          "oklch(68% 0.012 85)",
+          "oklch(85.5% 0.01 85)",
+          "oklch(88.5% 0.012 85)",
+          "oklch(92.6% 0.01 85)",
+          "oklch(98.6% 0.005 85)"
+        ]
+      },
+      "paper-raised": {
+        "role": "neutral",
+        "displayName": "Paper Raised",
+        "canonical": "oklch(98.6% 0.005 85)"
+      },
+      "paper-sunk": {
+        "role": "neutral",
+        "displayName": "Paper Sunk",
+        "canonical": "oklch(92.6% 0.01 85)"
+      },
+      "carbon-ink": {
+        "role": "neutral",
+        "displayName": "Carbon Ink",
+        "canonical": "oklch(19% 0.01 270)"
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "canonical": "oklch(35% 0.01 270)"
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink 3",
+        "canonical": "oklch(46% 0.01 270)"
+      },
+      "paper-rule": {
+        "role": "neutral",
+        "displayName": "Paper Rule",
+        "canonical": "oklch(85.5% 0.01 85)"
+      },
+      "paper-rule-strong": {
+        "role": "neutral",
+        "displayName": "Paper Rule Strong",
+        "canonical": "oklch(68% 0.012 85)"
+      }
+    },
+    "openingTokens": [
+      {
+        "name": "--nb-wall-1",
+        "value": "oklch(80% 0.1 var(--t-hue))",
+        "purpose": "Light rim, top 20% of the letter walls."
+      },
+      {
+        "name": "--nb-wall-2",
+        "value": "oklch(58% 0.16 var(--t-hue))",
+        "purpose": "Violet wall, 20 to 82% of the depth."
+      },
+      {
+        "name": "--nb-wall-3",
+        "value": "oklch(43% 0.15 var(--t-hue))",
+        "purpose": "Dark foot, last 18% of the depth."
+      },
+      {
+        "name": "--nb-line",
+        "value": "oklch(81% 0.1 var(--t-hue) / 0.2)",
+        "purpose": "Strong grid hairline every 0.96em and the grid border."
+      },
+      {
+        "name": "--nb-line-fine",
+        "value": "oklch(81% 0.1 var(--t-hue) / 0.08)",
+        "purpose": "Fine grid hairline every 0.24em."
+      },
+      {
+        "name": "--nb-edge",
+        "value": "oklch(81% 0.1 var(--t-hue) / 0.85)",
+        "purpose": "Hairline edges of the 3D parts."
+      },
+      {
+        "name": "--nb-glass-top / -s / -w",
+        "value": "oklch(72% 0.14 var(--t-hue) / 0.2 | 0.34 | 0.22)",
+        "purpose": "Glass faces of the card and toggle track. The only translucency in the system."
+      },
+      {
+        "name": "geometry",
+        "value": "rotateX(56deg) rotateZ(-30deg); depth 0.21em; 120 shadow steps",
+        "purpose": "Axonometric plane, no perspective."
+      }
+    ],
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Case-study title and contact heading."
+      },
+      "headline-xl": {
+        "displayName": "Headline XL",
+        "purpose": "Project names in the work section."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings and smaller project names."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Pillar titles, finding titles, third-level headings."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Section intros, summaries, case-study lede; the opening thesis at 520."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading prose at 66ch, tabular figures."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels and table heads; sentence case sans."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Buttons, nav links, tabs, arrow links."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Header name; the one wide setting."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Times and indices only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "panel",
+        "value": "0 1px 0 oklch(100% 0 0 / 0.04) inset, 0 24px 48px -28px oklch(0% 0 0 / 0.8)",
+        "purpose": "Raised panels and image frames on night."
+      },
+      {
+        "name": "sheet",
+        "value": "0 1px 1px oklch(19% 0.01 270 / 0.05), 0 12px 28px -16px oklch(19% 0.01 270 / 0.3)",
+        "purpose": "Screenshots, figures and callouts on paper."
+      },
+      {
+        "name": "sheet-lift",
+        "value": "0 2px 2px oklch(19% 0.01 270 / 0.06), 0 26px 44px -22px oklch(19% 0.01 270 / 0.4)",
+        "purpose": "A sheet raised by interaction."
+      },
+      {
+        "name": "name-cast",
+        "value": "text-shadow: 0.012em 0.04em 0.025em oklch(0% 0 0 / 0.6), 0.03em 0.15em 0.07em oklch(0% 0 0 / 0.55)",
+        "purpose": "The built name's contact and long cast shadow on its grid. Opening only."
+      },
+      {
+        "name": "scene-shade",
+        "value": "background: oklch(0% 0 0 / 0.85); filter: blur(0.05em); transform: translate3d(0.07em, 0.22em, 0.5px)",
+        "purpose": "Contact shade under each object in the pillar scenes, on the grid plane."
+      },
+      {
+        "name": "sign-cast",
+        "value": "AV outline on the grid plane from the sign's base line: scaleY(-1), skewX(14deg), fill oklch(0% 0 0 / 0.85), blur 0.025em",
+        "purpose": "The standing Valora sign's letter-shaped shadow in the Brand and launch scene."
+      }
+    ],
+    "motion": [
+      {
+        "name": "dur-press",
+        "value": "140ms",
+        "purpose": "Button press translate."
+      },
+      {
+        "name": "dur-hover",
+        "value": "200ms",
+        "purpose": "Hover colour and border changes."
+      },
+      {
+        "name": "dur-move",
+        "value": "320ms",
+        "purpose": "Header ground crossfade and larger moves."
+      },
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.2, 0.7, 0.2, 1)",
+        "purpose": "Default easing."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Settles: the opening tilt, image zoom, shared-element view transitions."
+      },
+      {
+        "name": "nb-tilt",
+        "value": "1000ms ease-out, rotateX +14deg to 0",
+        "purpose": "The opening board tilting up into place."
+      },
+      {
+        "name": "nb-nod",
+        "value": "14s ease-in-out, rotateX 55.5 to 57deg",
+        "purpose": "The slow nod; rotateX only so walls stay vertical."
+      },
+      {
+        "name": "nb-cycle",
+        "value": "13440ms",
+        "purpose": "One shared cycle for the hopping block and the lifting card."
+      },
+      {
+        "name": "view-transition",
+        "value": "260ms root, 380ms shot",
+        "purpose": "Cross-document transition from a work preview to its case study."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "toc",
+        "value": "1200px"
+      },
+      {
+        "name": "pillars",
+        "value": "1100px"
+      },
+      {
+        "name": "tablet",
+        "value": "960px"
+      },
+      {
+        "name": "scene",
+        "value": "900px"
+      },
+      {
+        "name": "clock",
+        "value": "760px"
+      },
+      {
+        "name": "phone",
+        "value": "640px"
+      },
+      {
+        "name": "small-phone",
+        "value": "420px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button on Night",
+      "kind": "button",
+      "refersTo": "button-primary-night",
+      "description": "The single main action on a night section: lavender fill, graphite text, square-ish corners.",
+      "html": "<a class=\"ds-btn ds-btn-accent-night\" href=\"#\">See the work <svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M8 3v10M4 9l4 4 4-4\"/></svg></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; font-family: var(--font-sans); font-size: 0.9375rem; font-weight: 560; font-stretch: 104%; letter-spacing: -0.005em; text-decoration: none; border: 1px solid; border-radius: min(var(--t-radius, 10px), 10px); transition: background-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 140ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-btn:active { transform: translateY(1px); } .ds-btn svg { transition: transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-btn:hover svg { transform: translateY(2px); } .ds-btn-accent-night { background: oklch(81% 0.1 295); border-color: oklch(81% 0.1 295); color: oklch(15% 0.01 270); } .ds-btn-accent-night:hover { background: oklch(87% 0.07 295); border-color: oklch(87% 0.07 295); } .ds-btn-accent-night:focus-visible { outline: 2px solid oklch(81% 0.1 295); outline-offset: 3px; }"
+    },
+    {
+      "name": "Night Line Button",
+      "kind": "button",
+      "refersTo": "button-night-line",
+      "description": "Secondary actions on night (LinkedIn, Behance, CV): hairline border that fills warm white on hover.",
+      "html": "<a class=\"ds-btn-line\" href=\"#\">LinkedIn</a>",
+      "css": ".ds-btn-line { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; font-family: var(--font-sans); font-size: 0.9375rem; font-weight: 560; font-stretch: 104%; text-decoration: none; background: transparent; color: oklch(95% 0.006 85); border: 1px solid oklch(95% 0.006 85 / 0.35); border-radius: min(var(--t-radius, 10px), 10px); transition: background-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1), color 200ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-btn-line:hover { background: oklch(95% 0.006 85); border-color: oklch(95% 0.006 85); color: oklch(15% 0.01 270); } .ds-btn-line:focus-visible { outline: 2px solid oklch(81% 0.1 295); outline-offset: 3px; }"
+    },
+    {
+      "name": "Ink Button on Paper",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Filled action on the paper ground; hover turns violet.",
+      "html": "<a class=\"ds-btn-ink\" href=\"#\">Read the case study</a>",
+      "css": ".ds-btn-ink { display: inline-flex; align-items: center; min-height: 48px; padding: 0 20px; font-family: var(--font-sans); font-size: 0.9375rem; font-weight: 560; font-stretch: 104%; text-decoration: none; background: oklch(19% 0.01 270); color: oklch(96.2% 0.008 85); border: 1px solid oklch(19% 0.01 270); border-radius: min(var(--t-radius, 10px), 10px); transition: background-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1), border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-btn-ink:hover { background: oklch(54% 0.2 295); border-color: oklch(54% 0.2 295); } .ds-btn-ink:focus-visible { outline: 2px solid oklch(54% 0.2 295); outline-offset: 3px; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "nav-cv",
+      "description": "Sticky 60px bar over night: wide wordmark, Sofia clock with mono time, control-style links, square CV button, lavender bar under the active link.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-mark\" href=\"#\">Iliya Dinev</a><span class=\"ds-nav-clock\">Sofia <time>17:04</time></span><div class=\"ds-nav-links\"><a href=\"#\" aria-current=\"page\">Work</a><a href=\"#\">About</a><a href=\"#\">Contact</a><a class=\"ds-nav-cv\" href=\"#\">CV</a></div></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 16px; height: 60px; padding: 0 24px; background: oklch(15% 0.01 270); color: oklch(95% 0.006 85); font-family: var(--font-sans); } .ds-nav-mark { font-size: 1.0625rem; font-weight: 700; font-stretch: 118%; letter-spacing: -0.02em; color: inherit; text-decoration: none; } .ds-nav-mark:hover { color: oklch(81% 0.1 295); } .ds-nav-clock { margin-right: auto; margin-left: 32px; font-size: 0.8125rem; color: oklch(66% 0.01 270); } .ds-nav-clock time { font-family: var(--font-mono); font-stretch: 87.5%; font-size: 0.75rem; color: oklch(78% 0.008 270); } .ds-nav-links { display: flex; align-items: center; gap: 12px; } .ds-nav-links a { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; font-size: 0.9375rem; font-weight: 520; font-stretch: 104%; color: oklch(78% 0.008 270); text-decoration: none; transition: color 200ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-nav-links a:hover, .ds-nav-links a[aria-current] { color: oklch(95% 0.006 85); } .ds-nav-links a[aria-current]::after { content: ''; position: absolute; left: 10px; right: 10px; bottom: 6px; height: 2px; background: oklch(81% 0.1 295); } .ds-nav-links a.ds-nav-cv { min-height: 36px; border: 1px solid oklch(95% 0.006 85 / 0.35); color: oklch(95% 0.006 85); border-radius: 0; } .ds-nav-links a.ds-nav-cv:hover { border-color: oklch(81% 0.1 295); color: oklch(81% 0.1 295); } .ds-nav a:focus-visible { outline: 2px solid oklch(81% 0.1 295); outline-offset: 3px; }"
+    },
+    {
+      "name": "Night Panel",
+      "kind": "card",
+      "refersTo": "panel-night",
+      "description": "The one raised surface on night: one lightness step up, hairline border, single soft drop shadow, opaque.",
+      "html": "<div class=\"ds-panel\"><span class=\"ds-panel-label\">Email</span><a class=\"ds-panel-address\" href=\"#\">hello@example.com</a></div>",
+      "css": ".ds-panel { display: grid; gap: 12px; justify-items: start; padding: 24px; background: oklch(19% 0.012 270); color: oklch(95% 0.006 85); border: 1px solid oklch(30% 0.012 270); border-radius: var(--t-radius, 10px); box-shadow: 0 1px 0 oklch(100% 0 0 / 0.04) inset, 0 24px 48px -28px oklch(0% 0 0 / 0.8); font-family: var(--font-sans); } .ds-panel-label { font-size: 0.8125rem; font-weight: 540; color: oklch(66% 0.01 270); } .ds-panel-address { font-size: 1.5rem; font-weight: 520; letter-spacing: -0.02em; color: inherit; text-decoration: underline; text-decoration-color: oklch(81% 0.1 295); text-decoration-thickness: 2px; text-underline-offset: 0.2em; } .ds-panel-address:hover { color: oklch(81% 0.1 295); }"
+    },
+    {
+      "name": "Copy Button",
+      "kind": "button",
+      "refersTo": "copy-button",
+      "description": "Hairline control on night that fills lavender with graphite text only after the clipboard write succeeds.",
+      "html": "<button class=\"ds-copy\" type=\"button\">Copy</button> <button class=\"ds-copy\" type=\"button\" data-state=\"copied\">Copied</button>",
+      "css": ".ds-copy { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; font-family: var(--font-sans); font-size: 0.9375rem; font-weight: 560; background: transparent; color: oklch(95% 0.006 85); border: 1px solid oklch(30% 0.012 270); border-radius: min(var(--t-radius, 10px), 10px); cursor: pointer; transition: border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1), background-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1), color 200ms cubic-bezier(0.2, 0.7, 0.2, 1); } .ds-copy:hover { border-color: oklch(66% 0.01 270); } .ds-copy[data-state='copied'] { background: oklch(81% 0.1 295); border-color: oklch(81% 0.1 295); color: oklch(15% 0.01 270); } .ds-copy:focus-visible { outline: 2px solid oklch(81% 0.1 295); outline-offset: 3px; }"
+    },
+    {
+      "name": "Proof List",
+      "kind": "custom",
+      "description": "Pillar proof lines marked with short lavender dashes instead of bullets.",
+      "html": "<ul class=\"ds-proof\"><li>Design system of 40+ components with tokens</li><li>Per-tenant theming and light/dark</li></ul>",
+      "css": ".ds-proof { list-style: none; margin: 0; padding: 16px; display: grid; gap: 8px; background: oklch(15% 0.01 270); color: oklch(78% 0.008 270); font-family: var(--font-sans); font-size: 0.9375rem; } .ds-proof li { position: relative; padding-left: 18px; } .ds-proof li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 8px; height: 2px; background: oklch(81% 0.1 295); }"
+    },
+    {
+      "name": "Findings Ledger Row",
+      "kind": "custom",
+      "description": "Case-study finding on paper: large violet mono index, 620 title, fix label in violet, separated by a hairline.",
+      "html": "<article class=\"ds-finding\"><span class=\"ds-finding-n\">03</span><div><h3 class=\"ds-finding-title\">The changelog sat above the pricing</h3><p class=\"ds-finding-fix\"><strong>Fix.</strong> Move it to the footer.</p></div></article>",
+      "css": ".ds-finding { display: grid; grid-template-columns: minmax(56px, 1fr) minmax(0, 9fr); gap: 24px; padding: 32px 16px 48px; background: oklch(96.2% 0.008 85); color: oklch(19% 0.01 270); border-bottom: 1px solid oklch(85.5% 0.01 85); font-family: var(--font-sans); } .ds-finding-n { font-family: var(--font-mono); font-size: 1.5rem; font-stretch: 87.5%; font-weight: 500; line-height: 1; color: oklch(54% 0.2 295); } .ds-finding-title { margin: 0; font-size: 1.625rem; font-weight: 620; letter-spacing: -0.02em; line-height: 1.12; } .ds-finding-fix { margin: 16px 0 0; font-size: 0.9375rem; color: oklch(35% 0.01 270); } .ds-finding-fix strong { color: oklch(54% 0.2 295); font-weight: 640; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Theme Room",
+    "overview": "A calm graphite room lit by one colour, light purple. The opening is Iliya's name made into a built object: real type laid on an axonometric plane, standing as solid letters on a drafting grid, with a few small interface parts on and beside it and one block hopping from letter to letter. Everything after it is quiet: hairline rules, one step of raised panel, real product imagery, and warm paper wherever the visitor is asked to read at length.\n\nThe whole system hangs off four root tokens that mirror Plater's per-venue token layer: accent hue (`--t-hue`, 295), corner radius (`--t-radius`, 10px), type width (`--t-width`, 100%) and density (`--t-density`, 1). Every accent shade, radius, type width and spacing step is derived from them. Nothing on the page changes them; there is no theme picker. The Design systems pillar's scene colours its token blocks straight from the accent tokens.\n\nDensity is editorial rather than dashboard: generous section padding (80 to 152px), asymmetric 12-column compositions, and proof set as plain lists under each claim. Motion is transforms and opacity, short, paused off screen and still under reduced motion. There is no portrait or photograph of Iliya; the built name is the personal signature.",
+    "keyCharacteristics": [
+      "Two grounds: graphite night for the opening, the work and the close; warm paper for About and the case-study body. Sections declare their ground and the header follows it.",
+      "One accent, light purple, derived from a single hue token: a light lavender on night, a deeper violet on paper.",
+      "Mona Sans at weight 620 and normal width for the name and every big heading; Martian Mono only for times and indices.",
+      "Controls are rectangles with corners capped at 10px. Never pills.",
+      "The built name is the one 3D object; translucency belongs only to its small parts."
+    ],
+    "rules": [
+      {
+        "name": "The One Hue Rule",
+        "body": "Every accent shade is derived from `--t-hue`. Never write a literal purple; read `--accent`, `--accent-on-night` and their siblings so a change at the root reaches everything. The only literal hues allowed are Plater's own product colours inside the order demo, which is a recreation of Plater's UI.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Grounds Rule",
+        "body": "A section is either night or paper, declared with `data-ground`. Night is for meeting and showing; paper is for reading. The sticky header takes the ground beneath it, crossfading over 320ms.",
+        "section": "colors"
+      },
+      {
+        "name": "The Light on Night Rule",
+        "body": "On graphite the accent is always the light lavender, and a lavender fill always carries graphite text. On paper the accent is always the deeper violet. Never put violet text on night or lavender on paper.",
+        "section": "colors"
+      },
+      {
+        "name": "The Medium Name Rule",
+        "body": "The name and every big heading are Mona Sans 620 at normal width (100%). No light weights, no wide stretches and no two-tone colouring on headings.",
+        "section": "typography"
+      },
+      {
+        "name": "The Instrument Rule",
+        "body": "Martian Mono appears only on times and indices. Labels, metadata and captions stay in the sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Step Rule",
+        "body": "A surface is either on the ground or one step above it. No stacks of cards, no glow, no gradient panels.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Glass Belongs to the Parts Rule",
+        "body": "Translucency describes only small 3D parts: the opening's glass card and toggle track, and in the pillar scenes the token selector and small component keys. Device screens and boards in those scenes are opaque night, and panels, cards, the header and every sheet stay opaque.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do derive every accent shade from `--t-hue` and every corner from `--t-radius`; read the tokens, never a literal purple or radius.",
+      "Do declare `data-ground=\"night\"` or `data-ground=\"paper\"` on each section so the header, focus, selection and caret colours follow.",
+      "Do use lavender (`oklch(81% 0.1 hue)`) for every accent on night, with graphite text on lavender fills, and the deeper violet (`oklch(54% 0.2 hue)`) for every accent on paper.",
+      "Do set the name and big headings in Mona Sans 620 at 100% width, and keep reading text at normal width.",
+      "Do separate groups with a single hairline rule before reaching for a panel.",
+      "Do animate with transforms and opacity only, pause off screen, and give every animation a still state under reduced motion."
+    ],
+    "donts": [
+      "Don't use pill buttons; controls cap at 10px corners.",
+      "Don't put text eyebrows or kickers above headings.",
+      "Don't add a theme picker or anything that changes the four root tokens at runtime.",
+      "Don't place a portrait or photograph of Iliya anywhere.",
+      "Don't use Martian Mono for labels, captions or prose; it is only for times and indices.",
+      "Don't add glow, gradient panels or translucent card surfaces; translucency belongs only to the small 3D parts of the opening.",
+      "Don't hijack scroll or add a custom cursor."
+    ]
+  }
+}

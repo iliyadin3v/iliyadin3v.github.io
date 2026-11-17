@@ -1,0 +1,295 @@
+/* ===== Try the order flow: recreation of Plater's product UI ===== */
+/* The kitchen colours (new, cooking, ready) are Plater's own board states, used only here. */
+.demo {
+  --kds-new: oklch(78% 0.15 65);
+  --kds-cook: oklch(72% 0.12 262);
+  --kds-ready: oklch(74% 0.16 150);
+  --kds-ground: oklch(19% 0.012 270);
+  --kds-card: oklch(25% 0.014 270);
+  --kds-line: oklch(33% 0.014 270);
+  margin-top: var(--s-8);
+  padding: clamp(20px, 3vw, 40px);
+  background: var(--night);
+  color: var(--on-night);
+}
+.demo__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: var(--s-3) var(--col-gap);
+  align-items: end;
+}
+.demo__h {
+  font-size: var(--text-h3);
+  font-stretch: 82%;
+  font-weight: 800;
+  line-height: 1;
+}
+.demo__note {
+  font-size: var(--text-small);
+  color: var(--on-night-2);
+  max-width: 58ch;
+}
+.demo__panels {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr) minmax(0, 0.8fr);
+  gap: clamp(12px, 1.6vw, 24px);
+  margin-top: var(--s-6);
+  align-items: stretch;
+}
+.demo-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 360px;
+  border-radius: 14px;
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.demo-panel__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  font-weight: 650;
+  border-bottom: 1px solid oklch(0% 0 0 / 0.08);
+}
+.demo-panel__top--dark {
+  border-bottom-color: var(--kds-line);
+}
+
+/* Guest phone: light, like the real guest menu */
+.demo-guest {
+  background: oklch(98% 0.004 85);
+  color: oklch(22% 0.01 60);
+}
+.demo-menu {
+  flex: 1;
+  padding: 6px 14px;
+}
+.demo-menu li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid oklch(0% 0 0 / 0.07);
+}
+.demo-menu__text {
+  display: grid;
+}
+.demo-menu__name {
+  font-weight: 650;
+}
+.demo-menu__note {
+  font-size: 0.75rem;
+  color: oklch(45% 0.01 60);
+}
+.demo-menu__price {
+  margin-top: 2px;
+  font-weight: 650;
+  color: oklch(48% 0.17 29);
+}
+.demo-qty {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.demo-qty button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid oklch(0% 0 0 / 0.18);
+  border-radius: 8px;
+  background: #fff;
+}
+.demo-qty button:hover:not(:disabled) {
+  border-color: oklch(48% 0.17 29);
+  color: oklch(48% 0.17 29);
+}
+.demo-qty button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.demo-qty output {
+  min-width: 1.5em;
+  text-align: center;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.demo-guest__foot {
+  display: grid;
+  gap: 10px;
+  padding: 12px 14px 14px;
+  border-top: 1px solid oklch(0% 0 0 / 0.08);
+}
+
+.demo-btn {
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-weight: 650;
+  font-size: 0.8125rem;
+  background: oklch(32% 0.014 270);
+  color: #fff;
+  transition: background-color var(--dur-hover) var(--ease), transform var(--dur-press) var(--ease);
+}
+.demo-btn:hover:not(:disabled) {
+  background: oklch(38% 0.014 270);
+}
+.demo-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.demo-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.demo-btn--primary {
+  background: oklch(48% 0.17 29);
+}
+.demo-btn--primary:hover:not(:disabled) {
+  background: oklch(42% 0.16 29);
+}
+.demo-btn--go {
+  background: oklch(52% 0.14 150);
+}
+.demo-btn--go:hover:not(:disabled) {
+  background: oklch(46% 0.13 150);
+}
+
+/* Kitchen board */
+.demo-kitchen,
+.demo-waiter {
+  background: var(--kds-ground);
+  color: oklch(94% 0.005 270);
+}
+.demo-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--kds-ready);
+}
+.demo-live::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.demo-cols {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px;
+}
+.demo-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.demo-col__label {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 6px;
+  border-bottom: 3px solid currentColor;
+  font-weight: 650;
+}
+.demo-col__label span {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.8;
+}
+.demo-col--new .demo-col__label {
+  color: var(--kds-new);
+}
+.demo-col--cooking .demo-col__label {
+  color: var(--kds-cook);
+}
+.demo-col--ready .demo-col__label {
+  color: var(--kds-ready);
+}
+.demo-card {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--kds-card);
+}
+.demo-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.demo-card ul {
+  font-size: 0.8125rem;
+  color: oklch(84% 0.005 270);
+}
+.demo-col--new .demo-btn {
+  background: var(--kds-new);
+  color: oklch(20% 0.02 65);
+}
+.demo-col--cooking .demo-btn {
+  background: var(--kds-cook);
+  color: oklch(18% 0.02 262);
+}
+.demo-card__wait {
+  font-size: 0.75rem;
+  color: var(--kds-ready);
+}
+
+/* Waiter phone */
+.demo-waiter__body {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  padding: 12px;
+}
+.demo-waiter__idle {
+  color: oklch(74% 0.008 270);
+  font-size: 0.8125rem;
+}
+.demo-alert {
+  width: 100%;
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 10px;
+  background: oklch(32% 0.07 150);
+  border: 1px solid var(--kds-ready);
+}
+.demo-alert p {
+  display: grid;
+}
+.demo-alert span {
+  font-size: 0.8125rem;
+  color: oklch(88% 0.03 150);
+}
+.demo-alert--done {
+  background: var(--kds-card);
+  border-color: var(--kds-line);
+}
+.demo-alert--done span {
+  color: oklch(80% 0.006 270);
+}
+
+@media (max-width: 960px) {
+  .demo__head {
+    grid-template-columns: 1fr;
+  }
+  .demo__panels {
+    grid-template-columns: 1fr;
+  }
+  .demo-panel {
+    min-height: 0;
+  }
+  .demo-waiter__body {
+    min-height: 110px;
+  }
+}
+@media (max-width: 480px) {
+  .demo-cols {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,241 @@
+.section {
+  padding-block: var(--section);
+}
+
+/* --- About --- */
+.about {
+  border-top: 1px solid var(--rule);
+}
+.about__head {
+  grid-column: 1 / span 4;
+  align-self: start;
+  position: sticky;
+  top: calc(var(--header-h) + var(--s-6));
+}
+.about__main {
+  grid-column: 6 / -1;
+}
+.about__intro + .about__intro {
+  margin-top: var(--s-5);
+}
+.practices {
+  margin-top: var(--s-8);
+  border-top: 1px solid var(--ink);
+}
+.practice {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--s-5);
+  padding: var(--s-5) 0 var(--s-6);
+  border-bottom: 1px solid var(--rule);
+}
+.practice__title {
+  font-size: 1.1875rem;
+  font-stretch: 106%;
+  font-weight: 620;
+  letter-spacing: -0.012em;
+  line-height: 1.25;
+}
+.practice__body {
+  color: var(--ink-2);
+}
+.about__details {
+  margin-top: var(--s-7);
+  display: grid;
+  gap: var(--s-4);
+  font-size: var(--text-small);
+}
+.about__details > div {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: var(--s-5);
+}
+.about__details dt {
+  font-size: 0.8125rem;
+  font-weight: 540;
+  color: var(--ink-3);
+  padding-top: 1px;
+}
+.about__details dd {
+  margin: 0;
+  color: var(--ink-2);
+}
+
+/* --- Playground --- */
+.playground {
+  padding-top: 0;
+}
+.playground__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--ink);
+  margin-bottom: var(--s-6);
+  flex-wrap: wrap;
+}
+.playground__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: var(--s-6);
+}
+.pg--0 {
+  grid-column: 1 / span 7;
+  grid-row: 1 / span 2;
+}
+.pg--1 {
+  grid-column: 8 / -1;
+}
+.pg--2 {
+  grid-column: 8 / -1;
+}
+.pg__img {
+  overflow: hidden;
+  background: var(--paper-sunk);
+}
+.pg__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pg figcaption {
+  margin-top: var(--s-3);
+  font-size: var(--text-small);
+  line-height: 1.45;
+  max-width: 52ch;
+}
+.pg__title {
+  font-weight: 620;
+}
+
+/* --- Contact: a calm close on the night ground --- */
+.contact {
+  position: relative;
+  padding-top: var(--section);
+  border-top: 1px solid var(--night-rule);
+}
+.contact__inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: var(--s-7);
+  align-items: end;
+}
+.contact__copy {
+  grid-column: 1 / span 7;
+}
+.contact__heading {
+  font-size: var(--text-name);
+  font-stretch: var(--width-text);
+  font-weight: 620;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+.contact__body {
+  margin-top: var(--s-6);
+  max-width: 44ch;
+  font-size: var(--text-lede);
+  line-height: 1.42;
+  color: var(--on-night-2);
+}
+.contact__card {
+  grid-column: 8 / -1;
+  display: grid;
+  gap: var(--s-3);
+  justify-items: start;
+  padding: var(--s-5);
+}
+.contact__card-label {
+  color: var(--on-night-3);
+}
+.contact__address {
+  display: inline-block;
+  padding-block: 6px;
+  font-size: clamp(1.25rem, 0.9rem + 1.1vw, 1.75rem);
+  font-weight: 520;
+  font-stretch: var(--width-text);
+  letter-spacing: -0.02em;
+  color: var(--on-night);
+  text-decoration-color: var(--accent-on-night);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
+.contact__address:hover {
+  color: var(--accent-on-night);
+}
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--night-rule);
+  border-radius: var(--radius-ui);
+  color: var(--on-night);
+  font-size: var(--text-small);
+  font-weight: 560;
+  transition: border-color var(--dur-hover) var(--ease), background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease);
+}
+.copy-btn:hover {
+  border-color: var(--on-night-3);
+}
+.copy-btn[data-state='copied'] {
+  background: var(--accent-on-night);
+  color: var(--night);
+  border-color: var(--accent-on-night);
+}
+.contact__links {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+.contact__size {
+  font-weight: 420;
+  opacity: 0.8;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-5);
+  margin-top: var(--s-10);
+  padding-block: var(--s-5) var(--s-6);
+  border-top: 1px solid var(--night-rule);
+  font-size: var(--text-small);
+  color: var(--on-night-3);
+}
+@media (max-width: 960px) {
+  .contact__copy,
+  .contact__card {
+    grid-column: 1 / -1;
+  }
+}
+
+
+@media (max-width: 960px) {
+  .about__head {
+    position: static;
+    grid-column: 1 / -1;
+    margin-bottom: var(--s-5);
+  }
+  .about__main {
+    grid-column: 1 / -1;
+  }
+  .pg--0,
+  .pg--1,
+  .pg--2 {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+}
+@media (max-width: 640px) {
+  .practice,
+  .about__details > div {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+  }
+}

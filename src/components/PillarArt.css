@@ -1,0 +1,370 @@
+/* ===== What I do: three axonometric scenes =====
+   Same plane and materials as the opening (NameBuilt): rotateX 56° / rotateZ -30°, no perspective,
+   glass boxes with hairline lavender edges, solid light-purple blocks, a drafting grid one step
+   lighter than the night. One font-size per scene, fitted to the art box with container units.
+   Motion is transforms and opacity on small leaf elements only. */
+
+.ik {
+  --ik-line: oklch(81% 0.1 var(--t-hue) / 0.18);
+  --ik-line-fine: oklch(81% 0.1 var(--t-hue) / 0.07);
+  --ik-edge: oklch(81% 0.1 var(--t-hue) / 0.8);
+  --ik-mark-line: oklch(81% 0.1 var(--t-hue) / 0.55);
+  --ik-glass-top: oklch(72% 0.14 var(--t-hue) / 0.14);
+  --ik-glass-s: oklch(72% 0.14 var(--t-hue) / 0.32);
+  --ik-glass-w: oklch(72% 0.14 var(--t-hue) / 0.2);
+  --ik-wall-1: oklch(80% 0.1 var(--t-hue));
+  --ik-wall-2: oklch(58% 0.16 var(--t-hue));
+  --ik-wall-3: oklch(43% 0.15 var(--t-hue));
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-size: calc(min(100cqw / var(--fit-w), 100cqh / var(--fit-h)) * 0.94);
+  user-select: none;
+  pointer-events: none;
+}
+.ik__scene {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(56deg) rotateZ(-30deg);
+}
+/* The grid runs past the art box on every side, so it reads as a surface, not a tile: the insets
+   are sized from the corners of the widest and tallest boxes mapped back onto the plane */
+.ik__floor {
+  position: absolute;
+  inset: -4.2em -3em;
+  transform: translateZ(-1px);
+  background-color: var(--night-2);
+  background-image:
+    repeating-linear-gradient(90deg, var(--ik-line) 0 1px, transparent 1px 1em),
+    repeating-linear-gradient(0deg, var(--ik-line) 0 1px, transparent 1px 1em),
+    repeating-linear-gradient(90deg, var(--ik-line-fine) 0 1px, transparent 1px 0.25em),
+    repeating-linear-gradient(0deg, var(--ik-line-fine) 0 1px, transparent 1px 0.25em);
+}
+
+/* A cuboid: two visible sides and a top face that can carry marks and further boxes */
+.ik-box {
+  position: absolute;
+  width: var(--w);
+  height: var(--d);
+  transform-style: preserve-3d;
+}
+.ik-f {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid var(--ik-edge);
+}
+.ik-f--top {
+  inset: 0;
+  transform: translateZ(var(--h));
+  transform-style: preserve-3d;
+  background: var(--ik-glass-top);
+}
+.ik-f--s {
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: var(--h);
+  transform-origin: top;
+  transform: rotateX(90deg);
+  background: var(--ik-glass-s);
+}
+.ik-f--w {
+  top: 0;
+  right: 100%;
+  width: var(--h);
+  height: 100%;
+  transform-origin: right;
+  transform: rotateY(90deg);
+  background: var(--ik-glass-w);
+}
+.ik-box--solid > .ik-f {
+  border-color: oklch(90% 0.05 var(--t-hue));
+}
+.ik-box--solid > .ik-f--top {
+  background: var(--accent-on-night);
+}
+.ik-box--solid > .ik-f--s {
+  background: oklch(62% 0.16 var(--t-hue));
+}
+.ik-box--solid > .ik-f--w {
+  background: oklch(48% 0.16 var(--t-hue));
+}
+/* Token blocks take their colour from the site's own accent tokens */
+.ik-box--token > .ik-f {
+  border-color: oklch(92% 0.04 var(--t-hue) / 0.7);
+}
+.ik-box--token > .ik-f--top {
+  background: var(--tok);
+}
+/* Sides shade down in lightness at the token's own hue, with a floor on chroma so the palest
+   step stays lavender instead of turning grey */
+.ik-box--token > .ik-f--s {
+  background: oklch(from var(--tok) calc(l - 0.12) max(c, 0.07) h);
+}
+.ik-box--token > .ik-f--w {
+  background: oklch(from var(--tok) calc(l - 0.22) max(c, 0.08) h);
+}
+/* A device's top face is its screen: dark glass with hairline interface marks */
+.ik-device > .ik-f--top {
+  background: var(--night);
+}
+
+/* Contact shade on the grid */
+.ik-shade {
+  position: absolute;
+  display: block;
+  background: oklch(0% 0 0 / 0.85);
+  filter: blur(0.05em);
+  transform: translate3d(0.07em, 0.22em, 0.5px);
+}
+/* The standing sign's cast: the mark itself laid on the grid from the base line, flipped so the top
+   of the letters lands farthest away and skewed with the light, then softened */
+.ik-sign-cast {
+  position: absolute;
+  transform-origin: top;
+  transform: translateZ(0.5px) skewX(14deg);
+  filter: blur(0.025em);
+}
+.ik-sign-cast svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleY(-1);
+  fill: oklch(0% 0 0 / 0.85);
+}
+
+/* Marks printed on a top face */
+.ik-flat {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid var(--ik-mark-line);
+  border-radius: 0.03em;
+}
+.ik-flat--faint {
+  border-color: oklch(81% 0.1 var(--t-hue) / 0.22);
+}
+.ik-flat--solid {
+  border-color: oklch(90% 0.05 var(--t-hue));
+  background: var(--accent-on-night);
+}
+
+/* ---------- Product design: one order across three screens ---------- */
+.ik-order {
+  transform: translate3d(1.63em, 0.77em, 0.08em);
+  animation: ik-order 7.2s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+.ik-lit {
+  opacity: 0;
+}
+.ik-lit--send {
+  animation: ik-lit-send 7.2s linear infinite;
+}
+.ik-lit--ready {
+  animation: ik-lit-ready 7.2s linear infinite;
+}
+.ik-col-0 {
+  animation: ik-col-0 7.2s linear infinite;
+}
+.ik-col-1 {
+  animation: ik-col-1 7.2s linear infinite;
+}
+.ik-col-2 {
+  animation: ik-col-2 7.2s linear infinite;
+}
+@keyframes ik-col-0 {
+  0%, 19% { opacity: 0; }
+  20.5%, 30.5% { opacity: 1; }
+  32%, 100% { opacity: 0; }
+}
+@keyframes ik-col-1 {
+  0%, 30.5% { opacity: 0; }
+  32%, 44.5% { opacity: 1; }
+  46%, 100% { opacity: 0; }
+}
+@keyframes ik-col-2 {
+  0%, 44.5% { opacity: 0; }
+  46%, 57.5% { opacity: 1; }
+  59%, 100% { opacity: 0; }
+}
+@keyframes ik-order {
+  0% { transform: translate3d(0.33em, 1.86em, 0.08em) scale3d(0.01, 0.01, 0.01); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  5% { transform: translate3d(0.33em, 1.86em, 0.08em) scale3d(1, 1, 1); }
+  9.7% { transform: translate3d(0.33em, 1.86em, 0.08em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1); }
+  14.6% { transform: translate3d(0.98em, 1.315em, 0.55em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.4); }
+  19.4% { transform: translate3d(1.63em, 0.77em, 0.08em) scale3d(1.14, 1.14, 0.7); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  21.4% { transform: translate3d(1.63em, 0.77em, 0.08em) scale3d(1, 1, 1); }
+  29.2% { transform: translate3d(1.63em, 0.77em, 0.08em) scale3d(1, 1, 1); }
+  33.3% { transform: translate3d(2.5em, 0.77em, 0.08em) scale3d(1, 1, 1); }
+  43.1% { transform: translate3d(2.5em, 0.77em, 0.08em) scale3d(1, 1, 1); }
+  47.2% { transform: translate3d(3.37em, 0.77em, 0.08em) scale3d(1, 1, 1); }
+  56.9% { transform: translate3d(3.37em, 0.77em, 0.08em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1); }
+  61.8% { transform: translate3d(4em, 0.75em, 0.5em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.4); }
+  66.7% { transform: translate3d(4.63em, 0.73em, 0.08em) scale3d(1.14, 1.14, 0.7); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  68.7% { transform: translate3d(4.63em, 0.73em, 0.08em) scale3d(1, 1, 1); }
+  80.6% { transform: translate3d(4.63em, 0.73em, 0.08em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  84.7% { transform: translate3d(4.63em, 0.73em, 0.08em) scale3d(0.01, 0.01, 0.01); }
+  100% { transform: translate3d(4.63em, 0.73em, 0.08em) scale3d(0.01, 0.01, 0.01); }
+}
+@keyframes ik-lit-send {
+  0% { opacity: 0; }
+  3% { opacity: 1; }
+  12% { opacity: 1; }
+  18% { opacity: 0; }
+  100% { opacity: 0; }
+}
+@keyframes ik-lit-ready {
+  0%, 66% { opacity: 0; }
+  69% { opacity: 1; }
+  86% { opacity: 1; }
+  92%, 100% { opacity: 0; }
+}
+
+/* ---------- Design systems: tokens drive the components ---------- */
+.ik-select > .ik-f {
+  border-color: var(--accent-on-night);
+}
+.ik-select > .ik-f--top {
+  background: transparent;
+}
+.ik-select > .ik-f--s,
+.ik-select > .ik-f--w {
+  background: oklch(72% 0.14 var(--t-hue) / 0.08);
+}
+.ik-select {
+  transform: translate3d(0.66em, 0, 0);
+  animation: ik-select 8.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.ik-theme {
+  position: absolute;
+  inset: 0;
+}
+.ik-theme > i {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.ik-theme > i:nth-child(1) {
+  animation: ik-theme-0 8.8s linear infinite;
+}
+.ik-theme > i:nth-child(2) {
+  opacity: 1;
+  animation: ik-theme-1 8.8s linear infinite;
+}
+.ik-theme > i:nth-child(3) {
+  animation: ik-theme-2 8.8s linear infinite;
+}
+.ik-theme > i:nth-child(4) {
+  animation: ik-theme-3 8.8s linear infinite;
+}
+.ik-themed > .ik-f--top {
+  background: transparent;
+}
+.ik-bar,
+.ik-tab {
+  position: absolute;
+  display: block;
+  border: 1px solid oklch(90% 0.05 var(--t-hue) / 0.6);
+}
+.ik-bar {
+  left: 0.1em;
+  top: 0.12em;
+  width: 0.8em;
+  height: 0.14em;
+}
+.ik-tab {
+  left: 1.5em;
+  top: 0.86em;
+  width: 0.32em;
+  height: 0.2em;
+}
+/* Phases of 2.2s: the selector moves to light, base, deep, wash; the components follow it */
+@keyframes ik-select {
+  0%, 20% { transform: translate3d(0.66em, 0, 0); }
+  25%, 45% { transform: translate3d(1.32em, 0, 0); }
+  50%, 70% { transform: translate3d(1.98em, 0, 0); }
+  75%, 95% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0.66em, 0, 0); }
+}
+@keyframes ik-theme-1 {
+  0%, 2% { opacity: 1; }
+  4%, 27% { opacity: 1; }
+  29.5%, 98% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes ik-theme-2 {
+  0%, 27% { opacity: 0; }
+  29.5%, 52% { opacity: 1; }
+  54.5%, 100% { opacity: 0; }
+}
+@keyframes ik-theme-3 {
+  0%, 52% { opacity: 0; }
+  54.5%, 77% { opacity: 1; }
+  79.5%, 100% { opacity: 0; }
+}
+@keyframes ik-theme-0 {
+  0%, 77% { opacity: 0; }
+  79.5%, 97.5% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ---------- Brand and launch: the mark and a post being published ---------- */
+/* The sign stands on its plinth: the wrapper rotates up about its bottom edge */
+.ik-sign {
+  position: absolute;
+  transform-origin: bottom;
+  transform: translateZ(0.06em) rotateX(-90deg);
+}
+.ik-mark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: var(--on-night);
+}
+.ik-mark__wall--1 {
+  fill: var(--ik-wall-1);
+}
+.ik-mark__wall--2 {
+  fill: var(--ik-wall-2);
+}
+.ik-mark__wall--3 {
+  fill: var(--ik-wall-3);
+}
+.ik-mark__face {
+  fill: var(--on-night);
+}
+.ik-feed-2 {
+  transform: translateZ(0.04em);
+}
+.ik-post {
+  transform: translate3d(2.64em, 1.94em, 0.08em);
+  animation: ik-post 6s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+@keyframes ik-post {
+  0% { transform: translate3d(2.68em, 0.56em, 0.07em) scale3d(0.01, 0.01, 0.01); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  7% { transform: translate3d(2.68em, 0.56em, 0.07em) scale3d(1, 1, 1); }
+  23% { transform: translate3d(2.68em, 0.56em, 0.07em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1); }
+  30% { transform: translate3d(2.66em, 1.25em, 0.6em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.4); }
+  37% { transform: translate3d(2.64em, 1.94em, 0.08em) scale3d(1.12, 1.12, 0.6); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  39.5% { transform: translate3d(2.64em, 1.94em, 0.08em) scale3d(1, 1, 1); }
+  80% { transform: translate3d(2.64em, 1.94em, 0.08em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  88% { transform: translate3d(2.64em, 1.94em, 0.08em) scale3d(0.01, 0.01, 0.01); }
+  100% { transform: translate3d(2.64em, 1.94em, 0.08em) scale3d(0.01, 0.01, 0.01); }
+}
+
+/* Off screen it pauses; for anyone who asked for less motion each scene holds a resting pose */
+/* !important because the theme layers' animation shorthands are more specific and reset it */
+[data-still] .ik * {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ik * {
+    animation: none !important;
+  }
+  .ik-col-0 {
+    opacity: 1;
+  }
+}

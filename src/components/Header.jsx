@@ -1,0 +1,120 @@
+import { useLayoutEffect, useEffect, useRef, useState } from 'react';
+import { m } from 'motion/react';
+import { person } from '../content/site.js';
+import { useActiveSection, useScrolled, useSofiaTime } from '../lib/hooks.js';
+import { Icon } from './Icon.jsx';
+import './Header.css';
+
+const useIsoLayout = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
+const NAV = [
+  { id: 'work', label: 'Work' },
+  { id: 'about', label: 'About' },
+  { id: 'contact', label: 'Contact' },
+];
+
+// Which ground (night pass or paper) sits under the header right now.
+function useGroundUnderHeader(initial) {
+  const [ground, setGround] = useState(initial);
+  useEffect(() => {
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      // the section just below the header edge is the one the header sits on
+      const y = (document.querySelector('.site-header')?.offsetHeight || 60) + 1;
+      const sections = document.querySelectorAll('[data-ground]');
+      for (const s of sections) {
+        if (s.closest('.site-header')) continue;
+        const r = s.getBoundingClientRect();
+        if (r.top <= y && r.bottom > y) {
+          setGround(s.getAttribute('data-ground'));
+          return;
+        }
+      }
+    };
+    const on = () => {
+      if (!raf) raf = requestAnimationFrame(check);
+    };
+    check();
+    window.addEventListener('scroll', on, { passive: true });
+    window.addEventListener('resize', on);
+    return () => {
+      window.removeEventListener('scroll', on);
+      window.removeEventListener('resize', on);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+  return ground;
+}
+
+export function Header({ page = 'home' }) {
+  const scrolled = useScrolled();
+  const ground = useGroundUnderHeader('night');
+  const time = useSofiaTime();
+  const sectionActive = useActiveSection(page === 'home' ? NAV.map((n) => n.id) : ['contact']);
+  const active = page === 'home' ? sectionActive : sectionActive === 'contact' ? 'contact' : 'work';
+  const listRef = useRef(null);
+  const [bar, setBar] = useState(null);
+
+  // Measure the active link so the pencil bar can slide between links.
+  useIsoLayout(() => {
+    const measure = () => {
+      const list = listRef.current;
+      const el = list?.querySelector(`[data-nav="${active}"]`);
+      if (!list || !el) return setBar(null);
+      const a = list.getBoundingClientRect();
+      const b = el.getBoundingClientRect();
+      setBar({ x: b.left - a.left, w: b.width });
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    document.fonts?.ready.then(measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [active]);
+
+  const href = (id) => (page === 'home' ? `#${id}` : `/#${id}`);
+
+  return (
+    <header className="site-header" data-scrolled={scrolled || undefined} data-under={ground}>
+      <a className="skip-link" href="#main">Skip to content</a>
+      <div className="page site-header__row">
+        <a className="wordmark" href="/" aria-label="Iliya Dinev, home">
+          <span className="wordmark__name">Iliya Dinev</span>
+        </a>
+        <p className="nav-clock">
+          Sofia <time className="t-mono">{time}</time>
+        </p>
+        <nav aria-label="Main">
+          <ul className="nav" ref={listRef}>
+            {NAV.map((n) => (
+              <li key={n.id}>
+                <a
+                  className="nav__link"
+                  data-nav={n.id}
+                  href={href(n.id)}
+                  aria-current={active === n.id ? (page === 'home' ? 'location' : 'page') : undefined}
+                >
+                  {n.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a className="nav__link nav__cv" href={person.cv.href} download aria-label={`Download CV (${person.cv.size})`}>
+                CV <Icon name="download" size={14} />
+              </a>
+            </li>
+            {bar ? (
+              <m.li
+                aria-hidden="true"
+                className="nav__bar"
+                initial={false}
+                animate={{ x: bar.x, width: bar.w, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 220, damping: 30, mass: 0.8 }}
+              />
+            ) : null}
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
+}

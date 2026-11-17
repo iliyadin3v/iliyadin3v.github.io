@@ -1,0 +1,425 @@
+@import '@fontsource-variable/mona-sans/wdth.css';
+@import '@fontsource-variable/martian-mono/wdth.css';
+@import './tokens.css';
+
+/* Cross-document view transitions between the work preview and the case study. */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+::view-transition-group(plater-shot),
+::view-transition-group(vault-shot),
+::view-transition-group(aura-shot) {
+  animation-duration: 380ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  scrollbar-color: var(--night-rule) var(--night);
+  accent-color: var(--accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--night);
+  color: var(--on-night);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  font-weight: 420;
+  font-stretch: var(--width-text);
+  font-kerning: normal;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  caret-color: var(--accent);
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+dl,
+dd,
+ol,
+ul,
+blockquote {
+  margin: 0;
+}
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+  font-weight: 620;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+p {
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: var(--rule-strong);
+  transition: text-decoration-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease);
+}
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -100px;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 14px;
+  text-decoration: none;
+  font-size: var(--text-small);
+}
+.skip-link:focus {
+  top: 10px;
+}
+
+/* Layout primitives */
+.page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+
+/* Text roles */
+.t-display {
+  font-size: var(--text-display);
+  font-stretch: var(--width-text);
+  font-weight: 620;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+.t-h2 {
+  font-size: var(--text-h2);
+  font-stretch: var(--width-text);
+  font-weight: 620;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+.t-h3 {
+  font-size: var(--text-h3);
+  font-stretch: var(--width-text);
+  font-weight: 620;
+  line-height: 1.12;
+  letter-spacing: -0.018em;
+}
+.t-lede {
+  font-size: var(--text-lede);
+  line-height: 1.42;
+  font-weight: 430;
+  letter-spacing: -0.006em;
+  color: var(--ink-2);
+}
+.t-small {
+  font-size: var(--text-small);
+  line-height: 1.5;
+}
+.t-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  font-stretch: 87.5%;
+  font-weight: 420;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+.t-muted {
+  color: var(--ink-3);
+}
+/* Field labels (Role, Status, Year…): small sans, not mono. Mono is for indices and measurements. */
+.label {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-stretch: 100%;
+  font-weight: 540;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--ink-3);
+}
+.measure {
+  max-width: 66ch;
+}
+
+/* Square buttons: ink fill (primary) and hairline (secondary). No pills. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 20px;
+  font-size: var(--text-small);
+  font-weight: 560;
+  font-stretch: 104%;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-ui);
+  transition: background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease),
+    border-color var(--dur-hover) var(--ease), transform var(--dur-press) var(--ease);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn--ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn--ink:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.btn--line {
+  background: transparent;
+  color: var(--ink);
+}
+.btn--line:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn svg {
+  flex: none;
+  transition: transform var(--dur-hover) var(--ease);
+}
+.btn:hover svg.arrow-down {
+  transform: translateY(2px);
+}
+.btn:hover svg.arrow-right {
+  transform: translateX(3px);
+}
+
+/* Text link with an arrow, used for "Read the case study" and external links. */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-weight: 560;
+  font-stretch: 104%;
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 0.3em;
+}
+.link-arrow:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+.link-arrow svg {
+  transition: transform var(--dur-hover) var(--ease);
+}
+.link-arrow:hover svg {
+  transform: translate(2px, -2px);
+}
+.link-arrow:hover svg.arrow-right {
+  transform: translateX(3px);
+}
+
+/* Project status: a small square mark, filled accent when the product is live. */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.status__mark {
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--ink-2);
+  flex: none;
+}
+.status[data-live] .status__mark {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Placeholder content Iliya still has to supply: deliberately obvious. */
+.placeholder {
+  border: 1px dashed var(--accent-line);
+  background: repeating-linear-gradient(-45deg, transparent 0 10px, oklch(54% 0.2 var(--t-hue) / 0.04) 10px 11px);
+  color: var(--accent-deep);
+}
+.placeholder-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ===== Theme Room: grounds, panels, name ===== */
+
+[data-ground='night'] {
+  background: var(--night);
+  color: var(--on-night);
+}
+[data-ground='night'] ::selection {
+  background: var(--accent-on-night);
+  color: var(--night);
+}
+[data-ground='night'] :focus-visible {
+  outline-color: var(--accent-on-night);
+}
+[data-ground='night'] {
+  caret-color: var(--accent-on-night);
+}
+/* On night the primary button is the light purple itself, with graphite text */
+[data-ground='night'] .btn--accent {
+  background: var(--accent-on-night);
+  border-color: var(--accent-on-night);
+  color: var(--night);
+}
+[data-ground='night'] .btn--accent:hover {
+  background: var(--accent-on-night-hover);
+  border-color: var(--accent-on-night-hover);
+}
+[data-ground='paper'] {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* A raised panel on the night ground; corners follow the radius token. */
+.panel {
+  background: var(--night-2);
+  border: 1px solid var(--night-rule);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--panel-shadow);
+  transition: border-radius var(--dur-hover) var(--ease), border-color var(--dur-hover) var(--ease);
+}
+
+/* The two-tone name: warm white, then the accent. Light, wide, very large. */
+
+.btn--accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.btn--accent:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.btn--night-line {
+  background: transparent;
+  color: var(--on-night);
+  border-color: oklch(95% 0.006 85 / 0.35);
+}
+.btn--night-line:hover {
+  border-color: var(--on-night);
+  background: var(--on-night);
+  color: var(--night);
+}
+[data-ground='night'] .link-arrow:hover,
+[data-ground='night'] a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* ===== Picture frames =====
+   Every picture gets the same corners and a 1px hairline drawn just outside its edge, plus the
+   ground's shadow. The hairline depends on the ground and on the picture's own edge (measured at
+   build time into images.json, set on the img as data-edge): where the picture's edge would melt
+   into the ground (a white slide on paper, a dark mockup on night) the hairline is stronger. */
+:root {
+  --frame-r: calc(var(--radius-panel) * 0.8);
+}
+[data-ground='night'] {
+  --frame-line: oklch(95% 0.006 85 / 0.1);
+  --frame-shadow: var(--panel-shadow);
+}
+[data-ground='paper'] {
+  --frame-line: oklch(19% 0.01 270 / 0.1);
+  --frame-shadow: var(--sheet-shadow);
+}
+[data-ground='paper'] :is(.cs-shot, .cs-phone, .lens__screen):has(> img[data-edge='light']),
+[data-ground='paper'] .compare__img img[data-edge='light'] {
+  --frame-line: oklch(19% 0.01 270 / 0.2);
+}
+[data-ground='night'] :is(.cs-hero__shot, .wk-frame, .cs-shot):has(> img[data-edge='dark']) {
+  --frame-line: oklch(95% 0.006 85 / 0.24);
+}
+/* The 3D art panels are pictures too: same corners and hairline on the night ground */
+.pillar__art,
+.scene-step__art {
+  border-radius: var(--frame-r);
+  box-shadow: 0 0 0 1px var(--frame-line), var(--frame-shadow);
+}

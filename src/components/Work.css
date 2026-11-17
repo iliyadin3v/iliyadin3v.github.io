@@ -1,0 +1,301 @@
+/* ===== Selected work on the night ground ===== */
+.work {
+  padding-block: var(--section);
+  border-top: 1px solid var(--night-rule);
+}
+.work__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-3) var(--s-5);
+  margin-bottom: var(--s-7);
+}
+.work__sub {
+  color: var(--on-night-2);
+}
+
+.wk-name {
+  font-size: var(--text-h1);
+  font-stretch: var(--width-text);
+  font-weight: 620;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+.wk-name a {
+  text-decoration: none;
+}
+.wk-name a:hover {
+  color: var(--accent-on-night);
+}
+.wk-name--small {
+  font-size: var(--text-h2);
+  margin-top: var(--s-5);
+}
+.wk-summary {
+  font-size: var(--text-lede);
+  line-height: 1.42;
+  color: var(--on-night-2);
+  max-width: 42ch;
+}
+.wk-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: var(--s-2) var(--s-5);
+  font-size: var(--text-small);
+  line-height: 1.4;
+}
+.wk-meta > div {
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--night-rule);
+}
+.wk-meta dt {
+  color: var(--on-night-3);
+  margin-bottom: 4px;
+}
+.wk-meta dd {
+  margin: 0;
+  font-weight: 520;
+}
+.wk-meta .status__mark {
+  border-color: var(--on-night-2);
+}
+.wk-meta .status[data-live] .status__mark {
+  background: var(--accent-on-night);
+  border-color: var(--accent-on-night);
+}
+.wk-challenge,
+.wk-decision {
+  max-width: 60ch;
+  color: var(--on-night-2);
+}
+.wk-challenge strong,
+.wk-decision strong {
+  color: var(--on-night);
+  font-weight: 620;
+}
+.wk-decision strong {
+  color: var(--accent-on-night);
+}
+.wk-link {
+  justify-self: start;
+  color: var(--on-night);
+  text-decoration-color: var(--night-rule);
+}
+.wk-link:hover {
+  color: var(--accent-on-night);
+}
+
+.wk-frame {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--frame-r);
+  background: var(--night-2);
+  box-shadow: 0 0 0 1px var(--frame-line), var(--frame-shadow);
+  transition: border-radius var(--dur-hover) var(--ease);
+}
+.wk-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms var(--ease-out);
+}
+a.wk-frame:hover img {
+  transform: scale(1.015);
+}
+.wk-shot figcaption,
+.wk-card__drawing .label {
+  display: block;
+  margin-top: var(--s-2);
+  color: var(--on-night-3);
+}
+
+/* Plater feature */
+.wk-feature__head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: end;
+  margin-bottom: var(--s-6);
+}
+.wk-feature__head .wk-name {
+  grid-column: 1 / span 6;
+}
+.wk-feature__head .wk-summary {
+  grid-column: 7 / -1;
+}
+.wk-feature__media {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: var(--col-gap);
+  align-items: end;
+}
+.wk-feature__info {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  row-gap: var(--s-4);
+  margin-top: var(--s-6);
+}
+.wk-feature__info .wk-meta {
+  grid-column: 1 / span 6;
+  grid-row: 1 / span 3;
+  align-self: start;
+}
+.wk-feature__info .wk-challenge,
+.wk-feature__info .wk-decision,
+.wk-feature__info .wk-link {
+  grid-column: 8 / -1;
+}
+
+/* Vault and Aura: two panels, offset so they do not read as a matched pair */
+.work__pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--col-gap);
+  align-items: start;
+  margin-top: clamp(80px, 9vw, 144px);
+}
+.wk-card {
+  display: grid;
+  gap: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--on-night-3);
+}
+.wk-card__media {
+  position: relative;
+}
+.wk-card__drawing {
+  width: 42%;
+  margin: calc(var(--s-7) * -1) var(--s-4) 0 auto;
+  position: relative;
+}
+/* The drawing overlaps the screen above it, so its hairline is always the stronger one */
+.wk-card__drawing .wk-frame {
+  --frame-line: oklch(95% 0.006 85 / 0.22);
+}
+.wk-card .wk-meta {
+  margin-top: var(--s-2);
+}
+
+/* More work */
+.more {
+  margin-top: clamp(96px, 11vw, 176px);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+.more__title {
+  grid-column: 1 / span 3;
+}
+.more__list {
+  grid-column: 4 / -1;
+}
+.more__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.5fr) 64px 150px;
+  align-items: center;
+  gap: var(--s-4);
+  min-height: 60px;
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--night-rule);
+  text-decoration: none;
+  transition: color var(--dur-hover) var(--ease), padding var(--dur-hover) var(--ease);
+}
+a.more__row:hover {
+  color: var(--accent-on-night);
+  padding-left: var(--s-2);
+}
+.more__name {
+  font-weight: 600;
+}
+.more__type {
+  color: var(--on-night-2);
+  font-size: var(--text-small);
+}
+a.more__row:hover .more__type {
+  color: inherit;
+}
+.more__year {
+  color: var(--on-night-3);
+}
+.more__go {
+  justify-self: end;
+  display: inline-flex;
+  color: var(--on-night-3);
+}
+
+@media (max-width: 1100px) {
+  .wk-feature__head .wk-name,
+  .wk-feature__head .wk-summary {
+    grid-column: 1 / -1;
+  }
+  .wk-feature__head .wk-summary {
+    margin-top: var(--s-4);
+  }
+  .wk-feature__info .wk-meta,
+  .wk-feature__info .wk-challenge,
+  .wk-feature__info .wk-decision,
+  .wk-feature__info .wk-link {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+}
+@media (max-width: 960px) {
+  .wk-feature__media {
+    grid-template-columns: 1fr;
+  }
+  .work__pair {
+    grid-template-columns: 1fr;
+  }
+  .more__title,
+  .more__list {
+    grid-column: 1 / -1;
+  }
+  .more__title {
+    margin-bottom: var(--s-5);
+  }
+}
+@media (max-width: 640px) {
+  .wk-meta {
+    grid-template-columns: 1fr 1fr;
+  }
+  .wk-meta > div:first-child {
+    grid-column: 1 / -1;
+  }
+  .more__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'name go' 'type year';
+    row-gap: 2px;
+  }
+  .more__name {
+    grid-area: name;
+  }
+  .more__type {
+    grid-area: type;
+  }
+  .more__year {
+    grid-area: year;
+    justify-self: end;
+  }
+  .more__go {
+    grid-area: go;
+  }
+  .wk-card__drawing {
+    width: 56%;
+  }
+}
+.more__row--head {
+  min-height: 40px;
+  color: var(--on-night-3);
+  border-bottom-color: var(--on-night-3);
+}
+.more__todo {
+  color: var(--accent-on-night);
+  font-weight: 560;
+}
+@media (max-width: 640px) {
+  .more__row--head {
+    display: none;
+  }
+}

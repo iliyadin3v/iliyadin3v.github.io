@@ -1,0 +1,208 @@
+/* ===== One order: the pinned scroll scene ===== */
+.scene {
+  position: relative;
+  overflow-x: clip;
+}
+.scene__track {
+  position: relative;
+}
+.scene[data-pinned] .scene__track {
+  height: calc(var(--steps) * 100svh);
+}
+.scene__anchor {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  scroll-margin-top: 0;
+}
+.scene__sticky {
+  padding-block: var(--section);
+}
+.scene[data-pinned] .scene__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  padding-block: calc(var(--header-h) + var(--s-5)) var(--s-6);
+  display: flex;
+  overflow: hidden;
+}
+.scene__frame {
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  row-gap: var(--s-5);
+  width: 100%;
+}
+.scene__head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: end;
+}
+.scene__h {
+  grid-column: 1 / span 6;
+  font-size: var(--text-h2);
+  font-stretch: var(--width-text);
+  font-weight: 620;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+.scene__intro {
+  grid-column: 7 / -1;
+  max-width: 52ch;
+  color: var(--on-night-2);
+}
+
+.scene__stage {
+  position: relative;
+  min-height: 0;
+}
+.scene__list {
+  display: grid;
+  gap: var(--s-9);
+  margin-top: var(--s-6);
+}
+.scene-step--pinned {
+  height: 100%;
+}
+.scene-step__inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: center;
+  height: 100%;
+}
+.scene-step__text {
+  grid-column: 1 / span 5;
+}
+.scene-step__meta {
+  display: flex;
+  gap: var(--s-5);
+  margin-top: var(--s-4);
+  color: var(--on-night-3);
+}
+.scene-step__meta .t-mono:first-child {
+  color: var(--accent-on-night);
+}
+.scene-step__station {
+  font-size: clamp(3.5rem, 1.5rem + 6vw, 8rem);
+  font-stretch: var(--width-text);
+  font-weight: 620;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+.scene-step__body {
+  margin-top: var(--s-5);
+  max-width: 40ch;
+  font-size: var(--text-lede);
+  line-height: 1.42;
+  color: var(--on-night-2);
+}
+/* Each station's scene sits in a panel sized for it; the scene fits itself with container units */
+.scene-step__art {
+  grid-column: 7 / -1;
+  position: relative;
+  width: 100%;
+  height: min(52svh, 560px);
+  overflow: hidden;
+  border-radius: calc(var(--radius-panel) * 0.8);
+  background: var(--night);
+  container-type: size;
+}
+.scene__list .scene-step__art {
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+
+/* The line the order travels along */
+.scene__line {
+  position: relative;
+  height: 40px;
+  margin-inline: 8px;
+}
+.scene__line-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 7px;
+  height: 2px;
+  background: var(--night-rule);
+}
+.scene__stop {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: var(--radius-small);
+  background: var(--night);
+  border: 2px solid var(--on-night-3);
+  transition: background-color var(--dur-move) var(--ease), border-color var(--dur-move) var(--ease);
+}
+.scene__stop[data-on] {
+  background: var(--accent-on-night);
+  border-color: var(--accent-on-night);
+}
+.scene__stop-label {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: var(--text-small);
+  font-weight: 560;
+  color: var(--on-night-2);
+  white-space: nowrap;
+}
+.scene__stop[data-pos='first'] .scene__stop-label {
+  left: 0;
+  transform: none;
+}
+.scene__stop[data-pos='last'] .scene__stop-label {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+/* progress: the line fills as the order travels */
+.scene__fill {
+  position: absolute;
+  left: 0;
+  top: 7px;
+  height: 2px;
+  background: var(--accent-on-night);
+}
+.scene__outro {
+  max-width: 60ch;
+  color: var(--on-night-3);
+  font-size: var(--text-small);
+}
+
+@media (max-width: 900px) {
+  .scene__h,
+  .scene__intro {
+    grid-column: 1 / -1;
+  }
+  .scene__intro {
+    margin-top: var(--s-4);
+  }
+  .scene-step__text,
+  .scene-step__art {
+    grid-column: 1 / -1;
+  }
+  .scene-step__art {
+    margin-top: var(--s-6);
+  }
+  .scene__line {
+    display: none;
+  }
+}
+
+/* Inside the Plater feature the scene already sits in the page container. */
+.wk-feature .scene {
+  margin-top: var(--s-8);
+}
+.wk-feature .scene .page {
+  padding-inline: 0;
+  max-width: none;
+}
+

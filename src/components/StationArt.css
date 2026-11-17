@@ -1,0 +1,549 @@
+/* ===== One order, four people: one scene per station =====
+   Built on the "What I do" kit (PillarArt.css: .ik, boxes, flats, shades, the grid). Here: the
+   station-specific parts and the motion of the order through each one. Motion is transforms and
+   opacity on small leaf elements; pausing off screen and the reduced-motion freeze come from the
+   kit's own rules ([data-still] .ik *, prefers-reduced-motion .ik *). */
+
+.ik--station {
+  /* One colour per order state on the kitchen board, as in Plater: the state reads from a metre away */
+  --os-new: oklch(80% 0.14 72);
+  --os-cooking: oklch(72% 0.13 258);
+  --os-ready: oklch(76% 0.15 152);
+  /* Banded walls, as the letters of the name: a light rim under the face, the violet wall, a dark foot */
+  --os-band-s: linear-gradient(to bottom, var(--ik-wall-3) 0 20%, var(--ik-wall-2) 20% 78%, var(--ik-wall-1) 78% 100%);
+  --os-band-w: linear-gradient(to left, var(--ik-wall-3) 0 20%, var(--ik-wall-2) 20% 78%, var(--ik-wall-1) 78% 100%);
+}
+
+.os-round {
+  border-radius: 50%;
+}
+.os-food {
+  border: 0;
+  background: oklch(72% 0.12 var(--t-hue) / 0.45);
+}
+
+/* Objects with mass: their side walls are solid and banded, so they stand on the grid instead of
+   reading as wireframes */
+.os-mass > .ik-f--s,
+.os-order > .ik-f--s {
+  background: var(--os-band-s);
+  border-color: oklch(90% 0.05 var(--t-hue) / 0.7);
+}
+.os-mass > .ik-f--w,
+.os-order > .ik-f--w {
+  background: var(--os-band-w);
+  border-color: oklch(90% 0.05 var(--t-hue) / 0.7);
+}
+/* Counters: heavier glass, one step more opaque than the kit's default */
+.os-counter > .ik-f--top {
+  background: oklch(72% 0.14 var(--t-hue) / 0.2);
+}
+.os-counter > .ik-f--s {
+  background: oklch(58% 0.16 var(--t-hue) / 0.55);
+}
+.os-counter > .ik-f--w {
+  background: oklch(48% 0.16 var(--t-hue) / 0.5);
+}
+
+/* A highlight frame around a row: the thing the person on this station is looking at */
+.os-pick {
+  border: 1.5px solid var(--accent-on-night);
+  background: oklch(81% 0.1 var(--t-hue) / 0.16);
+  opacity: 0;
+}
+.os-lit {
+  opacity: 0;
+}
+
+/* Upright screens hinge up from a back edge and lean back a little */
+.os-screen {
+  position: absolute;
+  transform-origin: bottom;
+}
+.os-screen--laptop {
+  transform: translateZ(0.1em) rotateX(-76deg);
+}
+.os-screen--board {
+  transform: translateZ(0.3em) rotateX(-84deg);
+}
+.os-screen--phone {
+  transform: translateZ(0.5em) rotateX(-78deg);
+}
+/* The grid reaches past every corner of the panel, even in the scenes shifted down below */
+.ik--station .ik__floor {
+  inset: -6em -5em;
+}
+/* Scenes with tall upright parts sit lower in their panel so the uprights have room above */
+.os-kitchen .ik__scene {
+  margin-top: 1.25em;
+}
+.os-waiter .ik__scene {
+  margin-top: 1.5em;
+}
+
+/* ---------- Table ---------- */
+/* The face is drawn flipped vertically from the viewer's side, so the three finder squares are placed
+   at the corners that end up top-left, top-right and bottom-left. Two offset checker layers break the
+   grid into something code-like. */
+.os-qr > .ik-f--s {
+  background-color: oklch(19% 0.012 270);
+  background-image:
+    linear-gradient(var(--accent-on-night), var(--accent-on-night)),
+    linear-gradient(var(--accent-on-night), var(--accent-on-night)),
+    linear-gradient(var(--accent-on-night), var(--accent-on-night)),
+    repeating-conic-gradient(oklch(81% 0.1 var(--t-hue) / 0.75) 0 25%, transparent 0 50%),
+    repeating-conic-gradient(transparent 0 25%, oklch(81% 0.1 var(--t-hue) / 0.45) 0 50%);
+  background-size: 0.13em 0.13em, 0.13em 0.13em, 0.13em 0.13em, 0.07em 0.07em, 0.11em 0.11em;
+  background-position: 0.07em calc(100% - 0.07em), calc(100% - 0.07em) calc(100% - 0.07em), 0.07em 0.07em, center, 0.03em 0.05em;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
+  background-clip: content-box;
+  padding: 0.04em;
+}
+.os-table .os-pick {
+  animation: os-table-pick 6s linear infinite;
+}
+.os-lit--send {
+  animation: os-table-send 6s linear infinite;
+}
+/* The send bar's centre on the phone: x 1.925, y 2.17; the phone's face is at z 0.24 */
+.os-order--table {
+  transform: translate3d(1.65em, 1.97em, 0.24em) scale3d(1, 1, 1);
+  animation: os-table-order 6s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+@keyframes os-table-pick {
+  0%, 8% { opacity: 0; }
+  12%, 60% { opacity: 1; }
+  66%, 100% { opacity: 0; }
+}
+@keyframes os-table-send {
+  0%, 30% { opacity: 0; }
+  33%, 52% { opacity: 1; }
+  58%, 100% { opacity: 0; }
+}
+@keyframes os-table-order {
+  0%, 42% { transform: translate3d(1.65em, 1.97em, 0.24em) scale3d(0.01, 0.01, 0.01); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  48% { transform: translate3d(1.65em, 1.97em, 0.24em) scale3d(1.08, 1.08, 0.7); }
+  51%, 58% { transform: translate3d(1.65em, 1.97em, 0.24em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1); }
+  70% { transform: translate3d(3em, 1.55em, 0.95em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  82%, 100% { transform: translate3d(4.2em, 1.1em, 1.25em) scale3d(0.01, 0.01, 0.01); }
+}
+
+/* ---------- Kitchen ---------- */
+.os-board {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 0.22em 1fr;
+  gap: 0.08em;
+  padding: 0.1em;
+  border: 1px solid var(--ik-edge);
+  border-radius: 0.06em;
+  background: var(--night);
+  box-shadow: 0 0 0 0.035em oklch(48% 0.16 var(--t-hue));
+}
+.os-board__top {
+  position: relative;
+}
+.os-board__title {
+  position: absolute;
+  left: 0;
+  top: 0.04em;
+  width: 0.6em;
+  height: 0.09em;
+  background: oklch(81% 0.1 var(--t-hue) / 0.55);
+}
+.os-board__live {
+  position: absolute;
+  right: 0.02em;
+  top: 0.03em;
+  width: 0.11em;
+  height: 0.11em;
+  border-radius: 50%;
+  background: var(--os-ready);
+  animation: os-live 1.8s ease-in-out infinite alternate;
+}
+.os-board__cols {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.08em;
+}
+.os-col {
+  position: relative;
+  display: grid;
+  grid-template-rows: 0.16em 1fr;
+  gap: 0.07em;
+}
+.os-col__label {
+  display: grid;
+  grid-template-columns: 1fr 0.16em;
+  gap: 0.04em;
+  align-items: center;
+}
+.os-col__label i {
+  height: 0.07em;
+  width: 70%;
+}
+.os-col__label b {
+  height: 0.16em;
+  border-radius: 50%;
+  font-size: 0;
+}
+.os-col--new .os-col__label i,
+.os-col--new .os-col__label b {
+  background: var(--os-new);
+}
+.os-col--cooking .os-col__label i,
+.os-col--cooking .os-col__label b {
+  background: var(--os-cooking);
+}
+.os-col--ready .os-col__label i,
+.os-col--ready .os-col__label b {
+  background: var(--os-ready);
+}
+.os-col__frame {
+  border: 1px solid oklch(81% 0.1 var(--t-hue) / 0.14);
+  border-radius: 0.04em;
+}
+/* A ticket: a stripe in its column's colour, two lines, and one action in the same colour */
+.os-ticket {
+  position: absolute;
+  left: 0.05em;
+  right: 0.05em;
+  bottom: 0.06em;
+  height: 0.6em;
+  overflow: hidden;
+  border: 1px solid oklch(81% 0.1 var(--t-hue) / 0.3);
+  border-radius: 0.04em;
+  background: var(--night-2);
+}
+.os-ticket__stripe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 0.05em;
+}
+.os-ticket__line {
+  position: absolute;
+  left: 0.07em;
+  top: 0.13em;
+  width: 70%;
+  height: 0.06em;
+  background: oklch(95% 0.006 85 / 0.55);
+}
+.os-ticket__line--short {
+  top: 0.25em;
+  width: 45%;
+  background: oklch(95% 0.006 85 / 0.3);
+}
+.os-ticket__action {
+  position: absolute;
+  left: 0.07em;
+  right: 0.07em;
+  bottom: 0.07em;
+  height: 0.13em;
+  border-radius: 0.03em;
+}
+.os-col--new .os-ticket__stripe,
+.os-col--new .os-ticket__action {
+  background: var(--os-new);
+}
+.os-col--cooking .os-ticket__stripe,
+.os-col--cooking .os-ticket__action {
+  background: var(--os-cooking);
+}
+.os-col--ready .os-ticket__stripe,
+.os-col--ready .os-ticket__action {
+  background: var(--os-ready);
+}
+/* The order's own ticket: lavender-framed, travelling New → Cooking → Ready along the top row.
+   Each step is one column plus the gap between columns. */
+.os-ticket--order {
+  left: 0.05em;
+  right: auto;
+  top: 0.23em;
+  bottom: auto;
+  width: calc((100% - 0.16em) / 3 - 0.1em);
+  border: 1.5px solid var(--accent-on-night);
+  background: oklch(30% 0.06 var(--t-hue));
+  transform: translateX(calc(100% + 0.18em));
+  animation: os-kitchen-ticket 7s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+.os-tint {
+  opacity: 0;
+}
+.os-tint--new {
+  background: var(--os-new);
+  animation: os-tint-new 7s linear infinite;
+}
+.os-tint--cooking {
+  background: var(--os-cooking);
+  animation: os-tint-cooking 7s linear infinite;
+}
+.os-tint--ready {
+  background: var(--os-ready);
+  animation: os-tint-ready 7s linear infinite;
+}
+/* The order block waits on the counter in front of the board until it is served */
+.os-order--kitchen {
+  transform: translate3d(0.55em, 1.55em, 0.3em) scale3d(1, 1, 1);
+  animation: os-kitchen-order 7s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+@keyframes os-kitchen-ticket {
+  0% { transform: translateX(0); opacity: 0; }
+  7%, 31% { transform: translateX(0); opacity: 1; }
+  37%, 59% { transform: translateX(calc(100% + 0.18em)); opacity: 1; }
+  65%, 87% { transform: translateX(calc(200% + 0.36em)); opacity: 1; }
+  93%, 100% { transform: translateX(calc(200% + 0.36em)); opacity: 0; }
+}
+@keyframes os-tint-new {
+  0%, 33% { opacity: 1; }
+  35%, 100% { opacity: 0; }
+}
+@keyframes os-tint-cooking {
+  0%, 33% { opacity: 0; }
+  35%, 61% { opacity: 1; }
+  63%, 100% { opacity: 0; }
+}
+@keyframes os-tint-ready {
+  0%, 61% { opacity: 0; }
+  63%, 100% { opacity: 1; }
+}
+@keyframes os-kitchen-order {
+  0% { transform: translate3d(0.55em, 1.55em, 1.3em) scale3d(0.01, 0.01, 0.01); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  3% { transform: translate3d(0.55em, 1.55em, 1.3em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  8% { transform: translate3d(0.55em, 1.55em, 0.3em) scale3d(1.08, 1.08, 0.7); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  11%, 86% { transform: translate3d(0.55em, 1.55em, 0.3em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1); }
+  93% { transform: translate3d(2.6em, 1.7em, 1em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  98%, 100% { transform: translate3d(3.8em, 1.8em, 1.3em) scale3d(0.01, 0.01, 0.01); }
+}
+@keyframes os-live {
+  from { opacity: 0.45; }
+  to { opacity: 1; }
+}
+
+/* ---------- Waiter ---------- */
+.os-post > .ik-f {
+  border-color: oklch(81% 0.1 var(--t-hue) / 0.45);
+  background: oklch(48% 0.16 var(--t-hue) / 0.6);
+}
+.os-lamp > .ik-f {
+  border-color: oklch(81% 0.1 var(--t-hue) / 0.5);
+}
+.os-lamp > .ik-f--top {
+  background: oklch(81% 0.1 var(--t-hue) / 0.35);
+}
+/* The plated order on the pass: plate centre x 2.2, y 0.77; the pass top is at z 0.42 */
+.os-order--waiter {
+  transform: translate3d(1.925em, 0.57em, 0.43em) scale3d(1, 1, 1);
+  animation: os-waiter-order 6.5s cubic-bezier(0.45, 0, 0.25, 1) infinite;
+}
+@keyframes os-waiter-order {
+  0% { transform: translate3d(1.925em, 0.57em, 1.25em) scale3d(0.01, 0.01, 0.01); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  4% { transform: translate3d(1.925em, 0.57em, 1.25em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  10% { transform: translate3d(1.925em, 0.57em, 0.43em) scale3d(1.08, 1.08, 0.7); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  13%, 86% { transform: translate3d(1.925em, 0.57em, 0.43em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1); }
+  94%, 100% { transform: translate3d(2.6em, 1.5em, 0.6em) scale3d(0.01, 0.01, 0.01); }
+}
+.os-phone {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid var(--ik-edge);
+  border-radius: 0.12em;
+  background: var(--night);
+  box-shadow: 0 0 0 0.035em oklch(48% 0.16 var(--t-hue));
+}
+.os-phone > span {
+  position: absolute;
+  left: 0.08em;
+  right: 0.08em;
+  display: block;
+  border-radius: 0.03em;
+}
+.os-phone > .os-phone__bar {
+  top: 0.14em;
+  right: 40%;
+  height: 0.06em;
+  background: oklch(81% 0.1 var(--t-hue) / 0.5);
+}
+.os-phone > .os-phone__ready {
+  top: 0.3em;
+  height: 0.36em;
+  background: var(--accent-on-night);
+  opacity: 0;
+  animation: os-waiter-ready 6.5s linear infinite;
+}
+.os-phone > .os-phone__ring {
+  top: 0.26em;
+  left: 0.04em;
+  right: 0.04em;
+  height: 0.44em;
+  border: 1.5px solid var(--accent-on-night);
+  opacity: 0;
+  animation: os-ring 6.5s ease-out infinite;
+}
+.os-phone > .os-phone__bill {
+  top: 0.78em;
+  height: 0.5em;
+  border: 1px solid oklch(81% 0.1 var(--t-hue) / 0.4);
+  opacity: 0.35;
+  animation: os-waiter-bill 6.5s linear infinite;
+}
+.os-phone__bill i {
+  display: block;
+  height: 0.05em;
+  margin: 0.08em 0.06em 0;
+  background: oklch(95% 0.006 85 / 0.45);
+}
+.os-phone__bill i:nth-child(2) {
+  width: 60%;
+}
+.os-phone__bill i:nth-child(3) {
+  width: 40%;
+  background: var(--accent-on-night);
+}
+.os-phone > .os-phone__paid {
+  top: 1.38em;
+  height: 0.16em;
+  border: 1px solid oklch(81% 0.1 var(--t-hue) / 0.4);
+}
+.os-phone__paid > i {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: var(--accent-on-night);
+  opacity: 0;
+  animation: os-waiter-paid 6.5s linear infinite;
+}
+@keyframes os-waiter-ready {
+  0%, 11% { opacity: 0; }
+  14%, 88% { opacity: 1; }
+  94%, 100% { opacity: 0; }
+}
+@keyframes os-ring {
+  0%, 12% { opacity: 0; transform: scale(1); }
+  13% { opacity: 1; transform: scale(1); }
+  24% { opacity: 0; transform: scale(1.12); }
+  25% { opacity: 0; transform: scale(1); }
+  26% { opacity: 1; transform: scale(1); }
+  37%, 100% { opacity: 0; transform: scale(1.12); }
+}
+@keyframes os-waiter-bill {
+  0%, 42% { opacity: 0.35; }
+  48%, 88% { opacity: 1; }
+  94%, 100% { opacity: 0.35; }
+}
+@keyframes os-waiter-paid {
+  0%, 62% { opacity: 0; }
+  66%, 88% { opacity: 1; }
+  94%, 100% { opacity: 0; }
+}
+
+/* ---------- Owner ---------- */
+.os-screen__panel {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid var(--ik-edge);
+  border-radius: 0.05em;
+  background-color: var(--night);
+  background-image:
+    repeating-linear-gradient(90deg, oklch(81% 0.1 var(--t-hue) / 0.06) 0 1px, transparent 1px 0.12em),
+    repeating-linear-gradient(0deg, oklch(81% 0.1 var(--t-hue) / 0.06) 0 1px, transparent 1px 0.12em);
+  box-shadow: 0 0 0 0.03em oklch(48% 0.16 var(--t-hue));
+}
+.os-screen__side {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.44em;
+  border-right: 1px solid oklch(81% 0.1 var(--t-hue) / 0.3);
+  background:
+    linear-gradient(oklch(81% 0.1 var(--t-hue) / 0.5), oklch(81% 0.1 var(--t-hue) / 0.5)) 0.08em 0.12em / 0.26em 0.05em no-repeat,
+    linear-gradient(oklch(81% 0.1 var(--t-hue) / 0.25), oklch(81% 0.1 var(--t-hue) / 0.25)) 0.08em 0.3em / 0.22em 0.04em no-repeat,
+    linear-gradient(oklch(81% 0.1 var(--t-hue) / 0.25), oklch(81% 0.1 var(--t-hue) / 0.25)) 0.08em 0.42em / 0.28em 0.04em no-repeat,
+    linear-gradient(var(--accent-on-night), var(--accent-on-night)) 0.08em 0.54em / 0.24em 0.04em no-repeat,
+    linear-gradient(oklch(81% 0.1 var(--t-hue) / 0.25), oklch(81% 0.1 var(--t-hue) / 0.25)) 0.08em 0.66em / 0.2em 0.04em no-repeat;
+}
+.os-zone {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--accent-on-night);
+  background: oklch(81% 0.1 var(--t-hue) / 0.14);
+  animation: os-zone 4.8s ease-in-out infinite;
+}
+.os-zone--a {
+  left: 0.8em;
+  top: 0.32em;
+  width: 0.62em;
+  height: 0.62em;
+}
+.os-zone--b {
+  left: 1.38em;
+  top: 0.16em;
+  width: 0.5em;
+  height: 0.5em;
+  animation-delay: -1.6s;
+}
+.os-zone--c {
+  left: 1.5em;
+  top: 0.72em;
+  width: 0.7em;
+  height: 0.7em;
+  animation-delay: -3.2s;
+}
+.os-pin {
+  position: absolute;
+  left: 1.47em;
+  top: 0.62em;
+  width: 0.1em;
+  height: 0.1em;
+  border-radius: 50%;
+  background: var(--accent-on-night);
+  box-shadow: 0 0 0 0.03em var(--night), 0 0 0 0.045em var(--accent-on-night);
+  animation: os-pin 2.4s ease-in-out infinite alternate;
+}
+.os-report > .ik-f--top {
+  background: oklch(81% 0.1 var(--t-hue) / 0.12);
+}
+.os-bar {
+  transform: scale3d(1, 1, 1);
+  animation: os-bar 8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation-delay: calc(var(--k) * 0.16s);
+}
+@keyframes os-zone {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+@keyframes os-pin {
+  from { transform: translateY(0); }
+  to { transform: translateY(-0.03em); }
+}
+@keyframes os-bar {
+  0% { transform: scale3d(1, 1, 0.04); }
+  14%, 72% { transform: scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0); }
+  84%, 100% { transform: scale3d(1, 1, 0.04); }
+}
+
+/* Reduced motion: each scene holds the moment its step describes */
+@media (prefers-reduced-motion: reduce) {
+  .os-table .os-pick,
+  .os-lit--send,
+  .os-phone > .os-phone__ready,
+  .os-phone__paid > i,
+  .os-tint--cooking,
+  .os-phone > .os-phone__bill {
+    opacity: 1;
+  }
+  .os-ticket--order {
+    opacity: 1;
+    transform: translateX(calc(100% + 0.18em));
+  }
+}

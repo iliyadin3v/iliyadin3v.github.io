@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-ssr/
+
+# Large image sources (Behance slides, plater.bg captures). The optimized
+# output in public/img is committed; re-run `npm run images` locally to regenerate.
+assets-src/
+
+# Local QA output
+.impeccable/review/
+.impeccable/scratch/
+.impeccable/config.local.json
+.claude/settings.local.json
+
+# One-off capture and measuring scripts used while reviewing
+.impeccable/previews/*.tmp.mjs

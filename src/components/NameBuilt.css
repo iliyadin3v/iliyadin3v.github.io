@@ -1,0 +1,333 @@
+/* ===== The name, built =====
+   Real type on an axonometric plane (no perspective). The letter walls are a fine text-shadow stack
+   in the word's own plane (see NameBuilt.jsx), banded from a light-purple rim to a darker foot under
+   a warm-white face. The word stands on a drafting grid one step lighter than the night, which
+   takes its cast shadow. Colours come from the hue token. Motion is transforms and face opacity
+   only, so it stays on the compositor. */
+
+.nb {
+  --nb-line: oklch(81% 0.1 var(--t-hue) / 0.2);
+  --nb-line-fine: oklch(81% 0.1 var(--t-hue) / 0.08);
+  --nb-edge: oklch(81% 0.1 var(--t-hue) / 0.85);
+  --nb-glass-top: oklch(72% 0.14 var(--t-hue) / 0.2);
+  --nb-glass-s: oklch(72% 0.14 var(--t-hue) / 0.34);
+  --nb-glass-w: oklch(72% 0.14 var(--t-hue) / 0.22);
+  --nb-wall-1: oklch(80% 0.1 var(--t-hue));
+  --nb-wall-2: oklch(58% 0.16 var(--t-hue));
+  --nb-wall-3: oklch(43% 0.15 var(--t-hue));
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: var(--nb-size, 12rem);
+  user-select: none;
+  pointer-events: none;
+}
+/* The intro tilts the board up into place; as it settles the walls grow to full height */
+.nb__tilt {
+  transform-style: preserve-3d;
+  animation: nb-tilt 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.nb__scene {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(56deg) rotateZ(-30deg);
+  font-weight: 620;
+  font-stretch: var(--width-text);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  white-space: nowrap;
+  animation: nb-nod 14s ease-in-out 1s infinite;
+}
+.nb__face {
+  position: relative;
+  display: block;
+  color: var(--on-night);
+  transform: translateZ(0);
+}
+/* The drafting grid the word stands on, one step lighter than the night: fine cells with a
+   stronger line every fourth */
+.nb__floor {
+  position: absolute;
+  inset: -0.44em -0.44em;
+  transform: translateZ(calc(var(--nb-depth) * -1 - 1px));
+  border: 1px solid var(--nb-line);
+  background-color: var(--night-2);
+  background-image:
+    repeating-linear-gradient(90deg, var(--nb-line) 0 1px, transparent 1px 0.96em),
+    repeating-linear-gradient(0deg, var(--nb-line) 0 1px, transparent 1px 0.96em),
+    repeating-linear-gradient(90deg, var(--nb-line-fine) 0 1px, transparent 1px 0.24em),
+    repeating-linear-gradient(0deg, var(--nb-line-fine) 0 1px, transparent 1px 0.24em);
+}
+/* Light from the upper left: a tight contact shadow at the foot of the letters and a long soft one
+   falling down and to the right across the grid */
+.nb__cast {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+  text-shadow:
+    0.012em 0.04em 0.025em oklch(0% 0 0 / 0.6),
+    0.03em 0.15em 0.07em oklch(0% 0 0 / 0.55);
+  transform: translateZ(calc(var(--nb-depth) * -1));
+}
+
+/* Interface parts: on the letters (z at the face) and on the grid (z at the floor) */
+.nb__on,
+.nb__ground {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.nb__on {
+  transform: translateZ(0.5px);
+}
+.nb__ground {
+  transform: translateZ(calc(var(--nb-depth) * -1));
+}
+.nb-part {
+  position: absolute;
+  width: var(--w);
+  height: var(--d);
+  transform-style: preserve-3d;
+}
+.nb-f {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  border: 1px solid var(--nb-edge);
+  animation: nb-appear 420ms var(--ease) 520ms both;
+}
+.nb-f--top {
+  inset: 0;
+  transform: translateZ(var(--h));
+  background: var(--nb-glass-top);
+}
+.nb-f--s {
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: var(--h);
+  transform-origin: top;
+  transform: rotateX(90deg);
+  background: var(--nb-glass-s);
+}
+.nb-f--w {
+  top: 0;
+  right: 100%;
+  width: var(--h);
+  height: 100%;
+  transform-origin: right;
+  transform: rotateY(90deg);
+  background: var(--nb-glass-w);
+}
+.nb-part--solid .nb-f {
+  border-color: oklch(90% 0.05 var(--t-hue));
+}
+.nb-part--solid .nb-f--top {
+  background: var(--accent-on-night);
+}
+.nb-part--solid .nb-f--s {
+  background: oklch(62% 0.16 var(--t-hue));
+}
+.nb-part--solid .nb-f--w {
+  background: oklch(48% 0.16 var(--t-hue));
+}
+
+/* One choreography, one cycle (13.44s): the block hops letter by letter from the I to the
+   second i and back, and the card on the a lifts and settles only while the block rests on the I,
+   so the two never meet. Keyframes are generated from measured landing squares. */
+.nb-part--lift {
+  animation: nb-lift 13440ms linear 1s infinite;
+}
+.nb-hop,
+.nb-hop__z {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.09em;
+  height: 0.09em;
+  transform-style: preserve-3d;
+}
+.nb-hop {
+  transform: translate3d(0.093em, 0.16em, 0);
+  animation: nb-hop-path 13440ms linear 1s infinite;
+}
+.nb-hop__z {
+  transform-origin: 50% 50% 0;
+  animation: nb-hop-arc 13440ms linear 1s infinite;
+}
+
+@keyframes nb-tilt {
+  from {
+    transform: rotateX(14deg);
+  }
+}
+@keyframes nb-appear {
+  from {
+    opacity: 0;
+  }
+}
+/* A slow nod about the horizontal axis only, so the walls stay vertical */
+@keyframes nb-nod {
+  0%,
+  100% {
+    transform: rotateX(56deg) rotateZ(-30deg);
+  }
+  25% {
+    transform: rotateX(57deg) rotateZ(-30deg);
+  }
+  75% {
+    transform: rotateX(55.5deg) rotateZ(-30deg);
+  }
+}
+@keyframes nb-hop-path {
+  0.000% { transform: translate3d(0.093em, 0.16em, 0); animation-timing-function: linear; }
+  9.003% { transform: translate3d(0.093em, 0.16em, 0); animation-timing-function: linear; }
+  9.673% { transform: translate3d(0.093em, 0.16em, 0); animation-timing-function: linear; }
+  12.671% { transform: translate3d(0.335em, 0.16em, 0); animation-timing-function: linear; }
+  14.159% { transform: translate3d(0.335em, 0.16em, 0); animation-timing-function: linear; }
+  16.168% { transform: translate3d(0.335em, 0.16em, 0); animation-timing-function: linear; }
+  16.838% { transform: translate3d(0.335em, 0.16em, 0); animation-timing-function: linear; }
+  19.829% { transform: translate3d(0.572em, 0.178em, 0); animation-timing-function: linear; }
+  21.317% { transform: translate3d(0.572em, 0.178em, 0); animation-timing-function: linear; }
+  23.326% { transform: translate3d(0.572em, 0.178em, 0); animation-timing-function: linear; }
+  23.996% { transform: translate3d(0.572em, 0.178em, 0); animation-timing-function: linear; }
+  27.641% { transform: translate3d(1.12em, 0.36em, 0); animation-timing-function: linear; }
+  29.129% { transform: translate3d(1.12em, 0.36em, 0); animation-timing-function: linear; }
+  31.138% { transform: translate3d(1.12em, 0.36em, 0); animation-timing-function: linear; }
+  31.808% { transform: translate3d(1.12em, 0.36em, 0); animation-timing-function: linear; }
+  35.439% { transform: translate3d(1.69em, 0.36em, 0); animation-timing-function: linear; }
+  36.927% { transform: translate3d(1.69em, 0.36em, 0); animation-timing-function: linear; }
+  38.936% { transform: translate3d(1.69em, 0.36em, 0); animation-timing-function: linear; }
+  39.606% { transform: translate3d(1.69em, 0.36em, 0); animation-timing-function: linear; }
+  43.051% { transform: translate3d(2.12em, 0.165em, 0); animation-timing-function: linear; }
+  44.539% { transform: translate3d(2.12em, 0.165em, 0); animation-timing-function: linear; }
+  46.548% { transform: translate3d(2.12em, 0.165em, 0); animation-timing-function: linear; }
+  47.217% { transform: translate3d(2.12em, 0.165em, 0); animation-timing-function: linear; }
+  51.116% { transform: translate3d(2.826em, 0.178em, 0); animation-timing-function: linear; }
+  52.604% { transform: translate3d(2.826em, 0.178em, 0); animation-timing-function: linear; }
+  56.399% { transform: translate3d(2.826em, 0.178em, 0); animation-timing-function: linear; }
+  57.068% { transform: translate3d(2.826em, 0.178em, 0); animation-timing-function: linear; }
+  60.967% { transform: translate3d(2.12em, 0.165em, 0); animation-timing-function: linear; }
+  62.455% { transform: translate3d(2.12em, 0.165em, 0); animation-timing-function: linear; }
+  64.464% { transform: translate3d(2.12em, 0.165em, 0); animation-timing-function: linear; }
+  65.134% { transform: translate3d(2.12em, 0.165em, 0); animation-timing-function: linear; }
+  68.579% { transform: translate3d(1.69em, 0.36em, 0); animation-timing-function: linear; }
+  70.067% { transform: translate3d(1.69em, 0.36em, 0); animation-timing-function: linear; }
+  72.076% { transform: translate3d(1.69em, 0.36em, 0); animation-timing-function: linear; }
+  72.746% { transform: translate3d(1.69em, 0.36em, 0); animation-timing-function: linear; }
+  76.376% { transform: translate3d(1.12em, 0.36em, 0); animation-timing-function: linear; }
+  77.865% { transform: translate3d(1.12em, 0.36em, 0); animation-timing-function: linear; }
+  79.874% { transform: translate3d(1.12em, 0.36em, 0); animation-timing-function: linear; }
+  80.543% { transform: translate3d(1.12em, 0.36em, 0); animation-timing-function: linear; }
+  84.189% { transform: translate3d(0.572em, 0.178em, 0); animation-timing-function: linear; }
+  85.677% { transform: translate3d(0.572em, 0.178em, 0); animation-timing-function: linear; }
+  87.686% { transform: translate3d(0.572em, 0.178em, 0); animation-timing-function: linear; }
+  88.356% { transform: translate3d(0.572em, 0.178em, 0); animation-timing-function: linear; }
+  91.347% { transform: translate3d(0.335em, 0.16em, 0); animation-timing-function: linear; }
+  92.835% { transform: translate3d(0.335em, 0.16em, 0); animation-timing-function: linear; }
+  94.844% { transform: translate3d(0.335em, 0.16em, 0); animation-timing-function: linear; }
+  95.513% { transform: translate3d(0.335em, 0.16em, 0); animation-timing-function: linear; }
+  98.512% { transform: translate3d(0.093em, 0.16em, 0); animation-timing-function: linear; }
+  100.000% { transform: translate3d(0.093em, 0.16em, 0); animation-timing-function: linear; }
+}
+@keyframes nb-hop-arc {
+  0.000% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  9.003% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  9.673% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  11.172% { transform: translateZ(0.133em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  12.671% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  13.490% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  14.159% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  16.168% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  16.838% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  18.333% { transform: translateZ(0.131em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  19.829% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  20.647% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  21.317% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  23.326% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  23.996% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  25.818% { transform: translateZ(0.21em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  27.641% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  28.460% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  29.129% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  31.138% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  31.808% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  33.624% { transform: translateZ(0.21em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  35.439% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  36.257% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  36.927% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  38.936% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  39.606% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  41.328% { transform: translateZ(0.202em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  43.051% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  43.869% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  44.539% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  46.548% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  47.217% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  49.167% { transform: translateZ(0.21em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  51.116% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  51.935% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  52.604% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  56.399% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  57.068% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  59.018% { transform: translateZ(0.21em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  60.967% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  61.786% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  62.455% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  64.464% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  65.134% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  66.856% { transform: translateZ(0.202em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  68.579% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  69.397% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  70.067% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  72.076% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  72.746% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  74.561% { transform: translateZ(0.21em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  76.376% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  77.195% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  77.865% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  79.874% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  80.543% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  82.366% { transform: translateZ(0.21em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  84.189% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  85.007% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  85.677% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  87.686% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  88.356% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  89.851% { transform: translateZ(0.131em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  91.347% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  92.165% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  92.835% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: ease-in-out; }
+  94.844% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: cubic-bezier(0.3, 0, 0.6, 1); }
+  95.513% { transform: translateZ(0em) scale3d(1.08, 1.08, 0.84); animation-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1); }
+  97.013% { transform: translateZ(0.133em) scale3d(0.96, 0.96, 1.08); animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4); }
+  98.512% { transform: translateZ(0em) scale3d(1.16, 1.16, 0.72); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  99.330% { transform: translateZ(0em) scale3d(0.98, 0.98, 1.03); animation-timing-function: ease-out; }
+  100.000% { transform: translateZ(0em) scale3d(1, 1, 1); animation-timing-function: linear; }
+}
+@keyframes nb-lift {
+  0.000% { transform: translateZ(0); animation-timing-function: linear; }
+  0.893% { transform: translateZ(0); animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1); }
+  3.869% { transform: translateZ(0.14em); animation-timing-function: linear; }
+  5.655% { transform: translateZ(0.14em); animation-timing-function: cubic-bezier(0.6, 0, 0.4, 1); }
+  8.333% { transform: translateZ(0); animation-timing-function: linear; }
+  100.000% { transform: translateZ(0); animation-timing-function: linear; }
+}
+
+
+/* Off screen it pauses; for anyone who asked for less motion it holds the finished pose */
+[data-still] .nb__tilt,
+[data-still] .nb__tilt * {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nb__tilt,
+  .nb__tilt * {
+    animation: none !important;
+  }
+  .nb__scene {
+    transform: rotateX(56deg) rotateZ(-30deg);
+  }
+}

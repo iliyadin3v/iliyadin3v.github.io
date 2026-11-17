@@ -1,0 +1,201 @@
+.lens {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: start;
+}
+.lens__figure {
+  grid-column: 1 / span 8;
+}
+.lens__screen {
+  position: relative;
+  border-radius: var(--frame-r);
+  background: var(--ink);
+  box-shadow: 0 0 0 1px var(--frame-line), var(--frame-shadow);
+}
+/* The pins sit on the image, so the screen cannot clip; the image rounds its own corners */
+.lens__screen img {
+  border-radius: inherit;
+}
+.lens__screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.lens__caption {
+  margin-top: var(--s-3);
+}
+
+.lens__pin {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border-radius: 50%;
+  background: var(--paper-raised);
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-stretch: 87.5%;
+  box-shadow: 0 4px 12px -4px oklch(0% 0 0 / 0.55);
+  transition: transform var(--dur-hover) var(--ease), background-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease);
+}
+.lens__pin::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+.lens__pin:hover {
+  transform: scale(1.1);
+}
+.lens__pin[data-active] {
+  background: var(--accent);
+  color: var(--on-accent);
+  transform: scale(1.15);
+  box-shadow: 0 0 0 5px oklch(54% 0.2 var(--t-hue) / 0.28), 0 4px 12px -4px oklch(0% 0 0 / 0.55);
+}
+
+.lens__panel {
+  grid-column: 9 / -1;
+  position: sticky;
+  top: calc(var(--header-h) + var(--s-5));
+}
+.lens__list {
+  border-top: 1px solid var(--ink);
+}
+.lens__item {
+  border-bottom: 1px solid var(--rule);
+}
+.lens__h {
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: 0;
+  line-height: inherit;
+}
+.lens__btn {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: start;
+  gap: var(--s-3);
+  width: 100%;
+  min-height: 44px;
+  padding: var(--s-3) 0;
+  text-align: left;
+  font-weight: 600;
+  font-stretch: 104%;
+  line-height: 1.3;
+  color: var(--ink-2);
+  transition: color var(--dur-hover) var(--ease);
+}
+.lens__btn:hover,
+.lens__item[data-open] .lens__btn {
+  color: var(--ink);
+}
+.lens__n {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-top: -1px;
+  border-radius: 50%;
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-stretch: 87.5%;
+}
+.lens__item[data-open] .lens__n {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.lens__body {
+  padding: 0 0 var(--s-4) calc(30px + var(--s-3));
+  font-size: var(--text-small);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.lens__ref {
+  display: inline-block;
+  margin-top: var(--s-2);
+  font-size: var(--text-small);
+  color: var(--ink);
+}
+.lens__ref:hover {
+  color: var(--accent);
+}
+/* Once enhanced, only open notes show. Without JS every note stays readable. */
+.lens[data-enhanced] .lens__item:not([data-open]) .lens__body {
+  display: none;
+}
+.lens__all {
+  margin-top: var(--s-3);
+  min-height: 44px;
+  font-size: var(--text-small);
+  font-weight: 560;
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+  text-underline-offset: 0.25em;
+}
+.lens__all:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.lens__line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.lens__line path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+.lens__line circle {
+  fill: var(--accent);
+}
+
+@media (max-width: 960px) {
+  .lens__figure,
+  .lens__panel {
+    grid-column: 1 / -1;
+  }
+  .lens__panel {
+    position: static;
+    margin-top: var(--s-6);
+  }
+  .lens__pin {
+    width: 26px;
+    height: 26px;
+    margin: -13px 0 0 -13px;
+  }
+}
+
+/* A tall phone screen: narrow figure, wide notes */
+.lens--portrait .lens__figure {
+  grid-column: 1 / span 4;
+}
+.lens--portrait .lens__screen {
+  overflow: hidden;
+  border-radius: 11% / 5%;
+  background: var(--paper-raised);
+}
+.lens--portrait .lens__panel {
+  grid-column: 6 / -1;
+}
+@media (max-width: 960px) {
+  .lens--portrait .lens__figure {
+    grid-column: 1 / -1;
+    max-width: 340px;
+  }
+  .lens--portrait .lens__panel {
+    grid-column: 1 / -1;
+  }
+}

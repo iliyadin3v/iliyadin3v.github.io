@@ -1,0 +1,91 @@
+/* ===== Hero: the name, built, over a foot row ===== */
+.hero {
+  min-height: calc(100svh - var(--header-h));
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  overflow: clip;
+}
+/* The word scales with the viewport and with its height, so it stays whole on short laptops */
+.hero__stage {
+  --nb-size: clamp(3.5rem, min(16vw, 26svh), 17rem);
+  position: relative;
+  min-height: clamp(340px, 54svh, 660px);
+}
+.hero__foot {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: end;
+  padding-bottom: clamp(28px, 4vw, 56px);
+}
+.hero__words {
+  grid-column: 1 / 10;
+}
+.hero__lede {
+  font-size: var(--text-lede);
+  font-weight: 520;
+  line-height: 1.3;
+  color: var(--on-night);
+  text-wrap: balance;
+}
+.hero__intro {
+  margin-top: var(--s-3);
+  max-width: none;
+  color: var(--on-night-2);
+  text-wrap: pretty;
+}
+.hero__actions {
+  grid-column: 10 / 13;
+  justify-self: end;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3) var(--s-5);
+}
+.hero__email {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 560;
+  color: var(--on-night);
+  text-decoration-color: oklch(95% 0.006 85 / 0.35);
+}
+.hero__email:hover {
+  color: var(--accent-on-night);
+  text-decoration-color: var(--accent-on-night);
+}
+
+/* Tablet: the words take the row, the actions sit under them */
+@media (max-width: 960px) {
+  .hero__stage {
+    --nb-size: clamp(3.5rem, min(19vw, 24svh), 12rem);
+  }
+  .hero__words,
+  .hero__actions {
+    grid-column: 1 / -1;
+  }
+  .hero__actions {
+    justify-self: start;
+    margin-top: var(--s-5);
+  }
+}
+/* Tall screens (tablet portrait, tall windows): the opening hugs its content instead of the full
+   screen height, so no dead bands open above and below the word */
+@media (max-aspect-ratio: 5/4) {
+  .hero {
+    min-height: 0;
+  }
+  .hero__stage {
+    min-height: calc(var(--nb-size) * 2.9);
+  }
+}
+/* Phone: the word fills the width and may let its grid run off the edges */
+@media (max-width: 640px) {
+  .hero {
+    min-height: 0;
+  }
+  .hero__stage {
+    --nb-size: clamp(3.25rem, 19vw, 5.75rem);
+    min-height: clamp(280px, 82vw, 420px);
+  }
+}
